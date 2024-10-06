@@ -160,10 +160,10 @@
                                         <td>{{$category->id}}</td>
                                         <td>{{$category->category_name}}</td>
                                         <td><a class="btn secondary-btn" href="{{route('admin.category.edit',['category'=>$category])}}">Edit</a> 
-                                            <form action="{{route('admin.category.destroy',['id'=>$category->id])}}" id="categoryDestroyForm" class="d-inline">
+                                            <form method="POST" action="{{route('admin.category.destroy',['id'=>$category->id])}}" class="d-inline">
                                                 @csrf
                                                 @method('delete')
-                                                <button id="categoryDestroyBtn" class="btn danger-btn">Delete</button>
+                                                <button type="submit" class="btn danger-btn">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -188,7 +188,8 @@
                                         <tr>
                                             <td>{{$index+1}}</td>
                                             <td>{{$role}}</td>
-                                            <td><a class="btn secondary-btn" href="">Edit</a> <form action="" class="d-inline"><button type="submit" class="btn danger-btn">Delete</button></form></td>
+                                            <td><a class="btn secondary-btn" href="">Edit</a> <form action="" class="d-inline">
+                                                <button type="submit" class="btn danger-btn">Delete</button></form></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -258,17 +259,3 @@
     </div>
   </div>
 @endsection
-
-@push('js')
-<script>
-     $(document).ready(function(){
-        //delete category 
-        $('#categoryDestroyBtn').click(function(e){
-            e.preventDefault();
-            if(window.confirm('Are you sure you want delete the Category?')){
-                $('#categoryDestroyForm').submit();
-            }
-        })
-    })
-</script>
-@endPush

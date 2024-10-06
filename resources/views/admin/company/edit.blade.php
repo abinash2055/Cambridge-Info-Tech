@@ -6,7 +6,7 @@
     Edit Company
   </div>
   <div class="account-bdy p-3">
-    <form action="{{route('admin.company.update',['id'=> request()->segment(3)])}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('admin.company.update',['id'=> request()->route('id')])}}" method="POST" enctype="multipart/form-data">
       @if($errors->any())
       {{ implode('', $errors->all('<div>:message</div>')) }}
       @endif

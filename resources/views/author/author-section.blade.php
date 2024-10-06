@@ -58,10 +58,10 @@
                             @else
                             <a href="{{route('author.company.edit')}}" class="btn secondary-btn mr-2">Edit Company</a>
                             <div class="ml-auto">
-                                <form action="{{route('author.company.destroy')}}" id="companyDestroyForm" method="POST">
+                                <form action="{{route('author.company.destroy')}}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" id="companyDestroyBtn" class="btn danger-btn">Delete Company</a>
+                                    <button type="submit" class="btn danger-btn">Delete Company</a>
                                 </form>
                             </div>
                             @endif
@@ -124,10 +124,10 @@
                                 @endphp</td>
                                 <td>
                                 <a href="{{route('author.post.edit',['post'=>$post])}}" class="btn primary-btn">Edit</a>
-                                <form action="{{route('author.post.destroy',['post'=>$post->id])}}" class="d-inline-block" id="delPostForm" method="POST">
+                                <form action="{{route('author.post.destroy',['post'=>$post->id])}}" class="d-inline-block" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" id="delPostBtn" class="btn danger-btn" >Delete</button>
+                                    <button type="submit" class="btn danger-btn" >Delete</button>
                                 </form>
                                 </td>
                             </tr>
@@ -153,17 +153,3 @@
     </div>
   </div>
 @endsection
-
-@push('js')
-<script>
-    $(document).ready(function(){
-        //delete author company
-        $('#companyDestroyBtn').click(function(e){
-            e.preventDefault();
-            if(window.confirm('Are you sure you want delete the company?')){
-                $('#companyDestroyForm').submit();
-            }
-        })
-    })
-</script> 
-@endPush

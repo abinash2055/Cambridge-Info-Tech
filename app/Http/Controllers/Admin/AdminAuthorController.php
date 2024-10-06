@@ -45,6 +45,7 @@ class AdminAuthorController extends Controller
             'password' => bcrypt($request->password),
             'role' => 'author',
         ]);
+        $author->assignRole('author');
         Alert::toast('Finally!! Author Created', 'info');
         return redirect()->route('admin.author.index');
     }

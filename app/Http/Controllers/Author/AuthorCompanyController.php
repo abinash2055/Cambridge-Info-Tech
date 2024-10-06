@@ -171,7 +171,6 @@ class AuthorCompanyController extends Controller
             }
             $company->cover_img = 'storage/companies/cover/' . $fileNameToStore;
         }
-        $company->cover_img = 'no cover';
         if ($company->save()) {
             return true;
         }

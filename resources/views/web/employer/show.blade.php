@@ -28,7 +28,7 @@
                         @php    
                         $date = new DateTime($post->deadline);  
                         echo date('d', $date->getTimestamp() - time());
-                        @endPhp day[s] from now</span>
+                        @endphp day[s] from now</span>
                     </div>
                     <div class="text-info">
                       <i class="fas fa-eye"></i> <span>Views: {{$post->views}}</span>

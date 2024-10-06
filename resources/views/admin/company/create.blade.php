@@ -6,7 +6,7 @@
     Create Company by Admin
   </div>
   <div class="account-bdy p-3">
-    <form action="{{ route('admin.company.store', request()->route('id')) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.company.store', ['id'=> request()->route('id')]) }}" method="POST" enctype="multipart/form-data">
       @csrf
 
       <!-- Company Category -->
@@ -22,8 +22,7 @@
       <!-- Logo Upload -->
       <div class="pb-3">
         <div class="py-3">
-          
-          <p>Company logo having (250 X 250 size).</p>
+          <p>Company logo</p>
         </div>
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="validatedCustomFile" name="logo" required>
@@ -66,7 +65,7 @@
       <!-- Cover Image Upload -->
       <div class="pb-3">
         <div class="py-3">
-          <p>Company 'banner/cover' having ( 1000 X 500 size).</p>
+          <p>Company banner/cover</p>
         </div>
         <div class="custom-file">
           <input type="file" class="custom-file-input" name="cover_img">
