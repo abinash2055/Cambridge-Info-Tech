@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\JobController;
+use App\Http\Controllers\User\JobApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,10 +10,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //job routes
 Route::middleware('api')->group(function () {
-    Route::get('search', [JobController::class, 'search'])->name('job.search');
+    Route::get('search', [JobApiController::class, 'search'])->name('job.search');
 
     //pages api
-    Route::get('company-categories', [JobController::class, 'getCategories'])->name('job.getCategories');
-    Route::get('job-titles', [JobController::class, 'getAllByTitle'])->name('job.getAllByTitle');
-    Route::get('companies', [JobController::class, 'getAllOrganization'])->name('job.getAllOrganization');
+    Route::get('company-categories', [JobApiController::class, 'getCategories'])->name('job.getCategories');
+    Route::get('job-titles', [JobApiController::class, 'getAllByTitle'])->name('job.getAllByTitle');
+    Route::get('companies', [JobApiController::class, 'getAllOrganization'])->name('job.getAllOrganization');
 });

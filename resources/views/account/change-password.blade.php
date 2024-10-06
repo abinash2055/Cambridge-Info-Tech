@@ -42,8 +42,8 @@
       </form>
     </div>
   </div>
-@endSection
+@endsection
 
 @push('css')
 
-@endpush
+@endPush

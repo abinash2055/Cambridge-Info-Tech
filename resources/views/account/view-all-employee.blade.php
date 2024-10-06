@@ -28,7 +28,7 @@
                   <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                   <td>{{$user->created_at}}</td>
                   <td>
-                    <form action="{{route('account.destroyUser')}}" method="POST">
+                    <form action="{{route('admin.user.destroy')}}" method="POST">
                       @csrf
                       @method('delete')
                       <input type="hidden" name="user_id" value="{{$user->id}}">
@@ -56,4 +56,4 @@
       </div>
     </div>
   </div>
-@endSection
+@endsection

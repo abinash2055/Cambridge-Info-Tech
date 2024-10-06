@@ -7,7 +7,7 @@
             {{-- login-poster and register using the same class name --}}
             <div class="login-poster">
                 {{-- <img src="" alt=""> --}}
-                <h2 class="my-3 slogon">
+                <h2 class="my-3 slogan">
                     Register for a better opportunity
                 </h2>
             
@@ -21,13 +21,13 @@
         <div class="col-sm-12 col-md-6 px-0">
             <div class="login-container">
                 <div class="login-header mb-3">
-                    <h3><img src="{{asset('images/logo/cambridge.png')}}" width="50px;" alt=""> Create your free jobseeker account</h3>
+                    <h3><img src="{{asset('images/logo/cambridge.png')}}" width="50px;" alt=""> Create your free job-seeker account</h3>
                     <p class="text-muted">Register with basic information, Complete your profile and start applying for the job for free!</p>
                 </div>
                 <div class="login-form">
                     <form action="{{route('register')}}" method="POST">
                         @csrf
-                        {{-- fullname --}}
+                        {{-- full-name --}}
                         <div class="form-group">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -35,6 +35,20 @@
                                 </div>
                             <input id="name" type="name" placeholder="Full name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+                        </div>
+                        {{-- Phone-number --}}
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-phone"></i></span>
+                                </div>
+                            <input id="phone" type="text" placeholder="Calling Number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                            @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -83,7 +97,7 @@
                             </div>
                         </div>
                         <div>
-                            <small class="text-muted d-block mb-3">By clicking on 'Create Jobseeker Account' below you are agreeing to the terms and smallrivacy of Cambridge Job Portal!</p>
+                            <small class="text-muted d-block mb-3">By clicking on 'Create Job-seeker Account' below you are agreeing to the terms and small privacy of Cambridge Job Portal!</p>
                         </div>
                         <button type="submit" class="btn primary-btn btn-block">Register</button>
                     </form>
@@ -113,7 +127,7 @@
     background-position: center;
 }
 </style>
-@endpush
+@endPush
 
 @section('content')
 <div class="container">

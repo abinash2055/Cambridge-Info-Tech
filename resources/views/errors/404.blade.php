@@ -21,7 +21,7 @@
   </g>
 </svg>
 <h1>Sorry! Not Found</h1>
-<h2>Go <a href="{{route('account.index')}}">Home!</a></h2>
+<h2>Go <a href="{{route('account.overview')}}">Home!</a></h2>
 @endsection
 
 @push('css')

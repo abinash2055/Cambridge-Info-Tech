@@ -11,14 +11,22 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company_id', 'job_title', 'job_level',
-        'vacancy_count', 'employment_type',
-        'job_location', 'salary', 'deadline',
-        'education_level', 'experience',
-        'skills', 'specifications'
+        'company_id', 
+        'job_title', 
+        'job_level',
+        'vacancy_count', 
+        'employment_type',
+        'job_location', 
+        'salary', 
+        'deadline',
+        'education_level', 
+        'experience',
+        'skills', 
+        'specifications',
+        'status'
     ];
 
-    //user post piviot for savedJobs
+    //user post pivot for savedJobs
     public function users()
     {
         return $this->hasMany('App\Models\User');

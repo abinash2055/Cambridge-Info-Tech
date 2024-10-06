@@ -19,9 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
         'email',
         'password',
-    ];
+        'role'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,7 +48,7 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Company');
     }
 
-    //piviot for saved jobs
+    //pivot for saved jobs
     public function posts()
     {
         return $this->belongsToMany('App\Models\Post');

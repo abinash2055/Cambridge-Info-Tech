@@ -17,12 +17,12 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown"> 
             @role('admin')
-            <a class="dropdown-item" href="{{route('account.dashboard')}}"> <i class="fas fa-cogs fa-sm "></i> Dashboard</a> 
+            <a class="dropdown-item" href="{{route('admin.dashboard')}}"> <i class="fas fa-cogs fa-sm "></i> Dashboard</a> 
             @endrole
             @role('author')
-            <a class="dropdown-item" href="{{route('account.authorSection')}}"> <i class="fa fa-cogs fa-sm "></i> Author Dashboard </a> 
+            <a class="dropdown-item" href="{{route('author.authorSection')}}"> <i class="fa fa-cogs fa-sm "></i> Author Dashboard </a> 
             @endrole
-            <a class="dropdown-item" href="{{route('account.index')}}"> <i class="fas fa-user fa-sm "></i> Profile </a> 
+            <a class="dropdown-item" href="{{route('account.overview')}}"> <i class="fas fa-user fa-sm "></i> Profile </a> 
             <a class="dropdown-item" href="{{route('account.changePassword')}}"> <i class="fas fa-key fa-sm "></i> Change Password </a> 
               <div class="dropdown-divider"></div> 
               <a class="dropdown-item" href="{{route('account.logout')}}"> 

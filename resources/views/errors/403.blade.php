@@ -21,7 +21,7 @@
   </g>
 </svg>
 <h1>You are not allowed to enter here</h1>
-<h2>Go <a href="{{route('account.index')}}">Home!</a></h2>
+<h2>Go <a href="{{route('account.overview')}}">Home!</a></h2>
 @endsection
 
 @push('css')

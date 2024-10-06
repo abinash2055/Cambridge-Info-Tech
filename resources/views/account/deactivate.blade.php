@@ -18,7 +18,7 @@
           </div>
           
           <div>
-            <p class="text-sm"><i class="fas fa-info-circle"></i> <span class="font-weight-bold">You will not be able to retrive your account once you have deleted it.</span> </p>
+            <p class="text-sm"><i class="fas fa-info-circle"></i> <span class="font-weight-bold">You will not be able to retrieve your account once you have deleted it.</span> </p>
             <div class="my-4">
             <p class="my-3">Click the button to delete this account.</p>
               <form action="{{route('account.delete')}}" method="POST">
@@ -36,5 +36,4 @@
       </div>
     </div>
   </div>
-@endSection
-
+@endsection
