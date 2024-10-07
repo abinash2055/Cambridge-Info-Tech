@@ -70,7 +70,7 @@
         </div>
 
         <!-- Flexbox container for Author List title and Add button -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="mb-0">Author List</h1>
             <a href="{{ route('admin.author.create') }}" class="btn btn-primary">Add New Author</a>
         </div>
@@ -95,11 +95,9 @@
                     <td>
                         <a href="{{ route('admin.author.edit', $author->id) }}" class="btn btn-warning">Edit</a>
                         <a href="{{ route('admin.author.manageCompany', $author->id) }}" class="btn btn-info">Manage Company</a>
-                        <form action="{{ route('admin.author.delete', $author->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{ $author->id }}">
+                            Delete
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -107,4 +105,45 @@
         </table>
     </div>
 </div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this author?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="{{ route('admin.author.delete', $author->id) }}" method="POST" id="deleteAuthorForm" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+
+<script>
+$(document).ready(function () {
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); 
+        var authorId = button.data('id'); 
+        var actionUrl = '{{ route("admin.author.delete", ":id") }}';
+        actionUrl = actionUrl.replace(':id', authorId); 
+
+        $('#deleteAuthorForm').attr('action', actionUrl); 
+    });
+});
+</script>
 @endsection
