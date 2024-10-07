@@ -15,7 +15,7 @@ class AuthorJobApplicationController extends Controller
 {
     public function index()
     {
-        $applicationsWithPostAndUser = null;
+        $applicationsWithPostAndUser = collect();
         $company = auth()->user()->company;
 
         if ($company) {
@@ -30,13 +30,30 @@ class AuthorJobApplicationController extends Controller
     }
     public function show($id)
     {
+        // Try to find the application by ID
         $application = JobApplication::find($id);
 
-        $post = $application->post()->first();
-        $userId = $application->user_id;
-        $applicant = User::find($userId);
+        // If no application is found, redirect or return an error
+        if (!$application) {
+            return redirect()->back()->withErrors('Job application not found.');
+        }
 
-        $company = $post->company()->first();
+        // Get the related post, if exists
+        $post = $application->post()->first();
+        if (!$post) {
+            return redirect()->back()->withErrors('Post related to this application not found.');
+        }
+
+        // Get the applicant (user) by user_id
+        $applicant = User::find($application->user_id);
+        if (!$applicant) {
+            return redirect()->back()->withErrors('Applicant not found.');
+        }
+
+        // Get the company related to the post, if exists
+        $company = optional($post)->company()->first(); // Use optional in case $post or company is null
+
+        // Return the view with the data
         return view('author.job.show')->with([
             'applicant' => $applicant,
             'post' => $post,
@@ -44,6 +61,23 @@ class AuthorJobApplicationController extends Controller
             'application' => $application
         ]);
     }
+
+    // public function show($id)
+    // {
+    //     $application = JobApplication::find($id);
+
+    //     $post = $application->post()->first();
+    //     $userId = $application->user_id;
+    //     $applicant = User::find($userId);
+
+    //     $company = $post->company()->first();
+    //     return view('author.job.show')->with([
+    //         'applicant' => $applicant,
+    //         'post' => $post,
+    //         'company' => $company,
+    //         'application' => $application
+    //     ]);
+    // }
     public function destroy(Request $request)
     {
         $application = JobApplication::find($request->application_id);

@@ -7,7 +7,7 @@
       </a>
     </li>
 
-    <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'authors' ? 'active' : '' }}">
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'authors' ? 'active' : '' }}">
       <a href="{{ route('admin.author.index') }}" class="account-nav-link">
         <i class="fas fa-users"></i> Author List
       </a>
@@ -22,17 +22,17 @@
     @endrole
 
     @role('author')
-    <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'author-section' ? 'active': ''}}">
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'author-section' ? 'active': ''}}">
       <a href="{{route('author.authorSection')}}" class="account-nav-link">
         <i class="fas fa-chart-line"></i> Author Section
     </li>
 
-    <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'post' && request()->segment(4) == 'create' ? 'active': ''}}">
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'post' && request()->segment(3) == 'create' ? 'active': ''}}">
       <a href="{{route('author.post.create')}}" class="account-nav-link">
         <i class="fas fa-plus-square"></i> Create Job listing
     </li>
 
-    <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'job-application' ? 'active': ''}}">
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'job-application' ? 'active': ''}}">
       <a href="{{route('author.jobApplication.index')}}" class="account-nav-link">
         <i class="fas fa-users"></i> Job Applications
     </li>
