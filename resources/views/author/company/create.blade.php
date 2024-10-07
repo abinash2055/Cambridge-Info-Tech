@@ -17,9 +17,10 @@
         </select>
       </div>
 
-      <div class="pb-3">
+      <div class="logo-container pb-3">  
         <div class="py-3">
-          <p>Company logo</p>
+          <br>
+          <p>Company logo ( 250 X 250) size </p>
         </div>
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="validatedCustomFile" name="logo" required>
@@ -57,9 +58,9 @@
         @enderror
       </div>
 
-      <div class="pb-3">
+      <div class="cover-banner pb-3">
         <div class="py-3">
-          <p>Company banner/cover</p>
+          <p>Company banner/cover ( 1000 X 500) size </p>
         </div>
         <div class="custom-file">
           <input type="file" class="custom-file-input" name="cover_img">
@@ -93,3 +94,25 @@
   </div>
 </div>
 @endsection
+
+@push('css')
+<style>
+  .logo-container {
+    width: 250px;
+    height: 250px; 
+    overflow: hidden; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+  }
+    .cover-banner-container {
+    width: 100%; 
+    height: 500px; 
+    overflow: hidden; 
+    border: 1px solid #ddd; 
+    }
+</style>
+  
+@endpush

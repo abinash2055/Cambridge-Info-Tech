@@ -79,6 +79,7 @@ class AdminUserController extends Controller
     {
         $user->delete();
         Alert::toast('User deleted successfully!', 'success');
-        return redirect()->route('users.index');
+        // return redirect()->route('users.index');
+        return response()->json(['success' => 'User deleted successfully.']);
     }
 }
