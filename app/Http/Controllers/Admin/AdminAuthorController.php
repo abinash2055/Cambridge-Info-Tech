@@ -76,7 +76,8 @@ class AdminAuthorController extends Controller
     {
         User::destroy($id);
         Alert::toast('Finally!! Author Deleted', 'info');
-        return redirect()->route('admin.author.index');
+        // return redirect()->route('admin.author.index');
+        return response()->json(['success' => 'Author deleted successfully.']);
     }
 
     // Handling Company by Admin
