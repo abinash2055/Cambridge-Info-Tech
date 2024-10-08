@@ -99,11 +99,7 @@
                   <td>{{ \Carbon\Carbon::parse($job->deadline)->format('Y-m-d') }}</td>
                   <td>
                     <a href="{{ route('author.post.edit', $job->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    {{-- <form action="{{ route('author.post.destroy', $job->id) }}" method="POST" style="display:inline;">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form> --}}
+            
                     <button class="btn btn-danger delete-btn" data-id="{{ $job->id }}"
                       data-name="{{ $job->name }}"
                       data-url="{{ route('author.post.destroy', $job->id) }}">
@@ -133,7 +129,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete <strong id="jobTitle"></strong>?
+                    Are you sure you want to delete <strong id="job_title"></strong>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -152,7 +148,7 @@
             // Trigger the modal on delete button click using event delegation
             $('.delete-btn').on('click', function() {
                 deleteUrl = $(this).data('url'); // Get the route URL from data-url
-                jobTitle = $(this).data('name'); // Get the author name
+                jobTitle = $(this).data('jo_title'); // Get the author name
                 
                 // Optionally, display the author's name in the modal
                 $('#jobTitle').text(jobTitle);

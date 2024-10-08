@@ -138,7 +138,7 @@
                                 <button class="btn btn-danger delete-btn"       
                                     data-id="{{ $post->id }}"
                                     data-title="{{ $post->job_title }}"
-                                    data-url="{{ route('author.post.destroy', $post->id) }}">
+                                    data-url="{{route('author.post.destroy',['post'=>$post->id])}}">
                                         Delete
                                 </button>
                                 </td>

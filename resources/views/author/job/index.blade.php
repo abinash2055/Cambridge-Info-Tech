@@ -38,19 +38,14 @@
                                             <td>
                                                 <a href="{{ route('author.jobApplication.show', ['id' => $application]) }}"
                                                     class="btn primary-outline-btn">View</a>
-                                                {{-- <form action="{{ route('author.jobApplication.destroy') }}" method="POST"
+                                                <form action="{{ route('author.jobApplication.destroy') }}" method="POST"
                                                     class="d-inline-block">
                                                     @csrf
                                                     @method('delete')
                                                     <input type="hidden" name="application_id"
                                                         value="{{ $application->id }}">
                                                     <button type="submit" class="btn danger-btn">Delete</button>
-                                                </form> --}}
-                                                <button class="btn btn-danger delete-btn"   data-id="{{ $author->id }}"
-                                                    data-name="{{ $author->name }}"
-                                                    data-url="{{ route('admin.author.delete', $author->id) }}">
-                                                        Delete
-                                                </button>
+                                                </form> 
                                             </td>
                                         </tr>
                                     @endforeach
@@ -75,4 +70,63 @@
             </div>
         </div>
     </div>
+    <!-- Delete Confirmation Modal for Post -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete Author</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <strong id="authorName"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            var deleteUrl, postTitle;
+
+            // Trigger the modal on delete button click using event delegation
+            $('.delete-btn').on('click', function() {
+                deleteUrl = $(this).data('url'); // Get the route URL from data-url
+                postTitle = $(this).data('postTitle'); // Get the author name
+                
+                // Optionally, display the author's name in the modal
+                $('#postTitle').text(postTitle);
+
+                $('#deleteModal').modal('show');
+            });
+
+            // Handle the delete action when confirm is clicked
+            $('#confirmDeleteBtn').on('click', function() {
+                $.ajax({
+                    url: deleteUrl, // Use the dynamic URL from the button
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
+                    },
+                    success: function(result) {
+                        $('#deleteModal').modal('hide');
+                        location.reload(); // Reload page after deletion
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert('Something went wrong!');
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
