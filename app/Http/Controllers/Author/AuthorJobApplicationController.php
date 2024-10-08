@@ -61,29 +61,14 @@ class AuthorJobApplicationController extends Controller
             'application' => $application
         ]);
     }
-
-    // public function show($id)
-    // {
-    //     $application = JobApplication::find($id);
-
-    //     $post = $application->post()->first();
-    //     $userId = $application->user_id;
-    //     $applicant = User::find($userId);
-
-    //     $company = $post->company()->first();
-    //     return view('author.job.show')->with([
-    //         'applicant' => $applicant,
-    //         'post' => $post,
-    //         'company' => $company,
-    //         'application' => $application
-    //     ]);
-    // }
+\
     public function destroy(Request $request)
     {
         $application = JobApplication::find($request->application_id);
         $application->delete();
         Alert::toast('Company deleted', 'warning');
-        return redirect()->route('author.jobApplication.index');
+        // return redirect()->route('author.jobApplication.index');
+        return response()->json(['success' => 'User deleted successfully.']);
     }
 
     public function jobList()

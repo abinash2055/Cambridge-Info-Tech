@@ -189,9 +189,11 @@ class AuthorCompanyController extends Controller
         // auth()->user()->company->posts()->delete();
         Storage::delete('public/companies/logos/' . basename(auth()->user()->company->logo));
         if (auth()->user()->company->delete()) {
-            return redirect()->route('author.authorSection');
+            // return redirect()->route('author.authorSection');
+            return response()->json(['success' => 'User deleted successfully.']);
         }
         return redirect()->route('author.authorSection');
+        // return response()->json(['success' => 'User deleted successfully.']);
     }
 
     public function manage()

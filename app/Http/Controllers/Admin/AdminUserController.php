@@ -75,8 +75,9 @@ class AdminUserController extends Controller
     }
 
     // Remove the specified user from storage
-    public function destroy(User $user)
+    public function destroyUser($id)
     {
+        $user = User::where('id', $id)->first();
         $user->delete();
         Alert::toast('User deleted successfully!', 'success');
         // return redirect()->route('users.index');

@@ -38,14 +38,19 @@
                                             <td>
                                                 <a href="{{ route('author.jobApplication.show', ['id' => $application]) }}"
                                                     class="btn primary-outline-btn">View</a>
-                                                <form action="{{ route('author.jobApplication.destroy') }}" method="POST"
+                                                {{-- <form action="{{ route('author.jobApplication.destroy') }}" method="POST"
                                                     class="d-inline-block">
                                                     @csrf
                                                     @method('delete')
                                                     <input type="hidden" name="application_id"
                                                         value="{{ $application->id }}">
                                                     <button type="submit" class="btn danger-btn">Delete</button>
-                                                </form>
+                                                </form> --}}
+                                                <button class="btn btn-danger delete-btn"   data-id="{{ $author->id }}"
+                                                    data-name="{{ $author->name }}"
+                                                    data-url="{{ route('admin.author.delete', $author->id) }}">
+                                                        Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach

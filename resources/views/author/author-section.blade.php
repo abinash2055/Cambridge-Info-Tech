@@ -58,11 +58,17 @@
                             @else
                             <a href="{{route('author.company.edit')}}" class="btn secondary-btn mr-2">Edit Company</a>
                             <div class="ml-auto">
-                                <form action="{{route('author.company.destroy')}}" method="POST">
+                                {{-- <form action="{{route('author.company.destroy')}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn danger-btn">Delete Company</a>
-                                </form>
+                                </form> --}}
+                                <button class="btn btn-danger delete-btn"       
+                                    data-id="{{ $company->id }}"
+                                    data-title="{{ $company->title }}"
+                                    data-url="{{ route('author.company.destroy', $company->id) }}">
+                                        Delete Company
+                                </button>
                             </div>
                             @endif
                           </div>
@@ -124,11 +130,17 @@
                                 @endphp</td>
                                 <td>
                                 <a href="{{route('author.post.edit',['post'=>$post])}}" class="btn primary-btn">Edit</a>
-                                <form action="{{route('author.post.destroy',['post'=>$post->id])}}" class="d-inline-block" method="POST">
+                                {{-- <form action="{{route('author.post.destroy',['post'=>$post->id])}}" class="d-inline-block" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn danger-btn" >Delete</button>
-                                </form>
+                                </form> --}}
+                                <button class="btn btn-danger delete-btn"       
+                                    data-id="{{ $post->id }}"
+                                    data-title="{{ $post->job_title }}"
+                                    data-url="{{ route('author.post.destroy', $post->id) }}">
+                                        Delete
+                                </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -152,4 +164,131 @@
 
     </div>
   </div>
+  <!-- Delete Confirmation Modal for Company -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete Company</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <strong id="companyTitle"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal for Posts-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete <strong id="postTitle"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+ 
+@push('js')
+ {{-- JS script for Company --}}
+    <script>
+        $(document).ready(function() {
+            var deleteUrl, companyTitle;
+
+            // Trigger the modal on delete button click using event delegation
+            $('.delete-btn').on('click', function() {
+                deleteUrl = $(this).data('url'); // Get the route URL from data-url
+                companyTitle = $(this).data('title'); // Get the author name
+                
+                // Optionally, display the author's name in the modal
+                $('#companyTitle').text(companyTitle);
+
+                $('#deleteModal').modal('show');
+            });
+
+            
+
+            // Handle the delete action when confirm is clicked
+            $('#confirmDeleteBtn').on('click', function() {
+                // console.log("Url: ", deleteUrl);
+                $.ajax({
+                    url: deleteUrl, // Use the dynamic URL from the button
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
+                    },
+                    success: function(result) {
+                        $('#deleteModal').modal('hide');
+                        location.reload(); // Reload page after deletion
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert('Something went wrong!');
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    {{-- JS script for Posts --}}
+    <script>
+        $(document).ready(function() {
+            var deleteUrl, postTitle;
+
+            // Trigger the modal on delete button click using event delegation
+            $('.delete-btn').on('click', function() {
+                deleteUrl = $(this).data('url'); // Get the route URL from data-url
+                postTitle = $(this).data('postTitle'); // Get the author name
+                
+                // Optionally, display the author's name in the modal
+                $('#postTitle').text(postTitle);
+
+                $('#deleteModal').modal('show');
+            });
+
+            
+
+            // Handle the delete action when confirm is clicked
+            $('#confirmDeleteBtn').on('click', function() {
+                // console.log("Url: ", deleteUrl);
+                $.ajax({
+                    url: deleteUrl, // Use the dynamic URL from the button
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
+                    },
+                    success: function(result) {
+                        $('#deleteModal').modal('hide');
+                        location.reload(); // Reload page after deletion
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert('Something went wrong!');
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

@@ -98,14 +98,8 @@
 @push('css')
 <style>
   .logo-container {
-    width: 250px;
-    height: 250px; 
+    width: 100%; 
     overflow: hidden; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    display: flex; 
-    justify-content: center;
-    align-items: center; 
   }
     .cover-banner-container {
     width: 100%; 

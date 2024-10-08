@@ -8,6 +8,7 @@ use App\Http\Controllers\Author\AuthorCompanyController;
 use App\Http\Controllers\Author\AuthorJobApplicationController;
 use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
@@ -71,8 +72,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::post('company', [AuthorCompanyController::class, 'store'])->name('author.company.store');
   Route::get('company/edit', [AuthorCompanyController::class, 'edit'])->name('author.company.edit');
   Route::put('company/{id}', [AuthorCompanyController::class, 'update'])->name('author.company.update');
-  Route::delete('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
-  // Route::get('/company/manage', [AuthorCompanyController::class, 'manage'])->name('author.company.manage');
+  Route::post('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
 
 });
 
@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
   // for users
   Route::get('view-all-users', [AdminController::class, 'viewAllUsers'])->name('admin.user.viewAllUsers');
-  Route::delete('view-all-users', [AdminController::class, 'destroyUser'])->name('admin.user.destroy');
+  Route::post('view-all-users/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.user.destroy');
 
   Route::get('category/{category}/edit', [AdminCompanyCategoryController::class, 'edit'])->name('admin.category.edit');
   Route::post('category', [AdminCompanyCategoryController::class, 'store'])->name('admin.category.store');
