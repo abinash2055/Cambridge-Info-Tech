@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\AppliedJobController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\savedJobController;
@@ -40,6 +41,10 @@ Route::middleware('auth')->prefix('account')->group(function () {
     Route::get('my-saved-jobs', [savedJobController::class, 'index'])->name('account.savedJob.index');
     Route::get('my-saved-jobs/{id}', [savedJobController::class, 'store'])->name('account.savedJob.store');
     Route::delete('my-saved-jobs/{id}', [savedJobController::class, 'destroy'])->name('account.savedJob.destroy');
+
+    // Applied Jobs
+    Route::get('my-applied-jobs', [AppliedJobController::class, 'index'])->name('account.appliedJob');
+
 
     //Apply jobs
     Route::get('apply-job', [AccountController::class, 'applyJobView'])->name('account.applyJob');

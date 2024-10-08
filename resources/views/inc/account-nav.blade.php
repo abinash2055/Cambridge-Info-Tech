@@ -63,6 +63,14 @@
       </a>
     </li>
 
+    <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'my-applied-jobs' ? 'active' : '' }}">
+    <a href="{{ route('account.appliedJob') }}" class="account-nav-link">
+        <i class="fas fa-briefcase"></i> My Applied Jobs
+    </a>
+</li>
+
+
+
     <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'deactivate' ? 'active': ''}}">
       <a href="{{route('account.deactivate')}}" class="account-nav-link">
         <i class="fas fa-folder-minus"></i> Deactivate Account
