@@ -1,3 +1,4 @@
+
 @extends('layouts.account')
 
 @section('content')
@@ -13,7 +14,7 @@
                         <th>Job Position</th>
                         <th>Company</th>
                         <th>Applied On</th>
-                        <th>Status</th>
+                        <th>Action of Post</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +42,17 @@
                                     @endif
                                 </td>
                                 <td>{{ $application->created_at->format('d/m/Y') }}</td>
-                                <td>{{ $application->status }}</td> <!-- Adjust as per your status field -->
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <form action="{{ route('post.show', ['job' => $application->post->id]) }}" method="GET">
+                                            @csrf
+                                            @method('POST')
+                                            <button type="submit" class="btn secondary-outline-btn">
+                                                View Post Details
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     @endif
@@ -51,3 +62,4 @@
     </div>
 </div>
 @endsection
+
