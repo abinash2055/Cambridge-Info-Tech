@@ -52,4 +52,32 @@ class WebController extends Controller
             'company' => $company,
         ]);
     }
+
+    public function contactForm()
+    {
+        // dd(123123);
+        return view('web.contactUs'); 
+    }
+
+    // Handle the contact form submission
+    public function contact(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'inquiry_type' => 'required',
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'nullable|string|max:15',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
+    }
+
+    // Show the FAQ page
+    public function faq()
+    {
+        return view('web.faq'); 
+    }
 }

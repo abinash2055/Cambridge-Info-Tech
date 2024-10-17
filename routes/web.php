@@ -20,8 +20,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WebController::class, 'index'])->name('home.index');
 Route::get('/job/{job}', [WebController::class, 'job'])->name('post.show');
 Route::get('employer/{employer}', [WebController::class, 'employer'])->name('employer.show');
+
 //Return vue page
 Route::get('/search', [WebController::class, 'jobs'])->name('job.index');
+
+// Contact Us
+Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
+Route::post('/contact', [WebController::class, 'contact'])->name('contact.submit');
+
+// FAQ route
+Route::get('/faq', [WebController::class, 'faq'])->name('faq');
+
 
 
 //Auth routes
