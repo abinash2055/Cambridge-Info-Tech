@@ -186,14 +186,21 @@ class AuthorCompanyController extends Controller
 
     public function destroy()
     {
-        // auth()->user()->company->posts()->delete();
-        Storage::delete('public/companies/logos/' . basename(auth()->user()->company->logo));
-        if (auth()->user()->company->delete()) {
-            // return redirect()->route('author.authorSection');
-            return response()->json(['success' => 'User deleted successfully.']);
+        if (auth()->user()->company) {
+            Storage::delete('public/companies/logos/' . basename(auth()->user()->company->logo));
+            auth()->user()->company->delete();
+            return response()->json(['success' => 'Company deleted successfully.']);
+        } else {
+            return response()->json(['error' => 'Company something went wrong.']);
         }
-        return redirect()->route('author.authorSection');
-        // return response()->json(['success' => 'User deleted successfully.']);
+        // // auth()->user()->company->posts()->delete();
+        
+        // if (auth()->user()->company->delete()) {
+        //     // return redirect()->route('author.authorSection');
+        //     return response()->json(['success' => 'User deleted successfully.']);
+        // }
+        // return redirect()->route('author.authorSection');
+        // // return response()->json(['success' => 'User deleted successfully.']);
     }
 
     public function manage()

@@ -1,5 +1,5 @@
 <template>
-  <div class="job-cateogory">
+  <div class="job-category">
     <div class="card border shadow mb-5">
       <div class="card-header">Job Vacancy(s) By Category/s</div>
       <div class="card-body">

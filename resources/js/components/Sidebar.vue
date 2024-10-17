@@ -18,6 +18,7 @@
         </a>
       </div>
     </div>
+
     <div id="accordion">
       <div class="card border-top-0">
         <div class="card-body p-3" id="jobCategories">
@@ -29,11 +30,9 @@
                   name="job_category"
                   class="form-control"
                   placeholder="Filter by Job Category"
-                  @change="filterCategory($event)"
-                >
-                  <option disabled selected value>
-                    -- select an option --
-                  </option>
+                  @change="filterCategory($event)">
+
+                  <option value = "-- select an option --">-- select an option --</option>
                   <option
                     v-for="category in categories"
                     :value="category.id"
@@ -45,6 +44,7 @@
               </div>
             </div>
           </div>
+
           <hr class="my-3" />
           <div class="pb-0">
             <div class="card-title mb-1">Job Level</div>
@@ -54,11 +54,9 @@
                   name="job_category"
                   class="form-control"
                   placeholder="Filter by Job Category"
-                  @change="filterJobLevel($event)"
-                >
-                  <option disabled selected value>
-                    -- select an option --
-                  </option>
+                  @change="filterJobLevel($event)">
+
+                  <option value="-- select an option --">-- select an option --</option>
                   <option value="Senior level">Senior level</option>
                   <option value="Mid level">Mid level</option>
                   <option value="Top level">Top level</option>
@@ -67,20 +65,19 @@
               </div>
             </div>
           </div>
+
           <hr class="my-3" />
           <div class="pb-0">
-            <div class="card-title mb-1">Eductation</div>
+            <div class="card-title mb-1">Education</div>
             <div class="card-body p-0">
               <div class="form-group">
                 <select
                   name="job_category"
                   class="form-control"
                   placeholder="Filter by Job Category"
-                  @change="filterEducation($event)"
-                >
-                  <option disabled selected value>
-                    -- select an option --
-                  </option>
+                  @change="filterEducation($event)">
+                  
+                  <option value ="-- select an option --">-- select an option --</option>
                   <option value="Bachelors">Bachelors</option>
                   <option value="High School">High School</option>
                   <option value="Master">Master</option>
@@ -90,6 +87,7 @@
               </div>
             </div>
           </div>
+
           <hr class="my-3" />
           <div class="pb-0">
             <div class="card-title mb-1">Employment Type</div>
@@ -99,17 +97,15 @@
                   name="job_category"
                   class="form-control"
                   placeholder="Filter by Job Category"
-                  @change="filterEmploymentType($event)"
-                >
-                  <option disabled selected value>
-                    -- select an option --
-                  </option>
+                  @change="filterEmploymentType($event)">
+
+                  <option value ="-- select an option --">-- select an option --</option>
                   <option value="Full Time">Full Time</option>
                   <option value="Part Time">Part Time</option>
                   <option value="Freelance">Freelance</option>
                   <option value="Internship">Internship</option>
-                  <option value="Trainneship">Trainneship</option>
-                  <option value="Volunter">Volunter</option>
+                  <option value="Trainneship ">Trainneship </option>
+                  <option value="Volunteer">Volunteer</option>
                 </select>
               </div>
             </div>

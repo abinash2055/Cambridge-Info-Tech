@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\User\AppliedJobController;
+
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\savedJobController;
@@ -42,13 +42,10 @@ Route::middleware('auth')->prefix('account')->group(function () {
     Route::get('my-saved-jobs/{id}', [savedJobController::class, 'store'])->name('account.savedJob.store');
     Route::delete('my-saved-jobs/{id}', [savedJobController::class, 'destroy'])->name('account.savedJob.destroy');
 
-    // Applied Jobs
-    Route::get('my-applied-jobs', [AppliedJobController::class, 'index'])->name('account.appliedJob');
-
-
     //Apply jobs
     Route::get('apply-job', [AccountController::class, 'applyJobView'])->name('account.applyJob');
     Route::post('apply-job', [AccountController::class, 'applyJob'])->name('account.applyJob');
+    Route::get('my-applied-jobs', [AccountController::class, 'appliedJob'])->name('account.appliedJob');
     
     //Become employer
     Route::get('become-employer', [AccountController::class, 'becomeEmployerView'])->name('account.becomeEmployer');
@@ -77,7 +74,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::post('company', [AuthorCompanyController::class, 'store'])->name('author.company.store');
   Route::get('company/edit', [AuthorCompanyController::class, 'edit'])->name('author.company.edit');
   Route::put('company/{id}', [AuthorCompanyController::class, 'update'])->name('author.company.update');
-  Route::post('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
+  Route::delete('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
 
 });
 

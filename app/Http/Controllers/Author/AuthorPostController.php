@@ -108,10 +108,10 @@ class AuthorPostController extends Controller
         if ($post->delete()) {
             Alert::toast('Post successfully deleted!', 'success');
             // return redirect()->route('author.authorSection');
-            return response()->json(['success' => 'User deleted successfully.']);
+            return response()->json(['success' => 'Post deleted successfully.']);
         }
-        return redirect()->back();
-        // return response()->json(['success' => 'User deleted successfully.']);
+        // return redirect()->back();
+        return response()->json(['error' => 'Failed to delete Post.'], 500);
     }
 
     protected function requestValidate($request)

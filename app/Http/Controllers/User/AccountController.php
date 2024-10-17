@@ -144,4 +144,10 @@ class AccountController extends Controller
             return false;
         }
     }
+
+    public function appliedJob()
+    {
+        $applications = JobApplication::with(['post', 'post.company'])->where('user_id', auth()->id())->get();
+        return view('account.applyJob.index', compact('applications'));
+    }
 }

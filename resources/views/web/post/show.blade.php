@@ -118,7 +118,7 @@
               <div class="d-flex justify-content-between">
                 <div>
                   <a href="{{route('account.applyJob',['post_id'=>$post])}}" class="btn primary-btn">Apply now</a>
-                  <a href="{{route('account.savedJob.store',['id'=>$post])}}" class="btn primary-outline-btn"><i class="fas fa-star"></i> Save job</a>
+                  <a href="{{route('account.savedJob.store',['id'=>$post])}}" class="btn primary-outline-btn"><i class="fas fa-star"></i>Save job</a>
                 </div>
                 <div class="social-links">
                   <a href="https://www.facebook.com"  target="_blank" class="btn btn-primary"><i class="fab fa-facebook"></i></a>

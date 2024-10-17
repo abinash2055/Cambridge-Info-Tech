@@ -49,7 +49,7 @@
             </div>
             <div class="mb-3 d-flex justify-content-end">
               <div class="my-2">
-                <a href="{{route('post.show',['job'=>$post])}}" class="secondary-link"><i class="fas fa-briefcase"></i> View job</a>|
+                <a href="{{route('post.show',['job'=>$post])}}" class="secondary-link"><i class="fas fa-briefcase"></i>View job</a>|
                 <a href="{{route('account.savedJob.store',['id'=>$post->id])}}" class="secondary-link"><i class="fas fa-share-square"></i> Save job</a>
               </div>
             </div>

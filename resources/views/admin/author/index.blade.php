@@ -96,7 +96,8 @@
                                 <a href="{{ route('admin.author.edit', $author->id) }}" class="btn btn-warning">Edit</a>
                                 <a href="{{ route('admin.author.manageCompany', $author->id) }}"
                                     class="btn btn-info">Manage Company</a>
-                                <button class="btn btn-danger delete-btn" data-id="{{ $author->id }}"
+                                <button class="btn btn-danger delete-btn"   
+                                    data-id="{{ $author->id }}"
                                     data-name="{{ $author->name }}"
                                     data-url="{{ route('admin.author.delete', $author->id) }}">
                                     Delete
