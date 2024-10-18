@@ -13,7 +13,9 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
+use App\Http\Controllers\Admin\AdminFaqController;
 use Illuminate\Support\Facades\Route;
+
 
 
 //Public routes
@@ -24,12 +26,11 @@ Route::get('employer/{employer}', [WebController::class, 'employer'])->name('emp
 //Return vue page
 Route::get('/search', [WebController::class, 'jobs'])->name('job.index');
 
+Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
+
 // Contact Us
 Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
 Route::post('/contact', [WebController::class, 'contact'])->name('contact.submit');
-
-// FAQ route
-Route::get('/faq', [WebController::class, 'faq'])->name('faq');
 
 
 
@@ -123,4 +124,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::get('/authors/{id}/company/edit', [AdminCompanyController::class, 'edit'])->name('admin.company.edit');
   Route::put('/authors/{id}/company', [AdminCompanyController::class, 'update'])->name('admin.company.update');
   Route::delete('/authors/{id}/company', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
+
+  Route::resource('faq', AdminFaqController::class);
 });

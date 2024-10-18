@@ -94,10 +94,7 @@ class WebController extends Controller
         return redirect()->route('contact');
     }
 
-
-    // Show the FAQ page
-    public function faq()
-    {
-        return view('web.faq'); 
+    public function faqs(){
+        dd("FAQS");
     }
 }
