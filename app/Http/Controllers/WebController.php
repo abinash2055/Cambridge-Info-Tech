@@ -7,6 +7,9 @@ use App\Models\Post;
 use App\Models\CompanyCategory;
 use App\Models\Company;
 use App\Events\PostViewEvent;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class WebController extends Controller
 {
@@ -55,25 +58,42 @@ class WebController extends Controller
 
     public function contactForm()
     {
-        // dd(123123);
-        return view('web.contactUs'); 
+        return view('web.contactUs'); // Adjust the path if necessary
     }
 
     // Handle the contact form submission
     public function contact(Request $request)
     {
-        // Validate the request
+        // Validate the form data
         $request->validate([
-            'inquiry_type' => 'required',
-            'full_name' => 'required|string|max:255',
+            'inquiry_type' => 'required|string',
+            'full_name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'nullable|string|max:15',
-            'subject' => 'required|string|max:255',
+            'phone' => 'nullable|string',
+            'subject' => 'required|string',
             'message' => 'required|string',
         ]);
 
-        return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
+        // Prepare the data for the email
+        $data = [
+            'inquiry_type' => $request->input('inquiry_type'),
+            'full_name' => $request->input('full_name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+        ];
+
+        // Send the email
+        // Mail::to('hisubedisushil@gmail.com') // Replace with the admin's email address
+        Mail::to('pabinashnath@gmail.com') // Replace with the admin's email address
+            ->send(new ContactMail($data));
+
+        // Redirect back with a success message
+        Alert::toast('Your message has been sent successfully!', 'success');
+        return redirect()->route('contact');
     }
+
 
     // Show the FAQ page
     public function faq()
