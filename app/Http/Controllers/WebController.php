@@ -10,6 +10,7 @@ use App\Events\PostViewEvent;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Faq;
 
 class WebController extends Controller
 {
@@ -62,7 +63,7 @@ class WebController extends Controller
     }
 
     // Handle the contact form submission
-    public function contact(Request $request)
+    public function mail(Request $request)
     {
         // Validate the form data
         $request->validate([
@@ -94,7 +95,10 @@ class WebController extends Controller
         return redirect()->route('contact');
     }
 
-    public function faqs(){
-        dd("FAQS");
+    public function faqs()
+    {
+       
+        $faqs = Faq::where('status', true)->get();
+        return view('faqs.index', compact('faqs'));
     }
 }

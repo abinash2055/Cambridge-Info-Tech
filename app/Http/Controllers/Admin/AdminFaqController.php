@@ -16,7 +16,7 @@ class AdminFaqController extends Controller
      */
     public function index()
     {
-        dd("Index");
+        // dd("Index");
         $faqs = Faq::all();
         return view('faqs.index', compact('faqs'));
     }
@@ -28,7 +28,7 @@ class AdminFaqController extends Controller
      */
     public function create()
     {
-        dd("Create");
+        // dd("Create");
         return view('faqs.create');
     }
 
@@ -40,7 +40,7 @@ class AdminFaqController extends Controller
      */
     public function store(Request $request)
     {
-        dd("Store");
+        // dd("Store");
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string',
@@ -63,9 +63,9 @@ class AdminFaqController extends Controller
      */
     public function show($id)
     {
-        dd("Show");
-        $faq = Faq::findOrFail($id); 
-        return view('faqs.show', compact('faq')); 
+        // dd("Show");
+        $faq = Faq::findOrFail($id);
+        return view('faqs.show', compact('faq'));
     }
 
     /**
@@ -76,7 +76,7 @@ class AdminFaqController extends Controller
      */
     public function edit($id)
     {
-        dd("Edit");
+        // dd("Edit");
         $faq = Faq::findOrFail($id);
         return view('faqs.edit', compact('faq'));
     }
@@ -90,7 +90,7 @@ class AdminFaqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd("Update");
+        // dd("Update");
         $request->validate([
             'question' => 'required|string|max:255',
             'answer' => 'required|string',
@@ -114,10 +114,11 @@ class AdminFaqController extends Controller
      */
     public function destroy($id)
     {
-        dd("Delete");
+        // dd("Delete");
         $faq = Faq::findOrFail($id);
         $faq->delete();
 
-        return redirect()->route('faqs.index')->with('success', 'FAQ deleted successfully.');
+        Alert::toast("FAQ deleted successfully.", "success");
+        return redirect()->route('faqs.index');
     }
 }

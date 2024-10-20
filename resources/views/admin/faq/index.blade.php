@@ -2,55 +2,30 @@
 
 @section('content')
     <div class="container">
-        <h1>Cambridge InfoTech - Frequently Asked Questions</h1>
-        <br>
-        <br>
         <div class="row">
+            <!-- Sidebar Section -->
             <div class="col-md-3">
                 <h5>Categories</h5>
                 <br>
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="#posting-updating-vacancies">Posting & Updating Vacancies</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#Cambrifdge infoTech-ai-ats">Cambrifdge infoTech AI ATS</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#types-of-job-post">Types of Job Post</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#recruitment-management-system">Recruitment Management System</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#about-Cambrifdge infoTech-employer">About Cambrifdge infoTech Employer</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#service-costs">Service Costs</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#online-payment">Online Payment</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#account-profile-registration">Account / Profile Registration</a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="#support-service">Support Service</a>
-                    </li>
+                    <li class="list-group-item"><a href="#posting-updating-vacancies">Posting & Updating Vacancies</a></li>
+                    <li class="list-group-item"><a href="#Cambrifdge-infoTech-ai-ats">Cambrifdge infoTech AI ATS</a></li>
+                    <li class="list-group-item"><a href="#types-of-job-post">Types of Job Post</a></li>
+                    <li class="list-group-item"><a href="#recruitment-management-system">Recruitment Management System</a></li>
+                    <li class="list-group-item"><a href="#about-Cambrifdge-infoTech-employer">About Cambrifdge infoTech Employer</a></li>
+                    <li class="list-group-item"><a href="#service-costs">Service Costs</a></li>
+                    <li class="list-group-item"><a href="#online-payment">Online Payment</a></li>
+                    <li class="list-group-item"><a href="#account-profile-registration">Account / Profile Registration</a></li>
+                    <li class="list-group-item"><a href="#support-service">Support Service</a></li>
                 </ul>
             </div>
 
+            <!-- Main Content Section -->
             <div class="col-md-9">
                 <div class="faq-section">
-                    <h2 id="posting-updating-vacancies">Posting & Updating Vacancy Posts</h2>
+                    <h2 id="posting-updating-vacancies">Posting & Updating Vacancies</h2>
+                    <br>
+                    <!-- FAQ content for this section -->
                     <ul class="list-unstyled">
                         <br>
                         <li>
@@ -134,8 +109,9 @@
                 </div>
 
                 <div class="faq-section">
-                    <h2 id="posting-updating-vacancies">Cambrifdge infoTech AI ATS</h2>
+                    <h2 id="Cambrifdge-infoTech-ai-ats">Cambrifdge infoTech AI ATS</h2>
                     <br>
+                    <!-- FAQ content for this section -->
                     <ul class="list-unstyled">
                         <li>
                             <strong>What is Cambrifdge infoTech AI ATS?</strong>
@@ -215,6 +191,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Types of Job Post</h2>
                     <br>
@@ -257,6 +234,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Recruitment Management System</h2>
                     <br>
@@ -344,6 +322,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">About Cambrifdge infoTech Employer</h2>
                     <br>
@@ -379,6 +358,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Service Cost</h2>
                     <br>
@@ -403,6 +383,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Online Payment</h2>
                     <br>
@@ -421,6 +402,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Account/ Profile Registration</h2>
                     <br>
@@ -439,6 +421,7 @@
                     </ul>
                 </div>
 
+                <!-- Add more FAQ sections here -->
                 <div class="faq-section">
                     <h2 id="posting-updating-vacancies">Support Service</h2>
                     <br>

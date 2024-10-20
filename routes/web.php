@@ -30,8 +30,11 @@ Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
 
 // Contact Us
 Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
-Route::post('/contact', [WebController::class, 'contact'])->name('contact.submit');
+Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 
+// For FAQ 
+Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
+Route::post('/faqs', [WebController::class, 'storeFaq'])->name('faqs.store');
 
 
 //Auth routes
@@ -92,14 +95,6 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
   Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-  // for job
-  // permission error
-  // Route::get('job-list',[AdminController::class, 'jobList'])->name('admin.viewAllJob');
-
-  // for Employers
-  // Route::get('employee-list', [AdminController::class, 'viewAllEmployee'])->name('account.viewAllEmployee');
-  // Route::get('employer-list', [AdminController::class, 'viewAllEmployer'])->name('account.viewAllEmployer');
-
   // for users
   Route::get('view-all-users', [AdminController::class, 'viewAllUsers'])->name('admin.user.viewAllUsers');
   Route::post('view-all-users/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.user.destroy');
@@ -125,5 +120,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::put('/authors/{id}/company', [AdminCompanyController::class, 'update'])->name('admin.company.update');
   Route::delete('/authors/{id}/company', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
 
+  // For Frequently Asked Question
   Route::resource('faq', AdminFaqController::class);
 });
