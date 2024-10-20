@@ -13,8 +13,11 @@ class FaqCategory extends Model
     protected $fillable = ['name', 'slug', 'status'];
 
     // Mutator to set the slug with timestamp
-    public function setSlugAttribute($value)
+    public function setSlugAttribute()
     {
-        $this->attributes['slug'] = Str::slug($this->attributes['name'], '-') . '-' . time();
+        $name = $this->attributes['name'];
+        $lowerStr = Str::slug($name, '-');
+        $checkLowerStr = $this::where('slug', $lowerStr)->first();
+        $this->attributes['slug'] = is_null($checkLowerStr) ? $lowerStr : (Str::slug($name, '-') . '-' . time());
     }
 }

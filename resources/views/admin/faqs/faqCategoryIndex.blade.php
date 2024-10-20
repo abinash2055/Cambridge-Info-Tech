@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1>FAQ Categories</h1>
+        <br>
+        <h1 class="text-center">FAQ Categories</h1>
+        <br>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -30,14 +32,14 @@
                         <td>{{ $category->slug }}</td>
                         <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
                         <td>
-                            <a href="{{ route('faqs-categories.edit', $category->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('faqs-categories.edit', $category) }}" class="btn btn-warning">Edit</a>
                             {{-- <form action="{{ route('faq.categories.destroy', $category->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</button>
                             </form> --}}
-                            <button class="btn btn-danger delete-btn" data-id="{{ $user->id }}"
-                                data-name="{{ $user->name }}" data-url="{{ route('faqs-categories.destroy', $category->id) }}">
+                            <button class="btn btn-danger delete-btn" data-id="{{ $category->id }}"
+                                data-name="{{ $category->name }}" data-url="{{ route('faqs-categories.destroy', $category->id) }}">
                                 Delete
                             </button>
                         </td>
@@ -53,13 +55,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete User</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete <strong id="userName"></strong>?
+                    Are you sure you want to delete <strong>{{ $category->name }}</strong>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -73,15 +75,15 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            var deleteUrl, userName;
+            var deleteUrl, categoryName;
 
             // Trigger the modal on delete button click using event delegation
             $('.delete-btn').on('click', function() {
                 deleteUrl = $(this).data('url'); // Get the route URL from data-url
-                userName = $(this).data('name'); // Get the author name
+                categoryName = $(this).data('name'); // Get the author name
                 
                 // Optionally, display the author's name in the modal
-                $('#userName').text(userName);
+                $('#categoryName').text(categoryName);
 
                 $('#deleteModal').modal('show');
             });

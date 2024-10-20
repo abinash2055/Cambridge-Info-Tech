@@ -12,6 +12,7 @@ class AdminFaqCategoryController extends Controller
 {
     public function index()
     {
+
         $categories = FaqCategory::all();
         return view('admin.faqs.faqCategoryIndex', compact('categories'));
     }
@@ -28,23 +29,26 @@ class AdminFaqCategoryController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        $faqCategory = FaqCategory::create([
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
 
-        // Set the slug after creating the FAQ category
-        $faqCategory->slug = Str::slug($faqCategory->name . '-' . time(), '-');
+        $name = $request->name;
+        $status = $request->status;
+
+        $faqCategory = new FaqCategory();
+        $faqCategory->name = $name;
+        $faqCategory->slug = $faqCategory->setSlugAttribute();
+        $faqCategory->status = $status;
         $faqCategory->save();
 
         Alert::toast('FAQ Category created successfully!', 'success');
-        return redirect()->route('faqs.categories.index');
+        return redirect()->route('faqs-categories.index');
     }
 
     public function edit(FaqCategory $faqCategory)
     {
+        dd($faqCategory);
         return view('admin.faqs.faqCategoryEdit', compact('faqCategory'));
     }
+
 
     public function update(Request $request, FaqCategory $faqCategory)
     {
@@ -53,18 +57,18 @@ class AdminFaqCategoryController extends Controller
             'status' => 'required|boolean',
         ]);
 
+        // Update the FAQ category
         $faqCategory->name = $request->name;
         $faqCategory->status = $request->status;
 
-        // Update the slug only if the name has changed
-        if ($faqCategory->name !== $request->name) {
-            $faqCategory->slug = Str::slug($request->name . '-' . time(), '-');
+        if ($faqCategory->getOriginal('name') !== $request->name) {
+            $faqCategory->slug = Str::slug($request->name, '-') . '-' . time();
         }
 
         $faqCategory->save();
 
         Alert::toast('FAQ Category updated successfully!', 'success');
-        return redirect()->route('faqs.categories.index');
+        return redirect()->route('faqs-categories.index');
     }
 
     public function destroy(FaqCategory $faqCategory)
@@ -72,6 +76,6 @@ class AdminFaqCategoryController extends Controller
         $faqCategory->delete();
 
         Alert::toast('FAQ Category deleted successfully!', 'success');
-        return redirect()->route('faqs.categories.index');
+        return redirect()->route('faqs-categories.index');
     }
 }

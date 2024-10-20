@@ -36,12 +36,12 @@
                 <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                 <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
             </select>
+            <small class="form-text text-muted">Select the status of the category.</small>
         </div>
 
         <button type="submit" class="btn btn-primary">Create Category</button>
         <a href="{{ route('faqs-categories.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
-    <br>
     <br>
 </div>
 @endsection
