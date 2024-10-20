@@ -94,11 +94,4 @@ class WebController extends Controller
         Alert::toast('Your message has been sent successfully!', 'success');
         return redirect()->route('contact');
     }
-
-    public function faqs()
-    {
-       
-        $faqs = Faq::where('status', true)->get();
-        return view('faqs.index', compact('faqs'));
-    }
 }

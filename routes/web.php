@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
-use App\Http\Controllers\Admin\AdminFaqController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,8 +33,6 @@ Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
 Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 
 // For FAQ 
-Route::get('/faqs', [WebController::class, 'faqs'])->name('faqs');
-Route::post('/faqs', [WebController::class, 'storeFaq'])->name('faqs.store');
 
 
 //Auth routes
@@ -121,5 +119,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::delete('/authors/{id}/company', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
 
   // For Frequently Asked Question
-  Route::resource('faq', AdminFaqController::class);
 });
