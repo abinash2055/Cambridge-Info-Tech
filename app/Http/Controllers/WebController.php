@@ -10,7 +10,6 @@ use App\Events\PostViewEvent;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
-use App\Models\Faq;
 
 class WebController extends Controller
 {
@@ -94,4 +93,6 @@ class WebController extends Controller
         Alert::toast('Your message has been sent successfully!', 'success');
         return redirect()->route('contact');
     }
+
+    // Faq 
 }

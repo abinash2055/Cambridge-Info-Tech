@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
-
+use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -118,5 +118,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::put('/authors/{id}/company', [AdminCompanyController::class, 'update'])->name('admin.company.update');
   Route::delete('/authors/{id}/company', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
 
-  // For Frequently Asked Question
+  // For FAQ Category
+  Route::resource('faqs-categories', AdminFaqCategoryController::class);
 });
