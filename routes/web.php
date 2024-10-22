@@ -26,14 +26,12 @@ Route::get('employer/{employer}', [WebController::class, 'employer'])->name('emp
 //Return vue page
 Route::get('/search', [WebController::class, 'jobs'])->name('job.index');
 
-Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
-
 // Contact Us
 Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
 Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 
 // For FAQ 
-
+Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
 
 //Auth routes
 Route::middleware('auth')->prefix('account')->group(function () {

@@ -10,7 +10,6 @@
             </div>
         @endif
 
-        {{ dd($faqCategory)}}
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -21,7 +20,7 @@
             </div>
         @endif
 
-        <form action="{{ route('faqs-categories.update', $faqCategory) }}" method="POST">
+        <form action="{{ route('faqs-categories.update', $faqCategory->id) }}" method="POST">
             @csrf
             @method('PUT')
 
