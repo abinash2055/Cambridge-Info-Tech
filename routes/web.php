@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
+use App\Http\Controllers\Admin\AdminFaqController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -118,4 +119,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
   // For FAQ Category
   Route::resource('faqs-categories', AdminFaqCategoryController::class);
+
+  // Route for managing FAQs by category
+  Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
+  
 });
+
+// index, crete, store, show, edit, update, destroy

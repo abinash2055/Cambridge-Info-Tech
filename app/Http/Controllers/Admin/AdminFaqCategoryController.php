@@ -36,15 +36,11 @@ class AdminFaqCategoryController extends Controller
             'name' => 'required|string|max:255',
             'status' => 'required|boolean',
         ]);
-
-
-        $name = $request->name;
-        $status = $request->status;
-
+        
         $faqCategory = new FaqCategory();
-        $faqCategory->name = $name;
-        $faqCategory->slug = $faqCategory->setSlugAttribute();
-        $faqCategory->status = $status;
+        $faqCategory->name = $request->name;
+        $faqCategory->slug = Str::slug($request->name); // Generating slug
+        $faqCategory->status = $request->status;
         $faqCategory->save();
 
         Alert::toast('FAQ Category created successfully!', 'success');
@@ -57,23 +53,16 @@ class AdminFaqCategoryController extends Controller
         return view('admin.faqs.faqCategoryEdit', compact('faqCategory'));
     }
 
-
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|boolean',
         ]);
-        $faqCategory = FaqCategory::findOrFail($id); 
 
-        // Update the FAQ category
+        $faqCategory = FaqCategory::findOrFail($id);
         $faqCategory->name = $request->name;
         $faqCategory->status = $request->status;
-        
-        // if ($faqCategory->getOriginal('name') !== $request->name) {
-        //     $faqCategory->slug = Str::slug($request->name, '-') . '-' . time();
-        // }
-        
         $faqCategory->save();
 
         Alert::toast('FAQ Category updated successfully!', 'success');
@@ -88,3 +77,4 @@ class AdminFaqCategoryController extends Controller
         return redirect()->route('faqs-categories.index');
     }
 }
+

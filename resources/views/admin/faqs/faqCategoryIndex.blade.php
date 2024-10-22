@@ -97,8 +97,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            {{-- <th>Slug</th> --}}
                             <th>Status</th>
+                            <th>Manage FAQ</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -107,14 +107,16 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
-                                {{-- <td>{{ $category->slug }}</td> --}}
                                 <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
                                 <td>
+                                    <a href="{{ route('faqs.index', $category->id) }}" class="btn btn-info">Manage FAQ Details</a>
+                                </td>
+                                <td>
                                     <a href="{{ route('faqs-categories.edit', $category->id) }}"
-                                        class="btn btn-warning">Edit</a>
+                                       class="btn btn-warning">Edit</a>
                                     <button class="btn btn-danger delete-btn" data-id="{{ $category->id }}"
-                                        data-name="{{ $category->name }}"
-                                        data-url="{{ route('faqs-categories.destroy', $category->id) }}">
+                                            data-name="{{ $category->name }}"
+                                            data-url="{{ route('faqs-categories.destroy', $category->id) }}">
                                         Delete
                                     </button>
                                 </td>
@@ -128,7 +130,7 @@
 
     <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -170,8 +172,7 @@
                     url: deleteUrl, // Use the dynamic URL from the button
                     type: 'DELETE', // Change to DELETE
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                            'content') // CSRF protection for Laravel
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
                     },
                     success: function(result) {
                         $('#deleteModal').modal('hide');
