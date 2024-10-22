@@ -15,7 +15,7 @@ class AdminFaqController extends Controller
         $faqs = Faq::where('category_id', $categoryId)->get();
         $category = FaqCategory::findOrFail($categoryId);
 
-        return view('admin.faqs.faqIndex', compact('faqs', 'category'));
+        return view('admin.faqs.faqQuestionAnswer.faqIndex', compact('faqs', 'category'));
     }
 
     // Show the form for creating a new FAQ

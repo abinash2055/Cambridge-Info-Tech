@@ -124,5 +124,3 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
   
 });
-
-// index, crete, store, show, edit, update, destroy
