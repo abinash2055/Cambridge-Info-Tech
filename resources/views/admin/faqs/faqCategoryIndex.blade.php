@@ -127,7 +127,8 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,7 +150,7 @@
 @endsection
 
 @push('js')
-      <script>
+    <script>
         $(document).ready(function() {
             var deleteUrl, categoryName;
 
@@ -157,7 +158,7 @@
             $('.delete-btn').on('click', function() {
                 deleteUrl = $(this).data('url'); // Get the route URL from data-url
                 categoryName = $(this).data('name'); // Get the category name
-                
+
                 // Update the modal with the category name
                 $('#categoryName').text(categoryName);
                 $('#deleteModal').modal('show');
@@ -169,7 +170,8 @@
                     url: deleteUrl, // Use the dynamic URL from the button
                     type: 'DELETE', // Change to DELETE
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content') // CSRF protection for Laravel
                     },
                     success: function(result) {
                         $('#deleteModal').modal('hide');
