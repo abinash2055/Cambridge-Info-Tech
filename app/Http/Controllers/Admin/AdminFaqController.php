@@ -6,6 +6,7 @@ use App\Models\Faq;
 use App\Models\FaqCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminFaqController extends Controller
 {
@@ -73,6 +74,7 @@ class AdminFaqController extends Controller
         $faq = Faq::findOrFail($id);
         $faq->delete();
 
-        return response()->json(['success' => 'FAQ deleted successfully.']);
+        Alert::Toast('FAQ deleted successfully.', 'success' );
+        return response();
     }
 }
