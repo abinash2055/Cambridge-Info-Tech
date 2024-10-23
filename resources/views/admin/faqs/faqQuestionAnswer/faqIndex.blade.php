@@ -82,48 +82,41 @@
                     </div>
                 </div>
 
-                <!-- Flexbox container for FAQ Category List title and Add button -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="mb-0">FAQ Category List</h1>
-                    <a href="#" class="btn btn-primary">Add New Title</a>
+                    <h1 class="mb-0">Category Title: {{ $categories->name }}</h1>
+                    <a href="{{ route('faqs.create', $categories->id) }}" class="btn btn-primary">Add New FAQ</a>
                 </div>
 
                 @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Category Title</th>
-                            <th>FAQ Question</th>
+                            <th>Question</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($faqs as $faq)
                             <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
+                                <td>{{ $faq->id }}</td>
+                                <td>{{ $faq->question }}</td>
+                                <td>{{ $faq->status ? 'Active' : 'Inactive' }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-info">!!!!!!!!!!</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-info">Details</a>
-
-                                    <a href="#" class="btn btn-warning">Edit</a>
-                                    <form action="#" method="POST"
-                                        style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger delete-btn"
-                                            data-id="{{ $category->id }}" data-name="{{ $category->name }}">
-                                            Delete
-                                        </button>
-                                    </form>>
+                                    <a href="{{ route('faqs.show', $faq->id) }}" class="btn btn-info">View</a>
+                                    <a href="{{ route('faqs.edit', $faq->id) }}" class="btn btn-warning">Edit</a>
+                                    <button class="btn btn-danger delete-btn" data-id="{{ $faq->id }}"
+                                        data-name="{{ $faq->question }}" data-url="{{ route('faqs.destroy', $faq->id) }}">
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -131,5 +124,64 @@
                 </table>
             </div>
         </div>
-    </div>
-@endsection
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete FAQ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete <strong></strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+
+    @push('js')
+        <script>
+            $(document).ready(function() {
+                var deleteUrl, faqName;
+
+                // Trigger the modal on delete button click using event delegation
+                $('.delete-btn').on('click', function() {
+                    deleteUrl = $(this).data('url'); // Get the route URL from data-url
+                    faqName = $(this).data('name'); // Get the FAQ name
+
+                    // Update the modal with the FAQ name
+                    $('#faqName').text(faqName);
+                    $('#deleteModal').modal('show');
+                });
+
+                // Handle the delete action when confirm is clicked
+                $('#confirmDeleteBtn').on('click', function() {
+                    $.ajax({
+                        url: deleteUrl, // Use the dynamic URL from the button
+                        type: 'DELETE', // Change to DELETE
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content') // CSRF protection for Laravel
+                        },
+                        success: function(result) {
+                            $('#deleteModal').modal('hide');
+                            location.reload(); // Reload page after deletion
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                            alert('Something went wrong!');
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush

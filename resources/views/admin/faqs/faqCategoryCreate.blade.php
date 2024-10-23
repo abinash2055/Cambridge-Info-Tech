@@ -1,4 +1,4 @@
-@extends('layouts.post') 
+@extends('layouts.account') 
 
 @section('content')
 <div class="container">

@@ -122,5 +122,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
   // Route for managing FAQs by category
   Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
-  
+
+  Route::get('faqs/create/{categoryId}', [AdminFaqController::class, 'create'])->name('faqs.create'); 
+  Route::post('faqs/store', [AdminFaqController::class, 'store'])->name('faqs.store'); 
+  Route::get('faqs/edit/{id}', [AdminFaqController::class, 'edit'])->name('faqs.edit'); 
+  Route::put('faqs/update/{id}', [AdminFaqController::class, 'update'])->name('faqs.update');
+  Route::get('faqs/view/{id}', [AdminFaqController::class, 'show'])->name('faqs.show');
+  Route::delete('faqs/destroy/{id}', [AdminFaqController::class, 'destroy'])->name('faqs.destroy');
 });
