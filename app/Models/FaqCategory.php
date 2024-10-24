@@ -20,4 +20,9 @@ class FaqCategory extends Model
         $checkLowerStr = $this::where('slug', $lowerStr)->first();
         $this->attributes['slug'] = is_null($checkLowerStr) ? $lowerStr : (Str::slug($name, '-') . '-' . time());
     }
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class, 'faq_category_id');
+    }
 }

@@ -10,7 +10,7 @@
               <a href="{{ route('register') }}" class="footer-links">Register <span class="badge badge-primary">Free</span></a>
               <a href="{{ route('login') }}" class="footer-links">Login</a>
               <a href="#" class="footer-links">Find jobs</a>
-              <a href="#" class="footer-links">FAQ</a> 
+              <a href="{{ route('home.faqs') }}" class="footer-links">FAQ</a> 
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
               <a href="{{ route('register') }}" class="footer-links">Register <span class="badge badge-primary">Free</span></a>
               <a href="{{ route('login') }}" class="footer-links">Login</a>
               <a href="{{ route('author.post.create') }}" class="footer-links">Vacancy Announcement</a>
-              <a href="#" class="footer-links">FAQ</a> 
+              <a href="{{ route('home.faqs') }}" class="footer-links">FAQ</a> 
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
               <a href="#" class="footer-links">About Us</a>
               <a href="#" class="footer-links">Advertise</a>
               <a href="{{ route('contact') }}" class="footer-links">Contact Us</a> 
-              <a href="#" class="footer-links">FAQ</a> 
+              <a href="{{ route('home.faqs') }}" class="footer-links">FAQ</a> 
             </div>
           </div>
         </div>

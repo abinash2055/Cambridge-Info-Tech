@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\CompanyCategory;
 use App\Models\Company;
+use App\Models\FaqCategory;
 use App\Events\PostViewEvent;
 use App\Mail\ContactMail;
+use App\Models\Faq;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -94,5 +96,24 @@ class WebController extends Controller
         return redirect()->route('contact');
     }
 
-    // Faq 
+    // FAQ
+    public function faqs()
+    {
+        $categories = FaqCategory::with('faqs')->get();
+        $checkFaqCategory = FaqCategory::where('status', '1')->first();
+        // dd($categories);
+        return view('web.faqs.show', compact('categories', 'checkFaqCategory'));
+    }
+
+    public function faqsInfo($slug)
+    {
+        // dd($slug);
+        $categories = FaqCategory::with('faqs')->get();
+        $checkFaqCategory = FaqCategory::where('slug', $slug)->first();
+        if(is_null($checkFaqCategory)){
+            return redirect()->back();
+        }
+
+        return view('web.faqs.show', compact('categories', 'checkFaqCategory'));
+    }
 }

@@ -113,10 +113,13 @@
                                 <td>
                                     <a href="{{ route('faqs.show', $faq->id) }}" class="btn btn-info">View</a>
                                     <a href="{{ route('faqs.edit', $faq->id) }}" class="btn btn-warning">Edit</a>
-                                    <button class="btn btn-danger delete-btn" data-id="{{ $faq->id }}"
-                                        data-name="{{ $faq->question }}" data-url="{{ route('faqs.destroy', $faq->id) }}">
-                                        Delete
-                                    </button>
+                                    <form action="{{ route('faqs.destroy', $faq->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this FAQ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -147,41 +150,3 @@
             </div>
         </div>
     @endsection
-
-    @push('js')
-        <script>
-            $(document).ready(function() {
-                var deleteUrl, faqName;
-
-                // Trigger the modal on delete button click using event delegation
-                $('.delete-btn').on('click', function() {
-                    deleteUrl = $(this).data('url'); // Get the route URL from data-url
-                    faqName = $(this).data('name'); // Get the FAQ name
-
-                    // Update the modal with the FAQ name
-                    $('#faqName').text(faqName);
-                    $('#deleteModal').modal('show');
-                });
-
-                // Handle the delete action when confirm is clicked
-                $('#confirmDeleteBtn').on('click', function() {
-                    $.ajax({
-                        url: deleteUrl, // Use the dynamic URL from the button
-                        type: 'DELETE', // Change to DELETE
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                                'content') // CSRF protection for Laravel
-                        },
-                        success: function(result) {
-                            $('#deleteModal').modal('hide');
-                            location.reload(); // Reload page after deletion
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                            alert('Something went wrong!');
-                        }
-                    });
-                });
-            });
-        </script>
-    @endpush

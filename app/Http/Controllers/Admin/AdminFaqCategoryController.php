@@ -22,7 +22,7 @@ class AdminFaqCategoryController extends Controller
         $jobCategoriesCount = CompanyCategory::count();
 
         $categories = FaqCategory::all();
-        return view('admin.faqs.faqCategoryIndex', compact('userCount', 'jobCount', 'authorCount', 'liveJobCount', 'categories', 'jobCategoriesCount'));
+        return view('admin.faqs.faqCategoryIndex', compact('userCount', 'jobCount', 'authorCount', 'liveJobCount', 'categories', 'jobCategoriesCount' ));
     }
 
     public function create()
@@ -69,8 +69,9 @@ class AdminFaqCategoryController extends Controller
         return redirect()->route('faqs-categories.index');
     }
 
-    public function destroy(FaqCategory $faqCategory)
+    public function destroy($id)
     {
+        $faqCategory = FaqCategory::findOrFail($id); 
         $faqCategory->delete();
 
         Alert::toast('FAQ Category deleted successfully!', 'success');

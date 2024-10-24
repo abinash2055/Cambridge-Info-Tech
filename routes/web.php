@@ -33,6 +33,7 @@ Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 
 // For FAQ 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
+Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.info');
 
 //Auth routes
 Route::middleware('auth')->prefix('account')->group(function () {
