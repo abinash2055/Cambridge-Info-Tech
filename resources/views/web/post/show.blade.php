@@ -198,6 +198,9 @@
                     <div class="text-center mt-4">
                         <img src="{{ asset('images/Job1.jpg') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
                     </div>
+                    <div class="text-center mt-4">
+                        <img src="{{ asset('images/Job2.png') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                    </div>
                 </div>
             </div>
         </div>
