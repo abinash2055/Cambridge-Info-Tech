@@ -1,3 +1,4 @@
+
 @extends('layouts.post')
 
 @section('content')
@@ -36,7 +37,7 @@
     {{-- jobs list --}}
     <section class="jobs-section py-5">
         <div class="container-fluid pl-44rem">
-            <div class="row ">
+            <div class="row">
 
                 <div class="col-sm-12 col-md-7 ">
                     <div class="row">
@@ -70,7 +71,6 @@
                                                     </div>
                                                 @endif
                                             @endforeach
-
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +78,8 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
@@ -109,7 +111,6 @@
                                                     </div>
                                                 @endif
                                             @endforeach
-
                                         </div>
                                     </div>
                                 </div>
@@ -152,9 +153,13 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Add Image Below Jobs By Category -->
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('images/Home.jpg') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 @endsection

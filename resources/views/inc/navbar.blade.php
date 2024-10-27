@@ -23,7 +23,8 @@
             <a class="dropdown-item" href="{{route('author.authorSection')}}"> <i class="fa fa-cogs fa-sm "></i> Author Dashboard </a> 
             @endrole
             <a class="dropdown-item" href="{{route('account.overview')}}"> <i class="fas fa-user fa-sm "></i> Profile </a> 
-            <a class="dropdown-item" href="{{route('account.changePassword')}}"> <i class="fas fa-key fa-sm "></i> Change Password </a> 
+            {{-- <a class="dropdown-item" href="{{route('account.changePassword')}}"> <i class="fas fa-key fa-sm "></i> Change Password </a>  --}}
+            <a class="dropdown-item" href="{{route('account.appliedJob')}}"> <i class="fas fa-key fa-sm "></i> My Applied Job </a> 
               <div class="dropdown-divider"></div> 
               <a class="dropdown-item" href="{{route('account.logout')}}"> 
                 <i class="fas fa-sign-out-alt"></i> 

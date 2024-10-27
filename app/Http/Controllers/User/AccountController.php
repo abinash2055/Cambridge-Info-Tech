@@ -43,15 +43,16 @@ class AccountController extends Controller
         if ($this->hasApplied(auth()->user(), $request->post_id)) {
             Alert::toast('You have already applied for this job!', 'success');
             return redirect()->route('post.show', ['job' => $request->post_id]);
-        }else if(!auth()->user()->hasRole('user')){
+        }else if(!auth()->user()->hasRole('user')){ 
             Alert::toast('You are a employer! You can\'t apply for the job! ', 'error');
             return redirect()->route('post.show', ['job' => $request->post_id]);
         }
 
         $post = Post::find($request->post_id);
         $company = $post->company()->first();
-        return view('account.applyJob.apply', compact('post', 'company'));
+        return view('account.applyJob', compact('post', 'company'));
     }
+
 
     public function applyJob(Request $request)
     {
@@ -67,7 +68,7 @@ class AccountController extends Controller
         $application->post_id = $request->post_id;
         $application->save();
         Alert::toast('Thank you for applying! Wait for the company to respond!', 'success');
-        return redirect()->route('post.show', ['job' => $request->post_id]);
+        return redirect()->route('account.appliedJob');
     }
 
     public function changePasswordView()

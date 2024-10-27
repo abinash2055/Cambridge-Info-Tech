@@ -26,19 +26,19 @@
                         @foreach ($applications as $application)
                             <tr>
                                 <td>
-                                    @if($application->post) <!-- Check if post exists -->
+                                    @if($application->post) 
                                         <a href="{{ route('post.show', ['job' => $application->post]) }}">
                                             {{ $application->post->job_title }}
                                         </a>
                                     @else
-                                        <span class="text-muted">Post not found</span> <!-- Handle case where post does not exist -->
+                                        <span class="text-muted">Job not found</span> 
                                     @endif
                                 </td>
                                 <td>
-                                    @if($application->post && $application->post->company) <!-- Check if post and company exist -->
+                                    @if($application->post && $application->post->company)
                                         {{ $application->post->company->title }}
                                     @else
-                                        <span class="text-muted">Company not found</span> <!-- Handle case where company does not exist -->
+                                        <span class="text-muted">Company not found</span> 
                                     @endif
                                 </td>
                                 <td>{{ $application->created_at->format('d/m/Y') }}</td>
@@ -48,7 +48,7 @@
                                             @csrf
                                             @method('POST')
                                             <button type="submit" class="btn secondary-outline-btn">
-                                                View Post Details
+                                                View Job Details
                                             </button>
                                         </form>
                                     </div>

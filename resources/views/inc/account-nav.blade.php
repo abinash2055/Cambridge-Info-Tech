@@ -65,12 +65,12 @@
         
 
         @role('user')
-            <li
+            {{-- <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'become-employer' ? 'active' : '' }}">
                 <a href="{{ route('account.becomeEmployer') }}" class="account-nav-link">
                     <i class="fas fa-user-shield"></i> Become an employer
                 </a>
-            </li>
+            </li> --}}
 
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'my-saved-jobs' ? 'active' : '' }}">

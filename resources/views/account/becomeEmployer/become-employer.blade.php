@@ -2,7 +2,7 @@
 @section('content')
 <div class="account-layout  border">
   <div class="account-hdr bg-primary text-white border">
-   Become an employer in {{config('app.name')}}
+   Become an Employer in {{config('app.name')}}
   </div>
   <div class="account-bdy p-3">
     <div class="row">

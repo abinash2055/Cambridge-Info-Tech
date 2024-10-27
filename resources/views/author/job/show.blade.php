@@ -61,7 +61,7 @@
             <div class="mb-3 d-flex justify-content-end">
               <div class="my-2">
                 <a href="{{ route('post.show', ['job' => optional($post)->id]) }}" class="secondary-link">
-                  <i class="fas fa-briefcase"></i> View job
+                  <i class="fas fa-briefcase"></i> View Job
                 </a>
               </div>
             </div>

@@ -145,7 +145,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col-md-6">
-                <label for="salary">Offered Salary (Monthly)</label>
+                <label for="salary">Offered  Salary (Monthly)</label>
                 <input type="text" class="form-control @error('salary') is-invalid @enderror" name="salary" value="" required>
                 @error('salary')
                 <span class="invalid-feedback" role="alert">
@@ -153,6 +153,7 @@
                 </span>
                 @enderror
               </div>
+              
               <div class="col-md-6">
                 <label for="deadline">Deadline</label>
                 <input type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" value="" required>

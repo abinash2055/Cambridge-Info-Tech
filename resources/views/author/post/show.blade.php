@@ -71,9 +71,9 @@
                       <td width="64%">{{$post->employment_type}}</td>
                     </tr>
                     <tr>
-                      <td width="33%">Offered Salary(Monthly)</td>
+                      <td width="33%">Offered Salarys(Monthly)</td>
                       <td width="3%">:</td>
-                      <td width="64%">{{$post->salary}}</td>
+                      <td width="64%">NPR: {{$post->salary}}</td>
                     </tr>
                     <tr>
                       <td width="33%">Apply before(Deadline)</td>
@@ -178,7 +178,6 @@
     </div>
   </div>
 </section>
-
 @endsection
 
 @push('css')

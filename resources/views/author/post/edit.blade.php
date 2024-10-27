@@ -3,7 +3,7 @@
  @section('content')
      <div class="container">
          <br>
-         <h2 class="text-center">Edit Job Post</h2>
+         <h2 class="text-center">Edit Job Job</h2>
 
          @if (session('success'))
              <div class="alert alert-success">

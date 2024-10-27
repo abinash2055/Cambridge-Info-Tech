@@ -60,7 +60,7 @@ class WebController extends Controller
 
     public function contactForm()
     {
-        return view('web.contactUs'); // Adjust the path if necessary
+        return view('web.contactUs');
     }
 
     // Handle the contact form submission

@@ -13,7 +13,7 @@
                       <div class="rotate">
                           <i class="fas fa-users fa-4x"></i>
                       </div>
-                      <h6 class="text-uppercase">My Posts</h6>
+                      <h6 class="text-uppercase">My JObs</h6>
                       <h1 class="">{{$company? $company->posts->count() : 0}}</h1>
                   </div>
               </div>
@@ -24,7 +24,7 @@
                       <div class="rotate">
                           <i class="fas fa-th fa-4x"></i>
                       </div>
-                      <h6 class="text-uppercase">Live Posts</h6>
+                      <h6 class="text-uppercase">Live Jobs</h6>
                       <h1 class="">{{$livePosts?? 0}}</h1>
                   </div>
               </div>
@@ -97,7 +97,7 @@
           <div class="col-lg-12 col-md-8 col-sm-12">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title mb-3">Manage Posts (Jobs)</h4>
+                <h4 class="card-title mb-3">Manage Jobs</h4>
                 <a href="{{route('author.post.create')}}" class="btn primary-btn">Create new job listing</a>
               </div>
             </div>
@@ -158,6 +158,7 @@
                 </table>
             </div>
           </div>
+          
         </div>
       <!--/row-->
       </section>
@@ -192,7 +193,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete Post</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete Jobs</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
