@@ -35,6 +35,7 @@ Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
 Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.info');
 
+
 //Auth routes
 Route::middleware('auth')->prefix('account')->group(function () {
   //Every auth routes AccountController
@@ -57,6 +58,7 @@ Route::middleware('auth')->prefix('account')->group(function () {
     Route::get('apply-job', [AccountController::class, 'applyJobView'])->name('account.applyJob');
     Route::post('apply-job', [AccountController::class, 'applyJob'])->name('account.applyJob');
     Route::get('my-applied-jobs', [AccountController::class, 'appliedJob'])->name('account.appliedJob');
+    Route::post('application/remove/{id}', [AccountController::class, 'removeApplication'])->name('application.remove');
     
     //Become employer
     Route::get('become-employer', [AccountController::class, 'becomeEmployerView'])->name('account.becomeEmployer');
@@ -64,6 +66,7 @@ Route::middleware('auth')->prefix('account')->group(function () {
   });
 
 });
+
 
 //Author Role Routes
 Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin']], function () {
@@ -88,6 +91,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::delete('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
 
 });
+
 
 //Admin Role Routes
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {

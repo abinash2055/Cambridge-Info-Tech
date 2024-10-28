@@ -33,7 +33,7 @@ class AccountController extends Controller
         $user = User::find(auth()->user()->id);
         $user->removeRole('user');
         $user->assignRole('author');
-        $user->role="author";
+        $user->role = "author";
         $user->save();
         return redirect()->route('author.authorSection');
     }
@@ -43,14 +43,14 @@ class AccountController extends Controller
         if ($this->hasApplied(auth()->user(), $request->post_id)) {
             Alert::toast('You have already applied for this job!', 'success');
             return redirect()->route('post.show', ['job' => $request->post_id]);
-        }else if(!auth()->user()->hasRole('user')){ 
+        } else if (!auth()->user()->hasRole('user')) {
             Alert::toast('You are a employer! You can\'t apply for the job! ', 'error');
             return redirect()->route('post.show', ['job' => $request->post_id]);
         }
 
         $post = Post::find($request->post_id);
         $company = $post->company()->first();
-        return view('account.applyJob', compact('post', 'company'));
+        return view('account.applyJob.apply', compact('post', 'company'));
     }
 
 
@@ -148,7 +148,29 @@ class AccountController extends Controller
 
     public function appliedJob()
     {
-        $applications = JobApplication::with(['post', 'post.company'])->where('user_id', auth()->id())->get();
+        $applications = JobApplication::with(['post', 'post.company'])->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('account.applyJob.index', compact('applications'));
     }
+
+    public function removeApplication($id)
+    {
+        $application = JobApplication::find($id);
+
+        // Check if the application exists and belongs to the authenticated user
+        if ($application && $application->user_id == auth()->id()) {
+            // Check if the application is less than 24 hours old
+            if ($application->created_at >= now()->subDay()) {
+                $application->delete();
+                Alert::toast('Your application has been removed successfully!', 'success');
+            } else {
+                Alert::toast('You can only remove applications within 24 hours of applying.', 'error');
+            }
+        } else {
+            Alert::toast('Application not found or you do not have permission to remove it.', 'warning');
+        }
+
+        return redirect()->route('account.appliedJob');
+    }
+
+
 }

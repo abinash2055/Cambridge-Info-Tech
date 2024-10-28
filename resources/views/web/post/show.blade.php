@@ -78,7 +78,7 @@
                                             <tr>
                                                 <td width="33%">Offered Salary(Monthly)</td>
                                                 <td width="3%">:</td>
-                                                <td width="64%">NRP:  {{ $post->salary }}</td>
+                                                <td width="64%">NRP: {{ $post->salary }}</td>
                                             </tr>
                                             <tr>
                                                 <td width="33%">Apply before(Deadline)</td>
@@ -130,14 +130,29 @@
                                             class="btn primary-outline-btn"><i class="fas fa-star"></i>Save job</a>
                                     </div>
                                     <div class="social-links">
-                                        <a href="https://www.facebook.com" target="_blank" class="btn btn-primary"><i
-                                                class="fab fa-facebook"></i></a>
-                                        <a href="https://www.twitter.com" target="_blank" class="btn btn-primary"><i
-                                                class="fab fa-twitter"></i></a>
-                                        <a href="https://www.linkedin.com" target="_blank" class="btn btn-primary"><i
-                                                class="fab fa-linkedin"></i></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('post.show', ['job' => $post->id])) }}"
+                                            target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-facebook"></i>
+                                        </a>
+                                        <a href="https://twitter.com/intent/tweet?text={{ urlencode('Check out this job: ' . $post->job_title . ' at ' . $post->company->title . ' - ' . route('post.show', ['job' => $post->id])) }}"
+                                            target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(route('post.show', ['job' => $post->id])) }}&title={{ urlencode($post->job_title) }}&summary={{ urlencode('Exciting job opportunity at ' . $post->company->title) }}"
+                                            target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                        <a href="https://wa.me/?text={{ urlencode('Check out this job: ' . $post->job_title . ' at ' . $post->company->title . ' - ' . route('post.show', ['job' => $post->id])) }}"
+                                            target="_blank" class="btn btn-primary">
+                                            <i class="fab fa-whatsapp"></i>
+                                        </a>
                                         <a href="https://www.gmail.com" target="_blank" class="btn btn-primary"><i
-                                                class="fas fa-envelope"></i></a>
+                                                class="fas fa-envelope"></i>
+                                        </a>
+                                        <a href="mailto:?subject={{ urlencode('Job Opportunity: ' . $post->job_title) }}&body={{ urlencode('Check out this job at ' . $post->company->title . '. View more details here: ' . route('post.show', ['job' => $post->id])) }}"
+                                            target="_blank" class="btn btn-primary">
+                                            <i class="far fa-envelope-open"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -193,13 +208,16 @@
                         </div>
                     </div>
                     <div class="text-center mt-4">
-                        <img src="{{ asset('images/Job.jpg') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                        <img src="{{ asset('images/Job.jpg') }}" alt="Descriptive Alt Text" class="img-fluid"
+                            style="max-width: 100%;">
                     </div>
                     <div class="text-center mt-4">
-                        <img src="{{ asset('images/Job1.jpg') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                        <img src="{{ asset('images/Job1.jpg') }}" alt="Descriptive Alt Text" class="img-fluid"
+                            style="max-width: 100%;">
                     </div>
                     <div class="text-center mt-4">
-                        <img src="{{ asset('images/Job2.png') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                        <img src="{{ asset('images/Job2.png') }}" alt="Descriptive Alt Text" class="img-fluid"
+                            style="max-width: 100%;">
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@
                                     <div class="top-jobs">
                                         <div class="row">
                                             @foreach ($posts as $post)
-                                                @if ($post->company)
+                                                @if ($post->company && \Carbon\Carbon::now()->lessThanOrEqualTo($post->deadline))
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-sm-6 mb-sm-3">
                                                         <a href="{{ route('post.show', ['job' => $post->id]) }}">
                                                             <div class="job-item border row h-100">
@@ -90,7 +90,7 @@
                                     <div class="top-jobs">
                                         <div class="row">
                                             @foreach ($posts as $post)
-                                                @if ($post->company)
+                                                @if ($post->company && \Carbon\Carbon::now()->lessThanOrEqualTo($post->deadline))
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-sm-6 mb-sm-3">
                                                         <a href="{{ route('post.show', ['job' => $post->id]) }}">
                                                             <div class="job-item border row h-100">
