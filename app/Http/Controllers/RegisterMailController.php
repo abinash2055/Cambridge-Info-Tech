@@ -44,8 +44,11 @@ class RegisterMailController extends Controller
         Mail::to($user->email)->send(new VerificationEmail($user));
 
         // User feedback
+        // session()->flash('status',
+        //     'Registration completed! Please check your email for verification.'
+        // );
         Alert::Toast('Registration successful! Please check your email for verification.', 'success');
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Registration successful! Please check your email for verification.');
     }
 
     public function verifyEmail($code)
@@ -56,11 +59,29 @@ class RegisterMailController extends Controller
             $user->verification_code = null;
             $user->save();
 
+            // session()->flash(
+            //     'success',
+            //     'Email has been verified successfully.'
+            // );
             Alert::Toast('Email verified successfully!', 'success');
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success', 'Email has been verified successfully.');
         }
 
+        // session()->flash(
+        //     'error',
+        //     'Invalid verification Code'
+        // );
         Alert::Toast('Invalid verification code.', 'error');
-        return redirect()->route('login');
+        return redirect()->route('login')->with('error', 'Invalid verification Code');
     }
+
+    protected function sendVerificationEmail($user)
+    {
+        $verificationCode = mt_rand(100000, 999999); 
+        $user->verification_code = $verificationCode; 
+        $user->save();
+
+        Mail::to($user->email)->send(new VerificationEmail($user));
+    }
+
 }
