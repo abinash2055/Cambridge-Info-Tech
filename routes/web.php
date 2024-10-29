@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RegisterMailController;
 
 
 
@@ -34,6 +35,13 @@ Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
 // For FAQ 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
 Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.info');
+
+// For registration
+Route::put('account/update-details', [AccountController::class, 'updateAccountDetails'])->name('account.updateDetails');
+Route::post('/register', [RegisterMailController::class, 'register'])->name('register');
+
+// Email verification
+Route::get('/email/verify/{code}', [RegisterMailController::class, 'verifyEmail'])->name('emails.verification');
 
 
 //Auth routes

@@ -22,7 +22,13 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
-        'role'];
+        'role',
+        'date_of_birth',      
+        'location',           
+        'education',          
+        'current_job',        
+        'verification_code',  
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -41,6 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'date_of_birth' => 'date',
     ];
 
     public function company()

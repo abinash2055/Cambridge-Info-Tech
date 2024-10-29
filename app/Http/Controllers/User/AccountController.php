@@ -172,5 +172,34 @@ class AccountController extends Controller
         return redirect()->route('account.appliedJob');
     }
 
+    public function updateAccountDetails(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'date_of_birth' => 'required|date',
+            'location' => 'required|string|max:255',
+            'education' => 'required|string|max:255',
+            'current_job' => 'required|string|max:255',
+        ]);
+
+        // Find the authenticated user
+        $user = User::find(auth()->user()->id);
+
+        // Update the user's details
+        $user->date_of_birth = $request->date_of_birth;
+        $user->location = $request->location;
+        $user->education = $request->education;
+        $user->current_job = $request->current_job;
+
+        // Save the changes
+        if ($user->save()) {
+            Alert::toast('Your account details have been updated!', 'success');
+        } else {
+            Alert::toast('There was an error updating your details.', 'error');
+        }
+
+        return redirect()->route('account.overview');
+    }
+
 
 }
