@@ -4,6 +4,7 @@
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\savedJobController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\Author\AuthorController;
 use App\Http\Controllers\Author\AuthorCompanyController;
 use App\Http\Controllers\Author\AuthorJobApplicationController;
@@ -43,6 +44,18 @@ Route::post('/register', [RegisterMailController::class, 'register'])->name('reg
 // Email verification
 Route::get('/email/verify/{code}', [RegisterMailController::class, 'verifyEmail'])->name('emails.verification');
 
+// Show forgot password form
+Route::get('/forgot-password', [RegisterMailController::class, 'forgotPasswordForm'])->name('password.forgot');
+
+// Submit forgot password form
+Route::post('/forgot-password', [RegisterMailController::class, 'forgotPassword'])->name('password.email');
+
+// Show reset password form
+Route::get('/reset-password/{token}', [RegisterMailController::class, 'resetPasswordForm'])->name('password.reset');
+
+// Submit reset password form
+Route::post('/reset-password', [RegisterMailController::class, 'resetPassword'])->name('password.update');
+
 
 //Auth routes
 Route::middleware('auth')->prefix('account')->group(function () {
@@ -67,12 +80,15 @@ Route::middleware('auth')->prefix('account')->group(function () {
     Route::post('apply-job', [AccountController::class, 'applyJob'])->name('account.applyJob');
     Route::get('my-applied-jobs', [AccountController::class, 'appliedJob'])->name('account.appliedJob');
     Route::post('application/remove/{id}', [AccountController::class, 'removeApplication'])->name('application.remove');
-    
+
     //Become employer
     Route::get('become-employer', [AccountController::class, 'becomeEmployerView'])->name('account.becomeEmployer');
     Route::post('become-employer', [AccountController::class, 'becomeEmployer'])->name('account.becomeEmployer');
-  });
 
+    // Route to show edit profile form
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+  });
 });
 
 
@@ -82,7 +98,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::get('/job-list', [AuthorJobApplicationController::class, 'jobList'])->name('author.viewAllJob');
   Route::get('job-application/{id}', [AuthorJobApplicationController::class, 'show'])->name('author.jobApplication.show');
   Route::delete('job-application', [AuthorJobApplicationController::class, 'destroy'])->name('author.jobApplication.destroy');
-  Route::get('job-application', [AuthorJobApplicationController::class, 'index'])->name('author.jobApplication.index');
+  Route::get('job-application', [AuthorJobApplicationController::class, 'index'])->name('author.jobAppliation.index');
 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');
@@ -97,7 +113,6 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::get('company/edit', [AuthorCompanyController::class, 'edit'])->name('author.company.edit');
   Route::put('company/{id}', [AuthorCompanyController::class, 'update'])->name('author.company.update');
   Route::delete('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
-
 });
 
 
@@ -136,9 +151,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   // Route for managing FAQs by category
   Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
 
-  Route::get('faqs/create/{categoryId}', [AdminFaqController::class, 'create'])->name('faqs.create'); 
-  Route::post('faqs/store', [AdminFaqController::class, 'store'])->name('faqs.store'); 
-  Route::get('faqs/edit/{id}', [AdminFaqController::class, 'edit'])->name('faqs.edit'); 
+  Route::get('faqs/create/{categoryId}', [AdminFaqController::class, 'create'])->name('faqs.create');
+  Route::post('faqs/store', [AdminFaqController::class, 'store'])->name('faqs.store');
+  Route::get('faqs/edit/{id}', [AdminFaqController::class, 'edit'])->name('faqs.edit');
   Route::put('faqs/update/{id}', [AdminFaqController::class, 'update'])->name('faqs.update');
   Route::get('faqs/view/{id}', [AdminFaqController::class, 'show'])->name('faqs.show');
   Route::delete('faqs/destroy/{id}', [AdminFaqController::class, 'destroy'])->name('faqs.destroy');

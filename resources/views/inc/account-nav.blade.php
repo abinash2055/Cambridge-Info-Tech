@@ -21,11 +21,10 @@
                 </a>
             </li>
 
-            <li
-            {{-- {{ route(admin.faqs.faqCategoryIndex)}} --}}
+            <li {{-- {{ route(admin.faqs.faqCategoryIndex)}} --}}
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'faq-categories' ? 'active' : '' }}">
-                <a href="{{ route('faqs-categories.index')}}" class="account-nav-link">  
-                    <i class="fas fa-question-circle"></i> FAQ Details 
+                <a href="{{ route('faqs-categories.index') }}" class="account-nav-link">
+                    <i class="fas fa-question-circle"></i> FAQ Details
                 </a>
             </li>
         @endrole
@@ -62,7 +61,7 @@
             </a>
         </li>
 
-        
+
 
         @role('user')
             {{-- <li
@@ -86,6 +85,12 @@
                 </a>
             </li>
 
+            <li
+                class="list-group-item list-group-item-action {{ request()->segment(2) == 'edit-profile' ? 'active' : '' }}">
+                <a href="{{ route('profile.edit') }}" class="account-nav-link">
+                    <i class="fas fa-user-shield"></i> Edit Profile
+                </a>
+            </li>
 
 
             <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'deactivate' ? 'active' : '' }}">

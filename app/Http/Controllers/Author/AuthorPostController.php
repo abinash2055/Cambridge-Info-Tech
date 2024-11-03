@@ -29,9 +29,8 @@ class AuthorPostController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $this->requestValidate($request);
-        // Convert skills array to comma-separated string
+        
         $data = $request->all();
         $data['skills'] = implode(',', $request->skills);
         $data['specifications'] = $request->specifications ?? '';
@@ -73,6 +72,7 @@ class AuthorPostController extends Controller
 
     public function update(Request $request, Post $post)
     {
+        // dd($request->all());
         $request->validate([
             'company_id' => 'required|integer',
             'job_title' => 'required|string|max:255',
@@ -84,8 +84,8 @@ class AuthorPostController extends Controller
             'deadline' => 'required|date',
             'education_level' => 'required|string|max:255',
             'experience' => 'required|string|max:255',
-            'skills' => 'required|array', // Validate as array
-            'skills.*' => 'string|max:255', // Validate each skill element
+            'skills' => 'required|array', 
+            'skills.*' => 'string|max:255',
             'specifications' => 'nullable|string|max:500', 
             'status' => 'required|string|max:255',
         ]);
@@ -96,10 +96,11 @@ class AuthorPostController extends Controller
          $data['specifications'] = $request->specifications ?? '';
 
         // Update the post with all data except skills (handled above)
-        
-        $post->update($data);
 
-        return redirect()->route('author.authorSection')->with('success', 'Job post updated successfully!');
+        // dd($data);
+        $post->update($data);
+        Alert::toast('Job post updated successfully!!', 'success');
+        return redirect()->route('author.authorSection');
     }
 
 
@@ -107,7 +108,7 @@ class AuthorPostController extends Controller
     {
         if ($post->delete()) {
             Alert::toast('Post successfully deleted!', 'success');
-            // return redirect()->route('author.authorSection');
+            
             return response()->json(['success' => 'Post deleted successfully.']);
         }
         // return redirect()->back();
@@ -126,8 +127,8 @@ class AuthorPostController extends Controller
             'deadline' => 'required',
             'education_level' => 'required',
             'experience' => 'required',
-            'skills' => 'required|array', // Validate as array
-            'skills.*' => 'string|max:255', // Validate each skill element
+            'skills' => 'required|array', 
+            'skills.*' => 'string|max:255', 
             'specifications' => 'sometimes|min:5',
         ]);
     }

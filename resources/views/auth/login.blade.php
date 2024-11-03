@@ -56,11 +56,12 @@
                                 </div>
                             </div>
                             <div class="form-group mb-0">
-                                <input type="checkbox" id="rememberMe" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <input type="checkbox" id="rememberMe" name="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
                                 <label for="rememberMe">Remember me</label>
                             </div>
                             <div class="form-group">
-                                <a href="#" class="secondary-link">Forgot password?</a>
+                                <a href="{{ route('password.forgot') }}" class="secondary-link">Forgot password?</a>
                             </div>
                             <button type="submit" class="btn primary-btn btn-block">Login</button>
                         </form>
