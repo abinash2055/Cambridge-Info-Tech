@@ -64,7 +64,7 @@ class WebController extends Controller
     }
 
     // Handle the contact form submission
-    public function mail(Request $request)
+    public function contactEmail(Request $request)
     {
         // Validate the form data
         $request->validate([
@@ -88,7 +88,7 @@ class WebController extends Controller
 
         // Send the email
         // Mail::to('hisubedisushil@gmail.com') // Replace with the admin's email address
-        Mail::to('pabinashnath@gmail.com') // Replace with the admin's email address
+        Mail::to(env('CONTACT_FORM_EMAIL_ADDRESS')) // Replace with the admin's email address
             ->send(new ContactMail($data));
 
         // Redirect back with a success message
@@ -110,7 +110,7 @@ class WebController extends Controller
         // dd($slug);
         $categories = FaqCategory::with('faqs')->get();
         $checkFaqCategory = FaqCategory::where('slug', $slug)->first();
-        if(is_null($checkFaqCategory)){
+        if (is_null($checkFaqCategory)) {
             return redirect()->back();
         }
 

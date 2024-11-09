@@ -16,8 +16,10 @@ use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
 use App\Http\Controllers\Admin\AdminFaqCategoryController;
 use App\Http\Controllers\Admin\AdminFaqController;
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterMailController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 
 
@@ -31,7 +33,7 @@ Route::get('/search', [WebController::class, 'jobs'])->name('job.index');
 
 // Contact Us
 Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
-Route::post('/contact', [WebController::class, 'mail'])->name('contact.submit');
+Route::post('/contact', [WebController::class, 'contactEmail'])->name('contact.submit');
 
 // For FAQ 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
@@ -39,22 +41,50 @@ Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.
 
 // For registration
 Route::put('account/update-details', [AccountController::class, 'updateAccountDetails'])->name('account.updateDetails');
-Route::post('/register', [RegisterMailController::class, 'register'])->name('register');
 
-// Email verification
-Route::get('/email/verify/{code}', [RegisterMailController::class, 'verifyEmail'])->name('emails.verification');
+
+
+
+
+
+
+
+
+Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 
 // Show forgot password form
-Route::get('/forgot-password', [RegisterMailController::class, 'forgotPasswordForm'])->name('password.forgot');
+Route::get('/forgot-password', [AuthenticationController::class, 'forgotPasswordForm'])->name('password.forgot');
 
 // Submit forgot password form
-Route::post('/forgot-password', [RegisterMailController::class, 'forgotPassword'])->name('password.email');
+Route::post('/forgot-password', [AuthenticationController::class, 'forgotPassword'])->name('password.email');
 
 // Show reset password form
-Route::get('/reset-password/{token}', [RegisterMailController::class, 'resetPasswordForm'])->name('password.reset');
+Route::get('/reset-password/{token}', [AuthenticationController::class, 'verifyPasswordLink'])->name('verify.password.link');
+// $resetLink = url('reset-password/' . $token . '?email=' . urlencode($user->email));
 
 // Submit reset password form
-Route::post('/reset-password', [RegisterMailController::class, 'resetPassword'])->name('password.update');
+Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])->name('password.reset');
+
+// Email verification
+Route::get('/email/verify/{token}', [AuthenticationController::class, 'verifyEmailLink'])->name('verify.email.link');
+
+// For Email Verification
+Route::get('/email/verify', function () {
+  return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+// Email Verification Handler 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+  $request->fulfill();
+  return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+
+
+
+
+
 
 
 //Auth routes

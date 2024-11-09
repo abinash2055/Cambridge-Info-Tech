@@ -11,7 +11,7 @@ class VerificationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $data;
 
     /**
      * Create a new message instance.
@@ -19,9 +19,9 @@ class VerificationEmail extends Mailable
      * @param  User  $user
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -31,12 +31,8 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        $verificationLink = route('emails.verification', ['code' => $this->user->verification_code]);
-
-        return $this->view('web.emails.verification') // Specify the view file for the email content
-            ->subject('Verify Your Email Address')
-            ->with([
-                'verificationLink' => $verificationLink,
-            ]);
+        return $this->subject('Verify Your Email Address')
+            ->view('emails.verify-email') // Specify the view file for the email content
+            ->with('data', $this->data);
     }
 }

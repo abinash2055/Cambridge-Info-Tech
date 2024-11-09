@@ -8,12 +8,12 @@
 </head>
 
 <body>
-    <h1>Hello, Rajesh</h1>
-    <p>Thank you for registering! Please verify your email address by clicking the link below:</p>
+    <h1>Hello, {{ $data['user'] }}</h1>
+    <p>Thank you for registering! Please reset your password by clicking the link below:</p>
     <p>
-        {{-- Link --}}
+        <a href=" {{ $data['resetLink'] }}">Reset Password</a>
     </p>
-    <p>If you did not create an account, no further action is required.</p>
+    <p>If you did not request for reset, no further action is required.</p>
     <p>Thank you!</p>
 
     <!-- Footer -->

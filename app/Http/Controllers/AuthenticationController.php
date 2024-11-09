@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ResetPasswordMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -9,9 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\VerificationEmail;
-use App\Mail\ResetPasswordMail;
 
-class RegisterMailController extends Controller
+class AuthenticationController extends Controller
 {
     public function register(Request $request)
     {
@@ -27,6 +27,7 @@ class RegisterMailController extends Controller
             'phone' => 'required|string|unique:users',
         ]);
 
+        $token = Str::random(40);
         // Create the user
         $user = User::create([
             'name' => $request->name,
@@ -37,13 +38,20 @@ class RegisterMailController extends Controller
             'location' => $request->location,
             'education' => $request->education,
             'current_job' => $request->current_job,
-            'verification_code' => Str::random(40),
+            'verification_code' => $token,
         ]);
         $user->assignRole('user');
 
+        // Prepare email data
+        $data = [
+            'user' => $user->name,
+            'verifyLink' => url('email/verify/' . $token),
+        ];
+
+
         // Send verification email
         try {
-            Mail::to($user->email)->send(new VerificationEmail($user));
+            Mail::to($user->email)->send(new VerificationEmail($data));
         } catch (\Exception $e) {
             Alert::toast('Failed to send verification email. Please try again.', 'error');
             return redirect()->back();
@@ -56,7 +64,7 @@ class RegisterMailController extends Controller
     public function forgotPassword(Request $request)
     {
         // Validate the email input
-        $request->validate(['email' => 'required|email']);
+        $request->validate(['email' => 'required|email|exists:users,email']);
 
         // Find the user by email
         $user = User::where('email', $request->email)->first();
@@ -68,9 +76,16 @@ class RegisterMailController extends Controller
             $user->reset_token_expiry = now()->addHour(); // Set the expiry time for the token
             $user->save(); // Save the user model
 
+            // Prepare email data
+            $data = [
+                'user' => $user->name,
+                'resetLink' => url('reset-password/' . $token . '?email=' . urlencode($user->email)),
+            ];
+
             // Send the password reset email with error handling
             try {
-                Mail::to($user->email)->send(new ResetPasswordMail($user, $token));
+                Mail::to($user->email) // Replace with the admin's email address
+                    ->send(new ResetPasswordMail($data));
             } catch (\Exception $e) {
                 Alert::toast('Failed to send password reset email. Please try again.', 'error');
                 return redirect()->back();
@@ -87,6 +102,64 @@ class RegisterMailController extends Controller
 
     public function forgotPasswordForm()
     {
-        return view('auth.forgot-password'); // Adjust this to the actual view file path
+        return view('auth.forgot-password');
+    }
+
+    public function verifyPasswordLink($token)
+    {
+
+        // Find the user by email
+        $user = User::where('reset_token', $token)->first();
+
+        if ($user && $user->reset_token_expiry > now()) {
+            return view('auth.reset-password')
+                ->with(['token' => $token, 'email' => $user->email]);;
+        }
+
+        // If email is not found, return an error
+        Alert::toast('Password reset link expired!', 'error');
+        return redirect()->route('login');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'token' => 'required|string',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::where('reset_token', $request->token)->first();
+
+        // dd($user);
+
+        $user->forceFill([
+            'password' => Hash::make($request->password),
+            'reset_token' => null,
+            'reset_token_expiry' => null
+        ])->save();
+        Alert::toast('Password reset successfully!', 'success');
+        return redirect()->route('login');
+    }
+
+    public function verifyEmailLink($token)
+    {
+
+        // Find the user by email
+        $user = User::where('verification_code', $token)->first();
+        if ($user) {
+            $user->forceFill([
+                'verification_code' => null,
+                'email_verified_At' => now()
+            ])->save();
+            // If email is found
+            Alert::toast('Email verified successfully!', 'success');
+            return redirect()->route('login');
+        }
+
+        // If email is not found, return an error
+        Alert::toast('Email verification link expired!', 'error');
+        return redirect()->route('login');
     }
 }

@@ -10,21 +10,17 @@ class ResetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
-    public $token;
+    public $data;
 
-    public function __construct($user, $token)
+    public function __construct($data)
     {
-        $this->user = $user;
-        $this->token = $token;
+        $this->data = $data;
     }
 
     public function build()
     {
-        return $this->view('emails.reset_password') // Adjust this to your email view
-            ->with([
-                'token' => $this->token,
-                'user' => $this->user,
-            ]);
+        return $this->subject('Password Reset Link')
+            ->view('emails.reset-password')
+            ->with('data', $this->data);
     }
 }

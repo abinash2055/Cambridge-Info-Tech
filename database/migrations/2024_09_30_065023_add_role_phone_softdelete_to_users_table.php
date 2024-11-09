@@ -10,7 +10,7 @@ class AddRolePhoneSoftDeleteToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->after('password'); // Add phone column after name
+            $table->string('phone')->after('password')->nullable(); // Add phone column after name
             $table->string('role')->default('user')->after('phone');
             $table->softDeletes();
         });
