@@ -8,6 +8,7 @@ use App\Events\PostViewEvent;
 use App\Models\Company;
 use App\Models\CompanyCategory;
 use App\Models\Post;
+use App\Models\District;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -24,13 +25,14 @@ class AuthorPostController extends Controller
             Alert::toast('You must create a company first!', 'info');
             return redirect()->route('author.company.create');
         }
-        return view('author.post.create');
+        $districts = District::all();
+        return view('author.post.create')->with('districts', $districts);
     }
 
     public function store(Request $request)
     {
         $this->requestValidate($request);
-        
+
         $data = $request->all();
         $data['skills'] = implode(',', $request->skills);
         $data['specifications'] = $request->specifications ?? '';
@@ -66,7 +68,7 @@ class AuthorPostController extends Controller
     public function edit(Post $post)
     {
         $companies = Company::all();
-        
+
         return view('author.post.edit', compact('post', 'companies'));
     }
 
@@ -84,16 +86,16 @@ class AuthorPostController extends Controller
             'deadline' => 'required|date',
             'education_level' => 'required|string|max:255',
             'experience' => 'required|string|max:255',
-            'skills' => 'required|array', 
+            'skills' => 'required|array',
             'skills.*' => 'string|max:255',
-            'specifications' => 'nullable|string|max:500', 
+            'specifications' => 'nullable|string|max:500',
             'status' => 'required|string|max:255',
         ]);
 
         // Convert skills array to comma-separated string
         $data = $request->all();
         $data['skills'] = implode(',', $request->skills);
-         $data['specifications'] = $request->specifications ?? '';
+        $data['specifications'] = $request->specifications ?? '';
 
         // Update the post with all data except skills (handled above)
 
@@ -108,7 +110,7 @@ class AuthorPostController extends Controller
     {
         if ($post->delete()) {
             Alert::toast('Post successfully deleted!', 'success');
-            
+
             return response()->json(['success' => 'Post deleted successfully.']);
         }
         // return redirect()->back();
@@ -127,21 +129,21 @@ class AuthorPostController extends Controller
             'deadline' => 'required',
             'education_level' => 'required',
             'experience' => 'required',
-            'skills' => 'required|array', 
-            'skills.*' => 'string|max:255', 
+            'skills' => 'required|array',
+            'skills.*' => 'string|max:255',
             'specifications' => 'sometimes|min:5',
         ]);
     }
 
     public function viewAllJobs()
     {
-        $activeJobs = Post::where('status', 'active')->paginate(10);  
+        $activeJobs = Post::where('status', 'active')->paginate(10);
         $dashCount = [
             'activeJobs' => Post::where('status', 'active')->count(),
             'totalJobs' => Post::count(),
             'livePost' => Post::where('status', 'live')->count(),
         ];
-        $jobCategories = CompanyCategory::all();  
+        $jobCategories = CompanyCategory::all();
         return view('author.view-all-jobs', compact('activeJobs', 'dashCount', 'jobCategories'));
     }
 }

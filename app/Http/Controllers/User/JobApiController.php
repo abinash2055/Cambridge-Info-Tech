@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\CompanyCategory;
+use App\Models\District;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,6 +24,10 @@ class JobApiController extends Controller
             });
         } elseif ($request->job_level) {
             $posts = Post::where('job_level', 'Like', '%' . $request->job_level . '%');
+        } elseif ($request->district) {
+            $posts = Post::where('district', 'Like', '%' . $request->district . '%');
+        } elseif ($request->salary) {
+            $posts = Post::where('salary', '<=',  $request->salary);
         } elseif ($request->education_level) {
             $posts = Post::where('education_level', 'Like', '%' . $request->education_level . '%');
         } elseif ($request->employment_type) {
@@ -40,6 +45,13 @@ class JobApiController extends Controller
         $categories = CompanyCategory::all();
         return $categories->toJson();
     }
+
+    public function getDistricts()
+    {
+        $districts = District::all();
+        return $districts->toJson();
+    }
+
     public function getAllOrganization()
     {
         $companies = Company::all();

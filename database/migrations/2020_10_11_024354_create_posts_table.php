@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->unsignedSmallInteger('vacancy_count');
             $table->string('employment_type');
             $table->string('salary', 30);
+            $table->string('district');
             $table->string('job_location');
             $table->timestamp('deadline');
             $table->string('education_level');

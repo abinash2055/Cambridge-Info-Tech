@@ -26,6 +26,7 @@ class PostFactory extends Factory
             'job_level' => 'Senior level',
             'vacancy_count' => rand(2, 10), // password
             'employment_type' => 'Full time',
+            'district' => 'Kathmandu',
             'job_location' => 'kathmandu-18,Nepal',
             'deadline' => date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . " +2 days")),
             'education_level' => 'Bachelors',

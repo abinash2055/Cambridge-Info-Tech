@@ -128,7 +128,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::get('/job-list', [AuthorJobApplicationController::class, 'jobList'])->name('author.viewAllJob');
   Route::get('job-application/{id}', [AuthorJobApplicationController::class, 'show'])->name('author.jobApplication.show');
   Route::delete('job-application', [AuthorJobApplicationController::class, 'destroy'])->name('author.jobApplication.destroy');
-  Route::get('job-application', [AuthorJobApplicationController::class, 'index'])->name('author.jobAppliation.index');
+  Route::get('job-application', [AuthorJobApplicationController::class, 'index'])->name('author.jobApplication.index');
 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');

@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             RolePermissionSeeder::class,
             UserSeeder::class,
-            CompanySeeder::class
+            CompanySeeder::class,
+            DistrictSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }
