@@ -27,13 +27,13 @@
              </div>
 
              <div class="mb-3">
-                 <label for="job_title" class="form-label">Job Title</label>
+                 <label for="job_title" class="form-label" class="font-weight-bold">Job Title</label>
                  <input type="text" class="form-control" name="job_title" id="job_title" value="{{ $post->job_title }}"
                      required>
              </div>
 
              <div class="mb-3">
-                 <label for="job_level" class="form-label">Job Level</label>
+                 <label for="job_level" class="form-label" class="font-weight-bold">Job Level</label>
                  <select name="job_level" class="form-control" id="job_level" required>
                      <option value="" disabled {{ is_null($post->job_level) ? 'selected' : '' }}>Select Job Level
                      </option>
@@ -48,14 +48,14 @@
              </div>
 
              <div class="mb-3">
-                 <label for="vacancy_count" class="form-label">Vacancy Count</label>
+                 <label for="vacancy_count" class="form-label" class="font-weight-bold">Vacancy Count</label>
                  <input type="number" class="form-control" name="vacancy_count" id="vacancy_count"
                      value="{{ $post->vacancy_count }}" min="0" required>
              </div>
 
 
              <div class="mb-3">
-                 <label for="employment_type" class="form-label">Employment Type</label>
+                 <label for="employment_type" class="form-label" class="font-weight-bold">Employment Type</label>
                  <select name="employment_type" class="form-control" id="employment_type" required>
                      <option value="" disabled {{ is_null($post->employment_type) ? 'selected' : '' }}>Select
                          Employment Type</option>
@@ -77,13 +77,13 @@
 
 
              <div class="mb-3">
-                 <label for="salary" class="form-label">Salary</label>
+                 <label for="salary" class="form-label" class="font-weight-bold">Salary</label>
                  <input type="number" class="form-control" name="salary" id="salary" value="{{ $post->salary }}"
                      required>
              </div>
 
              <div class="mb-3">
-                 <label for="job_location" class="form-label">Job Location</label>
+                 <label for="job_location" class="form-label" class="font-weight-bold">Job Location</label>
                  <select name="job_location" class="form-control" id="job_location" required>
                      <option value="" disabled {{ is_null($post->job_location) ? 'selected' : '' }}>Select
                          JobLocation</option>
@@ -190,13 +190,13 @@
 
 
              <div class="mb-3">
-                 <label for="deadline" class="form-label">Deadline</label>
+                 <label for="deadline" class="form-label" class="font-weight-bold">Deadline</label>
                  <input type="date" class="form-control" name="deadline" id="deadline"
                      value="{{ \Carbon\Carbon::parse($post->deadline)->format('Y-m-d') }}" required>
              </div>
 
              <div class="mb-3">
-                 <label for="education_level" class="form-label">Education Level</label>
+                 <label for="education_level" class="form-label" class="font-weight-bold">Education Level</label>
                  <select name="education_level" class="form-control" id="education_level" required>
                      <option value="" disabled {{ is_null($post->education_level) ? 'selected' : '' }}>Select
                          Education Level</option>
@@ -213,7 +213,7 @@
 
 
              <div class="mb-3">
-                 <label for="experience" class="form-label">Experience Level</label>
+                 <label for="experience" class="form-label" class="font-weight-bold">Experience Level</label>
                  <select name="experience" class="form-control" id="experience" required>
                      <option value="" disabled {{ is_null($post->experience) ? 'selected' : '' }}>Select Experience
                          Level</option>
@@ -227,7 +227,7 @@
              </div>
 
              <div class="mb-3">
-                 <label for="skills" class="form-label">Professional Skills</label>
+                 <label for="skills" class="form-label" class="font-weight-bold">Professional Skills</label>
                  <div id="skills-container">
                      @php
                          $skills = explode(',', $post->skills);
@@ -251,12 +251,12 @@
              </div> --}}
 
              <div class="mb-3">
-                 <label for="specifications" class="form-label">Specifications</label>
+                 <label for="specifications" class="form-label" class="font-weight-bold">Specifications</label>
                  <textarea id="specifications" name="specifications" class="form-control">{{ $post->specifications }}</textarea>
              </div>
 
              <div class="form-group mb-3">
-                 <label for="status" class="form-label text-success">Status</label>
+                 <label for="status" class="form-label text-success" class="font-weight-bold">Status</label>
                  <select name="status" id="status" class="form-control bg-info  text-dark border-success" required>
                      <option value="active" {{ $post->status == 'active' ? 'selected' : '' }}>Active</option>
                      <option value="inactive" {{ $post->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
@@ -271,11 +271,11 @@
  @push('css')
      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
      {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css">  --}}
-     @endpush 
+ @endpush
 
-     @push('js')
-         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script> --}}
+ @push('js')
+     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script> --}}
      {{-- <script>
          $(document).ready(function() {
              var quill = new Quill('#quillEditor', {

@@ -29,7 +29,7 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="name" class="form-label">Category Name</label>
+                <label for="name" class="form-label" class="font-weight-bold">Category Name</label>
                 <input type="text" class="form-control" name="name" id="name"
                     value="{{ old('name', $faqCategory->name) }}" required>
             </div>
@@ -44,7 +44,7 @@
                 </select>
             </div> --}}
             <div class="mb-3">
-                <label for="status" class="form-label">Status</label>
+                <label for="status" class="form-label" class="font-weight-bold">Status</label>
                 <select class="form-select custom-select" name="status" id="status">
                     <option value="1" {{ old('status', $faqCategory->status) == '1' ? 'selected' : '' }}>Active
                     </option>

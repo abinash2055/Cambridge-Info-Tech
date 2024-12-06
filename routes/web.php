@@ -47,9 +47,6 @@ Route::put('account/update-details', [AccountController::class, 'updateAccountDe
 
 
 
-
-
-
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 
 // Show forgot password form
@@ -78,9 +75,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
   $request->fulfill();
   return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
-
-
 
 
 
@@ -122,6 +116,7 @@ Route::middleware('auth')->prefix('account')->group(function () {
 });
 
 
+
 //Author Role Routes
 Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin']], function () {
   Route::get('author-section', [AuthorController::class, 'authorSection'])->name('author.authorSection');
@@ -144,6 +139,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::put('company/{id}', [AuthorCompanyController::class, 'update'])->name('author.company.update');
   Route::delete('company', [AuthorCompanyController::class, 'destroy'])->name('author.company.destroy');
 });
+
 
 
 //Admin Role Routes

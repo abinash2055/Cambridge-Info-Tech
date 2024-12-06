@@ -22,11 +22,13 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="category_id" class="form-label">Category</label>
-                    <select name="faq_category_id" id="category_id" class="form-select custom-select" required onchange="updateCategoryTitle()">
+                    <label for="category_id" class="form-label" class="font-weight-bold">Category</label>
+                    <select name="faq_category_id" id="category_id" class="form-select custom-select" required
+                        onchange="updateCategoryTitle()">
                         <option value="">Select Category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ $category->id == $faq->faq_category_id ? 'selected' : '' }}>
+                            <option value="{{ $category->id }}"
+                                {{ $category->id == $faq->faq_category_id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach
@@ -40,7 +42,8 @@
 
                 <div class="mb-3">
                     <label for="question" class="form-label">Question</label>
-                    <input type="text" name="question" id="question" class="form-control" value="{{ old('question', $faq->question) }}" required>
+                    <input type="text" name="question" id="question" class="form-control"
+                        value="{{ old('question', $faq->question) }}" required>
                 </div>
 
                 <div class="mb-3">
@@ -68,7 +71,7 @@
 
     <script>
         // Set the selected category title when the page loads
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             updateCategoryTitle(); // Call the function to set the initial category title
         });
 
@@ -90,21 +93,21 @@
 
     <style>
         .custom-select {
-            padding: 10px; 
-            border: 1px solid #ced4da; 
-            border-radius: 5px; 
-            background-color: #f8f9fa; 
-            transition: border-color 0.2s; 
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: border-color 0.2s;
         }
 
         .custom-select:focus {
-            border-color: #007bff; 
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-            outline: none; 
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
         }
 
         option {
-            padding: 10px; 
+            padding: 10px;
         }
     </style>
 @endsection

@@ -99,6 +99,7 @@
                 </a>
             </li>
         @endrole
+
         <li
             class="list-group-item list-group-item-action {{ request()->segment(2) == 'change-password' ? 'active' : '' }}">
             <a href="{{ route('account.changePassword') }}" class="account-nav-link">

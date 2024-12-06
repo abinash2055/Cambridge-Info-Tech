@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <h1>New Contact Us Message For Cambriodge</h1>
+    <h1>New Contact Us Message For Cambridge</h1>
     <p><strong>Inquiry Type:</strong> {{ $data['inquiry_type'] }}</p>
     <p><strong>Full Name:</strong> {{ $data['full_name'] }}</p>
     <p><strong>Email:</strong> {{ $data['email'] }}</p>
