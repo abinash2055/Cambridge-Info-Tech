@@ -98,6 +98,12 @@
                     <i class="fas fa-folder-minus"></i> Deactivate Account
                 </a>
             </li>
+
+            <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'upload-cv' ? 'active' : '' }}">
+                <a href="{{ route('account.uploadCv') }}" class="account-nav-link">
+                    <i class="fas fa-upload"></i> Upload CV
+                </a>
+            </li>
         @endrole
 
         <li
@@ -108,7 +114,7 @@
         </li>
 
         @role('user')
-            <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'job-list' ? 'active' : '' }}">
+            <li class="list-group-item list-group-item-action {{ request()->segment(1) == 'job-list' ? 'active' : '' }}">
                 <a href="{{ route('job.index') }}" class="account-nav-link">
                     <i class="fas fa-clipboard-list"></i> Find Jobs
                 </a>

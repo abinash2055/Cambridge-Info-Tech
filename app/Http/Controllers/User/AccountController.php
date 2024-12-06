@@ -201,5 +201,31 @@ class AccountController extends Controller
         return redirect()->route('account.overview');
     }
 
+    // To upload CV by user 
+    public function uploadCvForm()
+    {
+        return view('account.uploadCv');
+    }
 
+    public function storeCv(Request $request)
+    {
+        $request->validate(
+            [],
+            [
+                'cv.required' => 'Please upload a PDF file.',
+                'cv.mimes' => 'CV accept PDF File Only.',
+                'cv.max' => 'CV file must less than 2MB.'
+            ]
+        );
+
+        // Store the uploaded file
+        $path = $request->file('cv')->store('cvs', 'public');
+
+        // Save the file path to the user's record (optional)
+        $user = auth()->user();
+        $user->cv_path = $path;
+        $user->save();
+
+        return redirect()->route('account.uploadCv')->with('success', 'CV uploaded successfully!');
+    }
 }

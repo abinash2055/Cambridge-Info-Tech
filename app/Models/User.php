@@ -29,6 +29,7 @@ class User extends Authenticatable
         'education',
         'current_job',
         'verification_code',
+        'cv_path',
     ];
 
     /**

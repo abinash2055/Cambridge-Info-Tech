@@ -90,6 +90,9 @@ Route::middleware('auth')->prefix('account')->group(function () {
   Route::delete('delete', [AccountController::class, 'deleteAccount'])->name('account.delete');
   Route::get('change-password', [AccountController::class, 'changePasswordView'])->name('account.changePassword');
   Route::put('change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
+  Route::get('/account/upload-cv', [AccountController::class, 'uploadCvForm'])->name('account.uploadCv');
+  Route::post('/account/upload-cv', [AccountController::class, 'storeCv'])->name('account.storeCv');
+
 
 
   //User Role routes
