@@ -61,7 +61,7 @@ class AuthorJobApplicationController extends Controller
             'application' => $application
         ]);
     }
-    
+
     public function destroy(Request $request)
     {
         $application = JobApplication::find($request->application_id);
@@ -83,6 +83,31 @@ class AuthorJobApplicationController extends Controller
             'jobCategories' => $jobCategories,
         ]);
     }
+
+    // Job Application Status
+    public function showJob($id)
+    {
+        $applications = JobApplication::where('job_id', $id)->get();
+        return view('author.job.show', compact('applications'));
+    }
+
+    public function saveStatus(Request $request)
+    {
+        // Logic to save statuses
+        $statuses = $request->input('statuses');
+        foreach ($statuses as $applicationId => $status) {
+            $application = JobApplication::find($applicationId);
+            if ($application) {
+                $application->status = $status;
+                $application->save();
+            }
+        }
+        // to retrieve updated value 
+        $applications = JobApplication::all();
+
+        return redirect()->route('author.jobApplication.index')->with('success', 'Statuses updated successfully.');
+    }
+
 
     // For Complete Job Details
     protected function getDashCount()

@@ -14,6 +14,8 @@
                             <th>Company</th>
                             <th>Applied On</th>
                             <th>Action of Post</th>
+                            <th>Action of Post</th>
+                            <th>Status</th>
                             <th>Remove</th>
                         </tr>
                     </thead>
@@ -54,6 +56,9 @@
                                             </form>
                                         </div>
                                     </td>
+
+                                    <!-- Add status with a default value and changes by Author-->
+                                    <td>{{ $application->status ?? 'Pending' }}</td>
 
                                     <!-- Remove Button -->
                                     <td>

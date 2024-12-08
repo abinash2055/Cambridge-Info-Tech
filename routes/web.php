@@ -43,10 +43,6 @@ Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.
 Route::put('account/update-details', [AccountController::class, 'updateAccountDetails'])->name('account.updateDetails');
 
 
-
-
-
-
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 
 // Show forgot password form
@@ -127,6 +123,12 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::get('job-application/{id}', [AuthorJobApplicationController::class, 'show'])->name('author.jobApplication.show');
   Route::delete('job-application', [AuthorJobApplicationController::class, 'destroy'])->name('author.jobApplication.destroy');
   Route::get('job-application', [AuthorJobApplicationController::class, 'index'])->name('author.jobApplication.index');
+
+  // for Job Application Status
+  Route::get('/author/job-application/{id}', [AuthorJobApplicationController::class, 'showJob'])->name('author.jobApplication.showJob');
+  Route::post('/author/job-application/save-status', [AuthorJobApplicationController::class, 'saveStatus'])->name('author.jobApplication.saveStatus');
+
+
 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');
