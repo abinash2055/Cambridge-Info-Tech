@@ -67,9 +67,26 @@ class AuthorJobApplicationController extends Controller
         $application = JobApplication::find($request->application_id);
         $application->delete();
         Alert::toast('Company deleted', 'warning');
-        // return redirect()->route('author.jobApplication.index');
+
         return response()->json(['success' => 'User deleted successfully.']);
     }
+
+    // ShortListed Application
+    public function showShortListed()
+    {
+        $shortlistedApplications = JobApplication::where('status', 'shortlisted')->get();
+
+        return view('author.job.shortListedApplication', compact('shortlistedApplications'));
+    }
+
+    // Rejected Application
+    public function rejected()
+    {
+        $rejectedApplications = JobApplication::where('status', 'rejected')->get();
+
+        return view('author.job.rejectApplication', compact('rejectedApplications'));
+    }
+
 
     public function jobList()
     {
@@ -114,7 +131,6 @@ class AuthorJobApplicationController extends Controller
         $applications = JobApplication::with(['user', 'post'])->get();
         return view('author.job.index', compact('applications'));
     }
-
 
     // For Complete Job Details
     protected function getDashCount()

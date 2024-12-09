@@ -13,10 +13,18 @@
 
                     {{-- all Application, Shortlisted and Rejected part --}}
                     <div class="d-flex">
-                        <button class="btn btn-primary me-3 filter-btn" data-filter="all">All Application</button>
-                        <button class="btn btn-success me-3 filter-btn" data-filter="shortlisted">Shortlisted
-                            Application</button>
-                        <button class="btn btn-danger filter-btn" data-filter="rejected">Reject Application</button>
+                        <a href="{{ route('author.job.applications.index') }}" class="btn btn-primary me-3"
+                            aria-label="View all applications">
+                            All Applications
+                        </a>
+                        <a href="{{ route('author.job.applications.shortlisted') }}" class="btn btn-success me-3"
+                            aria-label="View shortlisted applications">
+                            Shortlisted Applications
+                        </a>
+                        <a href="{{ route('author.job.applications.rejected') }}" class="btn btn-danger"
+                            aria-label="View rejected applications">
+                            Rejected Applications
+                        </a>
                     </div>
 
                     <div id="application-data">

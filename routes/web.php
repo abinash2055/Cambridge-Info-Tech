@@ -26,33 +26,42 @@ Route::get('/', [WebController::class, 'index'])->name('home.index');
 Route::get('/job/{job}', [WebController::class, 'job'])->name('post.show');
 Route::get('employer/{employer}', [WebController::class, 'employer'])->name('employer.show');
 
+
 //Return vue page
 Route::get('/search', [WebController::class, 'jobs'])->name('job.index');
+
 
 // Contact Us
 Route::get('/contact', [WebController::class, 'contactForm'])->name('contact');
 Route::post('/contact', [WebController::class, 'contactEmail'])->name('contact.submit');
 
+
 // For FAQ 
 Route::get('/faqs', [WebController::class, 'faqs'])->name('home.faqs');
 Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.info');
+
 
 // For registration
 Route::put('account/update-details', [AccountController::class, 'updateAccountDetails'])->name('account.updateDetails');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 
+
 // Show forgot password form
 Route::get('/forgot-password', [AuthenticationController::class, 'forgotPasswordForm'])->name('password.forgot');
 
+
 // Submit forgot password form
 Route::post('/forgot-password', [AuthenticationController::class, 'forgotPassword'])->name('password.email');
+
 
 // Show reset password form
 Route::get('/reset-password/{token}', [AuthenticationController::class, 'verifyPasswordLink'])->name('verify.password.link');
 // $resetLink = url('reset-password/' . $token . '?email=' . urlencode($user->email));
 
+
 // Submit reset password form
 Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])->name('password.reset');
+
 
 // Email verification
 Route::get('/email/verify/{token}', [AuthenticationController::class, 'verifyEmailLink'])->name('verify.email.link');
@@ -123,6 +132,18 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   // for Job Application Status
   Route::get('/author/job-application/{id}', [AuthorJobApplicationController::class, 'showJob'])->name('author.jobApplication.showJob');
   Route::post('/author/job-application/save-status', [AuthorJobApplicationController::class, 'saveStatus'])->name('author.jobApplication.saveStatus');
+
+
+  // Route for all applications Button
+  Route::get('/author/job/applications', [AuthorJobApplicationController::class, 'index'])->name('author.job.applications.index');
+
+  // Route for shortlisted applications Button
+  Route::get('/author/job/applications/shortlisted', [AuthorJobApplicationController::class, 'showShortListed'])->name('author.job.applications.shortlisted');
+
+  // Route for rejected applications Button
+  Route::get('/author/job/applications/rejected', [AuthorJobApplicationController::class, 'rejected'])->name('author.job.applications.rejected');
+
+
 
   // for Job (Post) 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
