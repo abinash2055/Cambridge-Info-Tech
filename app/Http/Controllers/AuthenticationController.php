@@ -28,6 +28,7 @@ class AuthenticationController extends Controller
         ]);
 
         $token = Str::random(40);
+
         // Create the user
         $user = User::create([
             'name' => $request->name,
@@ -40,6 +41,7 @@ class AuthenticationController extends Controller
             'current_job' => $request->current_job,
             'verification_code' => $token,
         ]);
+
         $user->assignRole('user');
 
         // Prepare email data
@@ -48,16 +50,18 @@ class AuthenticationController extends Controller
             'verifyLink' => url('email/verify/' . $token),
         ];
 
-
         // Send verification email
         try {
             Mail::to($user->email)->send(new VerificationEmail($data));
         } catch (\Exception $e) {
+
             Alert::toast('Failed to send verification email. Please try again.', 'error');
+
             return redirect()->back();
         }
 
         Alert::toast('Registration successful! Please check your email for verification.', 'success');
+
         return redirect()->route('login')->with('success', 'Registration successful! Please check your email for verification.');
     }
 
@@ -70,6 +74,7 @@ class AuthenticationController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
+
             // Generate a random token for password reset
             $token = Str::random(60);
             $user->reset_token = $token; // Store the token in the user model
@@ -87,16 +92,20 @@ class AuthenticationController extends Controller
                 Mail::to($user->email) // Replace with the admin's email address
                     ->send(new ResetPasswordMail($data));
             } catch (\Exception $e) {
+
                 Alert::toast('Failed to send password reset email. Please try again.', 'error');
+
                 return redirect()->back();
             }
 
             Alert::toast('Password reset link sent to your email!', 'success');
+
             return redirect()->route('login');
         }
 
         // If email is not found, return an error
         Alert::toast('Email not found.', 'error');
+
         return back()->with('error', 'Email not found.');
     }
 
@@ -112,12 +121,14 @@ class AuthenticationController extends Controller
         $user = User::where('reset_token', $token)->first();
 
         if ($user && $user->reset_token_expiry > now()) {
+
             return view('auth.reset-password')
                 ->with(['token' => $token, 'email' => $user->email]);;
         }
 
         // If email is not found, return an error
         Alert::toast('Password reset link expired!', 'error');
+
         return redirect()->route('login');
     }
 
@@ -132,14 +143,14 @@ class AuthenticationController extends Controller
 
         $user = User::where('reset_token', $request->token)->first();
 
-        // dd($user);
-
         $user->forceFill([
             'password' => Hash::make($request->password),
             'reset_token' => null,
             'reset_token_expiry' => null
         ])->save();
+
         Alert::toast('Password reset successfully!', 'success');
+
         return redirect()->route('login');
     }
 
@@ -148,18 +159,22 @@ class AuthenticationController extends Controller
 
         // Find the user by email
         $user = User::where('verification_code', $token)->first();
+
         if ($user) {
             $user->forceFill([
                 'verification_code' => null,
                 'email_verified_At' => now()
             ])->save();
+
             // If email is found
             Alert::toast('Email verified successfully!', 'success');
+
             return redirect()->route('login');
         }
 
         // If email is not found, return an error
         Alert::toast('Email verification link expired!', 'error');
+
         return redirect()->route('login');
     }
 }

@@ -72,7 +72,4 @@ class AdminController extends Controller
             'authors' => User::role('author')->count(),
         ];
     }
-
-    
-
 }

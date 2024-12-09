@@ -17,6 +17,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
+
         return view('auth.editProfile', compact('user'));
     }
 
@@ -50,6 +51,7 @@ class ProfileController extends Controller
         $user->save();
 
         Alert::toast('Profile updated successfully!', 'success');
+
         return redirect()->route('account.overview');
     }
 }

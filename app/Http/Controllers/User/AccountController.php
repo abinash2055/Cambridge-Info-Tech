@@ -18,6 +18,7 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function overview()
     {
         return view('account.overview');
@@ -41,15 +42,20 @@ class AccountController extends Controller
     public function applyJobView(Request $request)
     {
         if ($this->hasApplied(auth()->user(), $request->post_id)) {
+
             Alert::toast('You have already applied for this job!', 'success');
+
             return redirect()->route('post.show', ['job' => $request->post_id]);
         } else if (!auth()->user()->hasRole('user')) {
+
             Alert::toast('You are a employer! You can\'t apply for the job! ', 'error');
+
             return redirect()->route('post.show', ['job' => $request->post_id]);
         }
 
         $post = Post::find($request->post_id);
         $company = $post->company()->first();
+
         return view('account.applyJob.apply', compact('post', 'company'));
     }
 
@@ -60,14 +66,18 @@ class AccountController extends Controller
         $user = User::find(auth()->user()->id);
 
         if ($this->hasApplied($user, $request->post_id)) {
+
             Alert::toast('You have already applied for this job!', 'success');
+
             return redirect()->route('post.show', ['job' => $request->post_id]);
         }
 
         $application->user_id = auth()->user()->id;
         $application->post_id = $request->post_id;
         $application->save();
+
         Alert::toast('Thank you for applying! Wait for the company to respond!', 'success');
+
         return redirect()->route('account.appliedJob');
     }
 
@@ -79,7 +89,9 @@ class AccountController extends Controller
     public function changePassword(Request $request)
     {
         if (!auth()->user()) {
+
             Alert::toast('Not authenticated!', 'success');
+
             return redirect()->back();
         }
 
@@ -95,11 +107,16 @@ class AccountController extends Controller
         $confirmP = $request->confirm_password;
 
         if (Hash::check($currentP, $authUser->password)) {
+
             if (Str::of($newP)->exactly($confirmP)) {
+
                 $user = User::find($authUser->id);
                 $user->password = Hash::make($newP);
+
                 if ($user->save()) {
+
                     Alert::toast('Password Changed!', 'success');
+
                     return redirect()->route('account.overview');
                 } else {
                     Alert::toast('Something went wrong!', 'warning');
@@ -122,8 +139,11 @@ class AccountController extends Controller
     {
         $user = User::find(auth()->user()->id);
         Auth::logout($user->id);
+
         if ($user->delete()) {
+
             Alert::toast('Your account was deleted successfully!', 'info');
+
             return redirect(route('home.index'));
         } else {
             return view('account.deactivate');
@@ -139,6 +159,7 @@ class AccountController extends Controller
     protected function hasApplied($user, $postId)
     {
         $applied = $user->applied()->where('post_id', $postId)->get();
+
         if ($applied->count()) {
             return true;
         } else {
@@ -149,6 +170,7 @@ class AccountController extends Controller
     public function appliedJob()
     {
         $applications = JobApplication::with(['post', 'post.company'])->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+
         return view('account.applyJob.index', compact('applications'));
     }
 
@@ -158,9 +180,11 @@ class AccountController extends Controller
 
         // Check if the application exists and belongs to the authenticated user
         if ($application && $application->user_id == auth()->id()) {
+
             // Check if the application is less than 24 hours old
             if ($application->created_at >= now()->subDay()) {
                 $application->delete();
+
                 Alert::toast('Your application has been removed successfully!', 'success');
             } else {
                 Alert::toast('You can only remove applications within 24 hours of applying.', 'error');
@@ -168,7 +192,6 @@ class AccountController extends Controller
         } else {
             Alert::toast('Application not found or you do not have permission to remove it.', 'warning');
         }
-
         return redirect()->route('account.appliedJob');
     }
 

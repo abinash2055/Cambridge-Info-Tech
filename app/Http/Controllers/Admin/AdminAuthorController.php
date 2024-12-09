@@ -11,7 +11,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminAuthorController extends Controller
 {
-    // For Complete Author Task Details
     public function index()
     {
         $userCount = User::count();
@@ -45,6 +44,7 @@ class AdminAuthorController extends Controller
             'password' => bcrypt($request->password),
             'role' => 'author',
         ]);
+
         $author->assignRole('author');
         Alert::toast('Finally!! Author Created', 'info');
         return redirect()->route('admin.author.index');

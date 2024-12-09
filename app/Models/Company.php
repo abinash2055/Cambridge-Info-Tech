@@ -18,6 +18,7 @@ class Company extends Model
     {
         return $this->hasOne('App\Models\CompanyCategory', 'id', 'company_category_id');
     }
+
     public function posts()
     {
         return $this->hasMany('App\Models\Post');

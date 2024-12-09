@@ -24,6 +24,7 @@ class AdminFaqController extends Controller
 
         $faqs = Faq::where('faq_category_id', $categoryId)->get();
         $categories = FaqCategory::findOrFail($categoryId);
+
         if (!$categories) {
             Alert::Toast('Category not found.', 'error');
             return redirect()->route('faqs.index');
@@ -50,9 +51,6 @@ class AdminFaqController extends Controller
             'answer' => 'required|string',
             'status' => 'required|boolean',
         ]);
-        
-        // dd($request->except('_token'));
-
 
         Faq::create($request->all());
 
@@ -112,5 +110,4 @@ class AdminFaqController extends Controller
         $faq = Faq::findOrFail($id);
         return view('admin.faqs.faqQuestionAnswer.faqShow', compact('faq'));
     }
-
 }

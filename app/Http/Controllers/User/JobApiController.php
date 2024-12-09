@@ -17,8 +17,10 @@ class JobApiController extends Controller
     public function search(Request $request)
     {
         if ($request->q) {
+
             $posts = Post::where('job_title', 'LIKE', '%' . $request->q . '%');
         } elseif ($request->category_id) {
+
             $posts = Post::whereHas('company', function ($query) use ($request) {
                 return $query->where('company_category_id', $request->category_id);
             });
@@ -43,23 +45,27 @@ class JobApiController extends Controller
     public function getCategories()
     {
         $categories = CompanyCategory::all();
+
         return $categories->toJson();
     }
 
     public function getDistricts()
     {
         $districts = District::all();
+
         return $districts->toJson();
     }
 
     public function getAllOrganization()
     {
         $companies = Company::all();
+
         return $companies->toJson();
     }
     public function getAllByTitle()
     {
         $posts = Post::where('deadline', '>', Carbon::now())->get()->pluck('id', 'job_title');
+
         return $posts->toJson();
     }
 }

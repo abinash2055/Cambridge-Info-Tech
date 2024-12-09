@@ -17,6 +17,7 @@ class AuthorController extends Controller
         $applications = null;
 
         if ($this->hasCompany()) {
+
             //without the if block the posts relationship returns error
             $company = auth()->user()->company;
             $posts = $company->posts()->get();

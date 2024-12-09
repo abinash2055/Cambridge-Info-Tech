@@ -9,7 +9,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminCompanyCategoryController extends Controller
 {
-
     public function store(Request $request)
     {
         $request->validate([

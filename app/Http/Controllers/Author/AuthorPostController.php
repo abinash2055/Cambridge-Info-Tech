@@ -22,10 +22,14 @@ class AuthorPostController extends Controller
     public function create()
     {
         if (!auth()->user()->company) {
+
             Alert::toast('You must create a company first!', 'info');
+
             return redirect()->route('author.company.create');
         }
+
         $districts = District::all();
+
         return view('author.post.create')->with('districts', $districts);
     }
 
@@ -40,10 +44,13 @@ class AuthorPostController extends Controller
         $postData = array_merge(['company_id' => auth()->user()->company->id], $data);
 
         $post = Post::create($postData);
+
         if ($post) {
+
             Alert::toast('Post listed!', 'success');
             return redirect()->route('author.authorSection');
         }
+
         Alert::toast('Post failed to list!', 'warning');
         return redirect()->back();
     }
@@ -58,6 +65,7 @@ class AuthorPostController extends Controller
         $similarPosts = Post::whereHas('company', function ($query) use ($company) {
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
+
         return view('account.post.show')->with([
             'post' => $post,
             'company' => $company,
@@ -74,7 +82,6 @@ class AuthorPostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        // dd($request->all());
         $request->validate([
             'company_id' => 'required|integer',
             'job_title' => 'required|string|max:255',
@@ -97,10 +104,10 @@ class AuthorPostController extends Controller
         $data['skills'] = implode(',', $request->skills);
         $data['specifications'] = $request->specifications ?? '';
 
-        // Update the post with all data except skills (handled above)
 
-        // dd($data);
+        // Update the post with all data except skills (handled above)
         $post->update($data);
+
         Alert::toast('Job post updated successfully!!', 'success');
         return redirect()->route('author.authorSection');
     }
@@ -109,6 +116,7 @@ class AuthorPostController extends Controller
     public function destroy(Post $post)
     {
         if ($post->delete()) {
+
             Alert::toast('Post successfully deleted!', 'success');
 
             return response()->json(['success' => 'Post deleted successfully.']);
@@ -143,7 +151,9 @@ class AuthorPostController extends Controller
             'totalJobs' => Post::count(),
             'livePost' => Post::where('status', 'live')->count(),
         ];
+
         $jobCategories = CompanyCategory::all();
+
         return view('author.view-all-jobs', compact('activeJobs', 'dashCount', 'jobCategories'));
     }
 }
