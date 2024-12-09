@@ -93,19 +93,20 @@ class AuthorJobApplicationController extends Controller
 
     public function saveStatus(Request $request)
     {
-        // Logic to save statuses
-        $statuses = $request->input('statuses');
-        foreach ($statuses as $applicationId => $status) {
-            $application = JobApplication::find($applicationId);
-            if ($application) {
-                $application->status = $status;
-                $application->save();
-            }
+        $application = JobApplication::find($request->input('applicationId'));
+        if ($application) {
+            $application->status = $request->input('status');
+            $application->save();
+            return response()->json(['success' => true, 'status' => $application->status]);
         }
-        // to retrieve updated value 
-        $applications = JobApplication::all();
+        return response()->json(['success' => false]);
+    }
 
-        return redirect()->route('author.jobApplication.index')->with('success', 'Statuses updated successfully.');
+
+    public function job()
+    {
+        $applications = JobApplication::with(['user', 'post'])->get();
+        return view('author.job.index', compact('applications'));
     }
 
 
