@@ -24,14 +24,14 @@
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-applications' ? 'active' : '' }}">
                 <a href="{{ route('admin.user.viewAllUsers') }}" class="account-nav-link">
-                    <i class="fas fa-users"></i> View All Applications
+                    <i class="fa-brands fa-y-combinator"></i> View All Applications
                 </a>
             </li>
 
             <li {{-- {{ route(admin.faqs.faqCategoryIndex)}} --}}
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'faq-categories' ? 'active' : '' }}">
                 <a href="{{ route('faqs-categories.index') }}" class="account-nav-link">
-                    <i class="fas fa-question-circle"></i> FAQ Details
+                    <i class="fas fa-user"></i> FAQ Details
                 </a>
             </li>
         @endrole

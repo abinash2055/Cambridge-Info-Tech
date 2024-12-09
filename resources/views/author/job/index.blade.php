@@ -50,11 +50,13 @@
                                                 </td>
                                                 <td>{{ $application->created_at }}</td>
 
-                                                <td>{{ ucfirst($application->status) }}</td>
+                                                <td id="status-{{ $application->id }}">{{ ucfirst($application->status) }}
+                                                </td>
+
 
 
                                                 <td>
-                                                    <a href="{{ route('author.jobApplication.show', ['application' => $application->id]) }}"
+                                                    <a href="{{ route('author.jobApplication.show', ['id' => $application->id]) }}"
                                                         class="btn primary-outline-btn">View Details</a>
                                                 </td>
 

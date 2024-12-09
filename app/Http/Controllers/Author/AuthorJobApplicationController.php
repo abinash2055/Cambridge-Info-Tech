@@ -93,13 +93,19 @@ class AuthorJobApplicationController extends Controller
 
     public function saveStatus(Request $request)
     {
-        $application = JobApplication::find($request->input('applicationId'));
+        $applicationId = $request->input('application_id');
+        $status = $request->input('status');
+
+        // Find the job application and update the status
+        $application = JobApplication::find($applicationId);
         if ($application) {
-            $application->status = $request->input('status');
+            $application->status = $status;
             $application->save();
-            return response()->json(['success' => true, 'status' => $application->status]);
+
+            return redirect()->route('author.jobApplication.index')->with('success', 'Status updated successfully.');
         }
-        return response()->json(['success' => false]);
+
+        return redirect()->route('author.jobApplication.index')->withErrors('Applicant not found.');
     }
 
 

@@ -52,7 +52,7 @@
                                                     Rejected
                                                 </option>
                                             </select>
-                                            <input type="hidden" name="applicationId" value="{{ $application->id }}">
+                                            <input type="hidden" name="application_id" value="{{ $application->id }}">
                                             <button type="submit" class="btn primary-outline-btn mt-2">Save</button>
                                         </div>
                                     </form>
@@ -83,6 +83,7 @@
                                 ({{ date('d', $post->remainingDays()) }} days from now)
                             </p>
                         @endif
+
                         <a href="{{ route('post.show', ['job' => optional($post)->id]) }}" class="btn secondary-link">
                             <i class="fas fa-briefcase"></i> View Job
                         </a>
@@ -97,29 +98,33 @@
 
 
 <script>
-    document.querySelectorAll('.form-select').forEach(selectElement => {
-        selectElement.addEventListener('change', function() {
-            const applicationId = this.name.match(/\d+/)[0];
-            const status = this.value;
-
-            fetch('{{ route('author.jobApplication.saveStatus') }}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        applicationId,
-                        status
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Status updated successfully.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    });
+    document.getElementById('status-select').addEventListener('change', function() {
+                const status = this.value;
+                const applicationId = this.dataset.applicationId;
+                fetch('{{ route('author.jobApplication.saveStatus') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            application_id: applicationId,
+                            status
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update the status in the index page
+                            const statusElement = document.getElementById('status-' + applicationId);
+                            if (statusElement) {
+                                statusElement.textContent = data.status.charAt(0).toUpperCase() + data.status.slice(
+                                    1);
+                            }
+                            alert('Status updated to: ' + data.status);
+                        } else {
+                            alert('Error updating status: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
 </script>
