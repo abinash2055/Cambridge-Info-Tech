@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\savedJobController;
@@ -22,7 +21,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 
-
 //Public routes
 Route::get('/', [WebController::class, 'index'])->name('home.index');
 Route::get('/job/{job}', [WebController::class, 'job'])->name('post.show');
@@ -41,8 +39,6 @@ Route::get('/faqs/{slug}', [WebController::class, 'faqsInfo'])->name('home.faqs.
 
 // For registration
 Route::put('account/update-details', [AccountController::class, 'updateAccountDetails'])->name('account.updateDetails');
-
-
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 
 // Show forgot password form
@@ -61,10 +57,12 @@ Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'
 // Email verification
 Route::get('/email/verify/{token}', [AuthenticationController::class, 'verifyEmailLink'])->name('verify.email.link');
 
+
 // For Email Verification
 Route::get('/email/verify', function () {
   return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
 
 // Email Verification Handler 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -75,10 +73,9 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 
 
-
-
 //Auth routes
 Route::middleware('auth')->prefix('account')->group(function () {
+
   //Every auth routes AccountController
   Route::get('logout', [AccountController::class, 'logout'])->name('account.logout');
   Route::get('overview', [AccountController::class, 'overview'])->name('account.overview');
@@ -90,9 +87,9 @@ Route::middleware('auth')->prefix('account')->group(function () {
   Route::post('/account/upload-cv', [AccountController::class, 'storeCv'])->name('account.storeCv');
 
 
-
   //User Role routes
   Route::group(['middleware' => ['role:user|author|admin']], function () {
+
     //SavedJobs
     Route::get('my-saved-jobs', [savedJobController::class, 'index'])->name('account.savedJob.index');
     Route::get('my-saved-jobs/{id}', [savedJobController::class, 'store'])->name('account.savedJob.store');
@@ -115,7 +112,6 @@ Route::middleware('auth')->prefix('account')->group(function () {
 });
 
 
-
 //Author Role Routes
 Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin']], function () {
   Route::get('author-section', [AuthorController::class, 'authorSection'])->name('author.authorSection');
@@ -128,8 +124,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::get('/author/job-application/{id}', [AuthorJobApplicationController::class, 'showJob'])->name('author.jobApplication.showJob');
   Route::post('/author/job-application/save-status', [AuthorJobApplicationController::class, 'saveStatus'])->name('author.jobApplication.saveStatus');
 
-
-
+  // for Job (Post) 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');
   Route::get('post/{post}/edit', [AuthorPostController::class, 'edit'])->name('author.post.edit');
@@ -137,7 +132,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::delete('post/{post}', [AuthorPostController::class, 'destroy'])->name('author.post.destroy');
   Route::get('view-all-jobs', [AuthorPostController::class, 'viewAllJobs'])->name('author.viewAllJobs');
 
-
+  // For Company
   Route::get('company/create', [AuthorCompanyController::class, 'create'])->name('author.company.create');
   Route::post('company', [AuthorCompanyController::class, 'store'])->name('author.company.store');
   Route::get('company/edit', [AuthorCompanyController::class, 'edit'])->name('author.company.edit');
@@ -151,10 +146,11 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
   Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-  // for users
+  // for Users
   Route::get('view-all-users', [AdminController::class, 'viewAllUsers'])->name('admin.user.viewAllUsers');
   Route::post('view-all-users/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.user.destroy');
 
+  // For category
   Route::get('category/{category}/edit', [AdminCompanyCategoryController::class, 'edit'])->name('admin.category.edit');
   Route::post('category', [AdminCompanyCategoryController::class, 'store'])->name('admin.category.store');
   Route::put('category/{id}', [AdminCompanyCategoryController::class, 'update'])->name('admin.category.update');
@@ -179,9 +175,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   // For FAQ Category
   Route::resource('faqs-categories', AdminFaqCategoryController::class);
 
-  // Route for managing FAQs by category
+  // Route for Managing FAQs by category
   Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
-
   Route::get('faqs/create/{categoryId}', [AdminFaqController::class, 'create'])->name('faqs.create');
   Route::post('faqs/store', [AdminFaqController::class, 'store'])->name('faqs.store');
   Route::get('faqs/edit/{id}', [AdminFaqController::class, 'edit'])->name('faqs.edit');

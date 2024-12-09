@@ -10,10 +10,9 @@
                 <div class="col-sm-12 col-md-12">
                     <p class="mb-3 alert alert-primary">Listing all the Applicants who applied for your <strong>job
                             listings</strong>.</p>
-                    {{-- Selecting all, shortlisted and rejected part --}}
 
+                    {{-- all Application, Shortlisted and Rejected part --}}
                     <div class="d-flex">
-
                         <button class="btn btn-primary me-3 filter-btn" data-filter="all">All Application</button>
                         <button class="btn btn-success me-3 filter-btn" data-filter="shortlisted">Shortlisted
                             Application</button>
@@ -21,7 +20,7 @@
                     </div>
 
                     <div id="application-data">
-                        <!-- All the Remaining data -->
+
                         <div class="table-responsive pt-3">
                             <table class="table table-hover table-striped small">
                                 <thead>
@@ -31,7 +30,7 @@
                                         <th>Email</th>
                                         <th>Job Title</th>
                                         <th>Applied on</th>
-                                        <th>Status</th> <!-- Added Status column -->
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -57,7 +56,7 @@
 
                                                 <td>
                                                     <a href="{{ route('author.jobApplication.show', ['id' => $application->id]) }}"
-                                                        class="btn primary-outline-btn">View Details</a>
+                                                        class="btn primary-outline-btn">View</a>
                                                 </td>
 
                                                 <td>
@@ -127,6 +126,7 @@
     </div>
 @endsection
 
+{{-- For Status --}}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const buttons = document.querySelectorAll('.filter-btn');
@@ -140,14 +140,11 @@
         });
 
         function filterData(filter) {
-
-            // Filter the data based on the status
             let filteredData = data;
             if (filter !== 'all') {
                 filteredData = data.filter(item => item.status === filter);
             }
 
-            // Clear the current data container and display the filtered results
             dataContainer.innerHTML = '';
             filteredData.forEach(item => {
                 const div = document.createElement('div');
