@@ -23,12 +23,12 @@
 
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-applications' ? 'active' : '' }}">
-                <a href="{{ route('admin.user.viewAllUsers') }}" class="account-nav-link">
+                <a href="#" class="account-nav-link">
                     <i class="fa-brands fa-y-combinator"></i> View All Applications
                 </a>
             </li>
 
-            <li {{-- {{ route(admin.faqs.faqCategoryIndex)}} --}}
+            <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'faq-categories' ? 'active' : '' }}">
                 <a href="{{ route('faqs-categories.index') }}" class="account-nav-link">
                     <i class="fas fa-user"></i> FAQ Details
@@ -49,6 +49,12 @@
                     <i class="fas fa-plus-square"></i> Create Job listing
             </li>
 
+            <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active' : '' }}">
+                <a href="{{ route('account.overview') }}" class="account-nav-link">
+                    <i class="fas fa-user-shield"></i> Author Account
+                </a>
+            </li>
+
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'job-application' ? 'active' : '' }}">
                 <a href="{{ route('author.jobApplication.index') }}" class="account-nav-link">
@@ -62,15 +68,21 @@
             </li>
         @endrole
 
-        <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active' : '' }}">
+        {{-- <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active' : '' }}">
             <a href="{{ route('account.overview') }}" class="account-nav-link">
                 <i class="fas fa-user-shield"></i> User Account
             </a>
-        </li>
+        </li> --}}
 
 
 
         @role('user')
+            <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active' : '' }}">
+                <a href="{{ route('account.overview') }}" class="account-nav-link">
+                    <i class="fas fa-user-shield"></i> User Account
+                </a>
+            </li>
+
             {{-- <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'become-employer' ? 'active' : '' }}">
                 <a href="{{ route('account.becomeEmployer') }}" class="account-nav-link">
@@ -106,7 +118,7 @@
                 </a>
             </li>
 
-            <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'upload-cv' ? 'active' : '' }}">
+            <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'upload-cv' ? 'active' : '' }}">
                 <a href="{{ route('account.uploadCv') }}" class="account-nav-link">
                     <i class="fas fa-upload"></i> Upload CV
                 </a>
@@ -129,7 +141,7 @@
         @endrole
 
         @role('author')
-            <li class="list-group-item list-group-item-action {{ request()->segment(3) == 'job-list' ? 'active' : '' }}">
+            <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'job-list' ? 'active' : '' }}">
                 <a href="{{ route('author.viewAllJob') }}" class="account-nav-link">
                     <i class="fas fa-clipboard-list"></i> Job List
                 </a>

@@ -14,7 +14,6 @@
                             <th>Company</th>
                             <th>Applied On</th>
                             <th>Action of Post</th>
-                            <th>Action of Post</th>
                             <th>Status</th>
                             <th>Remove</th>
                         </tr>

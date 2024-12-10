@@ -205,6 +205,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   // For FAQ Category
   Route::resource('faqs-categories', AdminFaqCategoryController::class);
 
+  // For Application Selection
+  // Route::get('view-all-applications', [AdminController::class, 'viewAllApplications'])->name('admin.application.viewAllUsers');
+  // Route::post('view-all-applications/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.application.destroy');
+
+
   // Route for Managing FAQs by category
   Route::get('faqs/{category_id}', [AdminFaqController::class, 'index'])->name('faqs.index');
   Route::get('faqs/create/{categoryId}', [AdminFaqController::class, 'create'])->name('faqs.create');

@@ -53,7 +53,7 @@
                                                 </option>
                                             </select>
                                             <input type="hidden" name="application_id" value="{{ $application->id }}">
-                                            <button type="submit" class="btn primary-outline-btn mt-2">Save</button>
+                                            <button type="submit" class="btn primary-outline-btn mt-2 px-2">Save</button>
                                         </div>
                                     </form>
                                 </div>
