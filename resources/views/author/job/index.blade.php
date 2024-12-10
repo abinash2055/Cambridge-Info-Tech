@@ -17,6 +17,10 @@
                             aria-label="View all applications">
                             All Applications
                         </a>
+                        <a href="{{ route('author.job.applications.pending') }}" class="btn btn-warning me-3"
+                            aria-label="View pending applications">
+                            Pending Applications
+                        </a>
                         <a href="{{ route('author.job.applications.shortlisted') }}" class="btn btn-success me-3"
                             aria-label="View shortlisted applications">
                             Shortlisted Applications
@@ -45,22 +49,24 @@
                                 <tbody>
                                     @if ($applications && $applications->count())
                                         @foreach ($applications as $application)
-                                            {{-- {{ dd($application->post->id) }} --}}
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ $loop->iteration }}</td>
+
                                                 <td>{{ optional($application->user)->name }}</td>
-                                                <td><a
+
+                                                <td>
+                                                    <a
                                                         href="mailto:{{ optional($application->user)->email }}">{{ optional($application->user)->email }}</a>
                                                 </td>
+
                                                 <td><a
                                                         href="{{ route('author.jobApplication.showJob', $application->post->id) }}">{{ substr(optional($application->post)->job_title, 0, 14) }}...</a>
                                                 </td>
+
                                                 <td>{{ $application->created_at }}</td>
 
                                                 <td id="status-{{ $application->id }}">{{ ucfirst($application->status) }}
                                                 </td>
-
-
 
                                                 <td>
                                                     <a href="{{ route('author.jobApplication.show', ['id' => $application->id]) }}"
@@ -68,15 +74,24 @@
                                                 </td>
 
                                                 <td>
-                                                    <a href="#" class="btn btn-danger">Reject</a>
-                                                    <form action="{{ route('author.jobApplication.destroy') }}"
+                                                    <form
+                                                        action="{{ route('author.job.applications.reject', ['id' => $application->id]) }}"
                                                         method="POST" class="d-inline-block">
                                                         @csrf
-                                                        @method('delete')
+                                                        @method('PATCH')
                                                         <input type="hidden" name="application_id"
                                                             value="{{ $application->id }}">
-
-                                                        {{-- <button type="submit" class="btn danger-btn">Delete</button> --}}
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                        {{-- <td>
+                                                    <form
+                                                        action="#"
+                                                        method="POST" class="d-inline-block">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="hidden" name="application_id"
+                                                            value="{{ $application->id }}">
+                                                    <button type="submit" class="btn danger-btn">Delete</button>
+                                                </td> --}}
                                                     </form>
                                                 </td>
                                             </tr>

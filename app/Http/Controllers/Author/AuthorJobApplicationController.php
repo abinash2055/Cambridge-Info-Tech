@@ -71,6 +71,13 @@ class AuthorJobApplicationController extends Controller
         return response()->json(['success' => 'User deleted successfully.']);
     }
 
+    public function pending()
+    {
+        $pendingApplications = JobApplication::where('status', 'pending')->get();
+
+        return view('author.job.pendingApplication', compact('pendingApplications'));
+    }
+
     // ShortListed Application
     public function showShortListed()
     {
@@ -86,6 +93,18 @@ class AuthorJobApplicationController extends Controller
 
         return view('author.job.rejectApplication', compact('rejectedApplications'));
     }
+
+    // For reject button in index page
+    public function reject($id)
+    {
+        $application = JobApplication::findOrFail($id);
+
+        $application->status = 'rejected';
+        $application->save();
+
+        return redirect()->route('author.jobApplication.index')->with('success', 'Application rejected successfully.');
+    }
+
 
 
     public function jobList()

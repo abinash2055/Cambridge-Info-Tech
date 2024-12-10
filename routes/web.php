@@ -134,14 +134,23 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::post('/author/job-application/save-status', [AuthorJobApplicationController::class, 'saveStatus'])->name('author.jobApplication.saveStatus');
 
 
-  // Route for all applications Button
+  // Route for all applications Button status
   Route::get('/author/job/applications', [AuthorJobApplicationController::class, 'index'])->name('author.job.applications.index');
 
-  // Route for shortlisted applications Button
+  // Route for pending applications Button status
+  Route::get('/author/job/applications/pending', [AuthorJobApplicationController::class, 'pending'])->name('author.job.applications.pending');
+
+
+  // Route for shortlisted applications Button status
   Route::get('/author/job/applications/shortlisted', [AuthorJobApplicationController::class, 'showShortListed'])->name('author.job.applications.shortlisted');
 
-  // Route for rejected applications Button
+  // Route for rejected applications status
   Route::get('/author/job/applications/rejected', [AuthorJobApplicationController::class, 'rejected'])->name('author.job.applications.rejected');
+
+  // Route for rejected applications button 
+  Route::patch('/author/job/applications/{id}/reject', [AuthorJobApplicationController::class, 'reject'])
+    ->name('author.job.applications.reject');
+
 
 
 
