@@ -242,7 +242,8 @@ class AccountController extends Controller
         );
 
         // Store the uploaded file
-        $path = $request->file('cv')->store('cvs', 'public');
+        // $path = $request->file('cv')->store('cvs', 'public');
+        $path = $request->file('cv')->store('cvs');
 
         // Save the file path to the user's record (optional)
         $user = auth()->user();

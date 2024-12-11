@@ -44,7 +44,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('faqs-categories.edit', $category->id) }}" class="btn btn-warning me-2">Edit</a>
+                                        <a href="{{ route('faqs-categories.edit', $category->id) }}"
+                                            class="btn btn-warning me-2">Edit</a>
                                         <form action="{{ route('faqs-categories.destroy', $category->id) }}" method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete this category?');">
                                             @csrf

@@ -3,7 +3,7 @@
 @section('content')
     <div class="account-layout  border">
         <div class="account-hdr bg-primary text-white border">
-            VIewing all users <span class="badge badge-primary">Any Role</span>
+            VIewing all Applications <span class="badge badge-primary">Any New</span>
         </div>
         <div class="account-bdy p-3">
             <div class="row">
@@ -13,32 +13,39 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Users</th>
+                                    <th>Author</th>
                                     <th>Email</th>
+                                    <th>Company</th>
                                     <th>created on</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($users->count())
-                                    @foreach ($users as $user)
+                                @if ($posts->count())
+                                    @foreach ($posts as $post)
                                         <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td>{{ $user->created_at }}</td>
+                                            <td>{{ $post->company_id }}</td>
+                                            <td>{{ $post->job_title }}</td>
+                                            {{-- <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                            <td>{{ $user->created_at }}</td> --}}
                                             <td>
-                                                <button class="btn btn-danger delete-btn" data-id="{{ $user->id }}"
-                                                    data-name="{{ $user->name }}"
-                                                    data-url="{{ route('admin.user.destroy', $user->id) }}">
-                                                    Delete
+                                                <button class="btn btn-danger delete-btn" data-id="{{ $post->company_id }}"
+                                                    data-name="{{ $post->job_title }}"
+                                                    data-url="{{ route('admin.post.viewAllApplications', $post->job_title) }}">
+                                                    Activate
+                                                </button>
+
+                                                <button class="btn btn-danger delete-btn" data-id="{{ $post->company_id }}"
+                                                    data-name="{{ $post->job_title }}"
+                                                    data-url="{{ route('admin.post.destroyApplication', $post->job_title) }}">
+                                                    Deactivate
                                                 </button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td>There isn't any users.</td>
+                                        <td>There isn't any posts.</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

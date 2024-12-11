@@ -60,6 +60,19 @@ class AdminController extends Controller
         }
     }
 
+    // For Deletion of User
+    public function destroyApplication(Request $request)
+    {
+        // need to delete company and post also
+        $post = User::findOrFail($request->user_id);
+        if ($post->delete()) {
+            Alert::toast('Deleted Successfully!', 'danger');
+            return redirect()->route('admin.post.viewAllApplications');
+        } else {
+            return redirect()->route('admin.post.viewAllApplication');
+        }
+    }
+
 
     // For Complete Job Details
     protected function getDashCount()

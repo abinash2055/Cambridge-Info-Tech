@@ -23,7 +23,7 @@
 
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-applications' ? 'active' : '' }}">
-                <a href="#" class="account-nav-link">
+                <a href="{{ route('admin.post.viewAllApplications') }}" class="account-nav-link">
                     <i class="fa-brands fa-y-combinator"></i> View All Applications
                 </a>
             </li>

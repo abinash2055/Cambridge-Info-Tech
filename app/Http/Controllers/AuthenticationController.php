@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
 
         Alert::toast('Registration successful! Please check your email for verification.', 'success');
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please check your email for verification.');
+        return redirect()->route('login')->with('success', 'Registration successfull! Please check your email for verification.');
     }
 
     public function forgotPassword(Request $request)

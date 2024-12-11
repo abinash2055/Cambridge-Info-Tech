@@ -10,6 +10,7 @@ use App\Http\Controllers\Author\AuthorJobApplicationController;
 use App\Http\Controllers\Author\AuthorPostController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminAuthorController;
 use App\Http\Controllers\Admin\AdminCompanyCategoryController;
 use App\Http\Controllers\Admin\AdminCompanyController;
@@ -114,6 +115,7 @@ Route::middleware('auth')->prefix('account')->group(function () {
     Route::get('become-employer', [AccountController::class, 'becomeEmployerView'])->name('account.becomeEmployer');
     Route::post('become-employer', [AccountController::class, 'becomeEmployer'])->name('account.becomeEmployer');
 
+
     // Route to show edit profile form
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -123,6 +125,8 @@ Route::middleware('auth')->prefix('account')->group(function () {
 
 //Author Role Routes
 Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin']], function () {
+
+  // Author Section
   Route::get('author-section', [AuthorController::class, 'authorSection'])->name('author.authorSection');
   Route::get('/job-list', [AuthorJobApplicationController::class, 'jobList'])->name('author.viewAllJob');
   Route::get('job-application/{id}', [AuthorJobApplicationController::class, 'show'])->name('author.jobApplication.show');
@@ -152,8 +156,6 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
     ->name('author.job.applications.reject');
 
 
-
-
   // for Job (Post) 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');
@@ -161,6 +163,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   Route::put('post/{post}', [AuthorPostController::class, 'update'])->name('author.post.update');
   Route::delete('post/{post}', [AuthorPostController::class, 'destroy'])->name('author.post.destroy');
   Route::get('view-all-jobs', [AuthorPostController::class, 'viewAllJobs'])->name('author.viewAllJobs');
+
 
   // For Company
   Route::get('company/create', [AuthorCompanyController::class, 'create'])->name('author.company.create');
@@ -176,15 +179,23 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
   Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+
   // for Users
   Route::get('view-all-users', [AdminController::class, 'viewAllUsers'])->name('admin.user.viewAllUsers');
   Route::post('view-all-users/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.user.destroy');
+
+
+  // for Applications
+  Route::get('view-all-applications', [AdminPostController::class, 'viewAllApplications'])->name('admin.post.viewAllApplications');
+  Route::post('view-all-applications/{id}', [AdminPostController::class, 'destroy'])->name('admin.post.destroy');
+
 
   // For category
   Route::get('category/{category}/edit', [AdminCompanyCategoryController::class, 'edit'])->name('admin.category.edit');
   Route::post('category', [AdminCompanyCategoryController::class, 'store'])->name('admin.category.store');
   Route::put('category/{id}', [AdminCompanyCategoryController::class, 'update'])->name('admin.category.update');
   Route::delete('category/{id}', [AdminCompanyCategoryController::class, 'destroy'])->name('admin.category.destroy');
+
 
   // for Authors list by Admin
   Route::get('/authors', [AdminAuthorController::class, 'index'])->name('admin.author.index');
@@ -195,6 +206,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::delete('/authors/{id}', [AdminAuthorController::class, 'destroy'])->name('admin.author.delete');
   Route::get('/authors/{id}/manage-company', [AdminAuthorController::class, 'manageCompany'])->name('admin.author.manageCompany');
 
+
   // For Company Routes
   Route::get('/authors/{id}/company/create', [AdminCompanyController::class, 'create'])->name('admin.company.create');
   Route::post('/authors/{id}/company', [AdminCompanyController::class, 'store'])->name('admin.company.store');
@@ -202,8 +214,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::put('/authors/{id}/company', [AdminCompanyController::class, 'update'])->name('admin.company.update');
   Route::delete('/authors/{id}/company', [AdminCompanyController::class, 'destroy'])->name('admin.company.destroy');
 
+
   // For FAQ Category
   Route::resource('faqs-categories', AdminFaqCategoryController::class);
+
 
   // For Application Selection
   // Route::get('view-all-applications', [AdminController::class, 'viewAllApplications'])->name('admin.application.viewAllUsers');
