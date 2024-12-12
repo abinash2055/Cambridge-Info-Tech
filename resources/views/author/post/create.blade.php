@@ -259,4 +259,13 @@
             });
         });
     </script>
+
+    <script>
+        // For view-all-application
+        postBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default button action
+            specificationsInput.value = quill.root.innerHTML; // Get the content from the quill editor
+            postForm.submit(); // Submit the form
+        });
+    </script>
 @endpush

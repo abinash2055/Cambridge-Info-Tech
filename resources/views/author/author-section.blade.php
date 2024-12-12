@@ -26,7 +26,7 @@
                             </div>
                             <h6 class="text-uppercase">Live Jobs</h6>
                             <h1 class="">{{ $livePosts ?? 0 }}</h1>
-                        </div>
+                        </div>`
                     </div>
                 </div>
                 <div class="col-xl-4 col-sm-6 py-2">

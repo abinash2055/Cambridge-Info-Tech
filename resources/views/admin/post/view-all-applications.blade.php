@@ -1,9 +1,9 @@
 @extends('layouts.account')
 
 @section('content')
-    <div class="account-layout  border">
+    <div class="account-layout border">
         <div class="account-hdr bg-primary text-white border">
-            VIewing all Applications <span class="badge badge-primary">Any New</span>
+            Viewing all posts <span class="badge badge-primary">All Posts</span>
         </div>
         <div class="account-bdy p-3">
             <div class="row">
@@ -13,10 +13,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Author</th>
-                                    <th>Email</th>
-                                    <th>Company</th>
-                                    <th>created on</th>
+                                    <th>Job Title</th>
+                                    <th>Company Name</th>
+                                    <th>Author Name</th>
+                                    <th>Created On</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -24,101 +24,78 @@
                                 @if ($posts->count())
                                     @foreach ($posts as $post)
                                         <tr>
-                                            <td>{{ $post->company_id }}</td>
+                                            <td>{{ $post->id }}</td>
                                             <td>{{ $post->job_title }}</td>
-                                            {{-- <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td>{{ $user->created_at }}</td> --}}
-                                            <td>
-                                                <button class="btn btn-danger delete-btn" data-id="{{ $post->company_id }}"
-                                                    data-name="{{ $post->job_title }}"
-                                                    data-url="{{ route('admin.post.viewAllApplications', $post->job_title) }}">
-                                                    Activate
-                                                </button>
 
-                                                <button class="btn btn-danger delete-btn" data-id="{{ $post->company_id }}"
-                                                    data-name="{{ $post->job_title }}"
-                                                    data-url="{{ route('admin.post.destroyApplication', $post->job_title) }}">
-                                                    Deactivate
+                                            {{-- Need relation from post to company->title --}}
+                                            <td>{{ $post->company->title ?? 'N/A' }}</td>
+
+
+                                            {{-- Need relation from post to company then company to user->name --}}
+                                            <td> {{ $post->company->user->name ?? 'N/A' }}</td>
+
+                                            <td>{{ $post->created_at }}</td>
+                                            <td>
+                                                <a href="{{ route('author.post.show', $post->id) }}" class="btn btn-info">
+                                                    View
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    class="btn toggle-status-btn {{ $post->is_active ? 'btn-success' : 'btn-danger' }}"
+                                                    data-id="{{ $post->id }}" data-title="{{ $post->title }}"
+                                                    data-status="{{ $post->is_active ? 'active' : 'inactive' }}">
+                                                    {{ $post->is_active ? 'Active' : 'Deactivate' }}
                                                 </button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td>There isn't any posts.</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td colspan="5">No posts available.</td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-center mt-4 custom-pagination">
-                        {{ $users->links() }}
+                        {{ $posts->links() }}
                     </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete <strong id="userName"></strong>?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-
 @push('js')
     <script>
         $(document).ready(function() {
-            var deleteUrl, userName;
+            $('.toggle-status-btn').on('click', function() {
+                var button = $(this);
+                var postId = button.data('id');
+                var status = button.data('status');
 
-            // Trigger the modal on delete button click using event delegation
-            $('.delete-btn').on('click', function() {
-                deleteUrl = $(this).data('url'); // Get the route URL from data-url
-                userName = $(this).data('name'); // Get the author name
-
-                // Optionally, display the author's name in the modal
-                $('#userName').text(userName);
-
-                $('#deleteModal').modal('show');
-            });
-
-
-
-            // Handle the delete action when confirm is clicked
-            $('#confirmDeleteBtn').on('click', function() {
-                // console.log("Url: ", deleteUrl);
                 $.ajax({
-                    url: deleteUrl, // Use the dynamic URL from the button
+                    url: "{{ route('admin.post.toggleStatus') }}",
                     type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                            'content') // CSRF protection for Laravel
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: postId
                     },
-                    success: function(result) {
-                        $('#deleteModal').modal('hide');
-                        location.reload(); // Reload page after deletion
+                    success: function(response) {
+                        if (response.success) {
+                            if (status === 'active') {
+                                button.removeClass('btn-success').addClass('btn-danger');
+                                button.text('Deactivate');
+                                button.data('status', 'inactive');
+                            } else {
+                                button.removeClass('btn-danger').addClass('btn-success');
+                                button.text('Active');
+                                button.data('status', 'active');
+                            }
+                        } else {
+                            alert('Could not update the status. Please try again.');
+                        }
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);

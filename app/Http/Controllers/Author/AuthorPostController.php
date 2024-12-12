@@ -33,31 +33,68 @@ class AuthorPostController extends Controller
         return view('author.post.create')->with('districts', $districts);
     }
 
+    // public function store(Request $request)
+    // {
+    //     $this->requestValidate($request);
+
+    //     $data = $request->all();
+    //     $data['skills'] = implode(',', $request->skills);
+    //     $data['specifications'] = $request->specifications ?? '';
+
+    //     $postData = array_merge(['company_id' => auth()->user()->company->id], $data);
+
+    //     $post = Post::create($postData);
+
+    //     if ($post) {
+
+    //         Alert::toast('Post listed!', 'success');
+    //         return redirect()->route('author.authorSection');
+    //     }
+
+    //     Alert::toast('Post failed to list!', 'warning');
+    //     return redirect()->back();
+    // }
+
     public function store(Request $request)
     {
-        $this->requestValidate($request);
+        $request->validate([
+            'job_title' => 'required|min:3',
+            'vacancy_count' => 'required|numeric',
+            'employment_type' => 'required',
+            'job_location' => 'required',
+            'salary' => 'required|numeric',
+            'deadline' => 'required|date',
+            'education_level' => 'required',
+            'experience' => 'required',
+            'status' => 'required',
+        ]);
 
-        $data = $request->all();
-        $data['skills'] = implode(',', $request->skills);
-        $data['specifications'] = $request->specifications ?? '';
+        // Create the new job post
+        $post = Post::create([
+            'job_title' => $request->job_title,
+            'job_level' => $request->job_level,
+            'vacancy_count' => $request->vacancy_count,
+            'employment_type' => $request->employment_type,
+            'job_district' => $request->job_district,
+            'job_location' => $request->job_location,
+            'salary' => $request->salary,
+            'deadline' => $request->deadline,
+            'education_level' => $request->education_level,
+            'experience' => $request->experience,
+            'status' => $request->status,
+            // Other fields like 'skills' and 'specifications' could be handled here too.
+        ]);
 
-        $postData = array_merge(['company_id' => auth()->user()->company->id], $data);
+        Alert::toast('Job created successfully!', 'success');
 
-        $post = Post::create($postData);
-
-        if ($post) {
-
-            Alert::toast('Post listed!', 'success');
-            return redirect()->route('author.authorSection');
-        }
-
-        Alert::toast('Post failed to list!', 'warning');
-        return redirect()->back();
+        // Redirect to view all applications
+        return redirect()->route('admin.post.viewAll');
     }
+
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('company', 'company.user')->findOrFail($id);
 
         event(new PostViewEvent($post));
         $company = $post->company()->first();
@@ -66,11 +103,12 @@ class AuthorPostController extends Controller
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
 
-        return view('account.post.show')->with([
-            'post' => $post,
-            'company' => $company,
-            'similarJobs' => $similarPosts
-        ]);
+        // return view('account.post.show')->with([
+        //     'post' => $post,
+        //     'company' => $company,
+        //     'similarJobs' => $similarPosts
+        // ]);
+        return view('author.post.show', compact('post'));
     }
 
     public function edit(Post $post)

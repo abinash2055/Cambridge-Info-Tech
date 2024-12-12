@@ -30,7 +30,7 @@ class Post extends Model
     //user post pivot for savedJobs
     public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\User', 'App\Model\Company');
     }
 
     public function company()

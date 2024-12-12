@@ -186,8 +186,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
 
   // for Applications
-  Route::get('view-all-applications', [AdminPostController::class, 'viewAllApplications'])->name('admin.post.viewAllApplications');
-  Route::post('view-all-applications/{id}', [AdminPostController::class, 'destroy'])->name('admin.post.destroy');
+  Route::get('view-all-posts', [AdminPostController::class, 'index'])->name('admin.post.viewAll');
+  Route::post('view-all-posts/{id}', [AdminPostController::class, 'destroyPost'])->name('admin.post.destroy');
+  Route::post('toggle-post-status', [AdminPostController::class, 'toggleStatus'])->name('admin.post.toggleStatus');
+  Route::get('/author/post/{id}', [AuthorPostController::class, 'show'])->name('author.post.show');
+
+
 
 
   // For category

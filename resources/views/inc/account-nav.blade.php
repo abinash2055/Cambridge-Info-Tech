@@ -9,7 +9,7 @@
 
             <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'authors' ? 'active' : '' }}">
                 <a href="{{ route('admin.author.index') }}" class="account-nav-link">
-                    <i class="fas fa-users"></i> Author List
+                    <i class="fas fa-microchip"></i> Author List
                 </a>
             </li>
 
@@ -22,14 +22,14 @@
             </li>
 
             <li
-                class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-applications' ? 'active' : '' }}">
-                <a href="{{ route('admin.post.viewAllApplications') }}" class="account-nav-link">
-                    <i class="fa-brands fa-y-combinator"></i> View All Applications
+                class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-posts' ? 'active' : '' }}">
+                <a href="{{ route('admin.post.viewAll') }}" class="account-nav-link">
+                    <i class="fas fa-chair"></i> View All Applications
                 </a>
             </li>
 
             <li
-                class="list-group-item list-group-item-action {{ request()->segment(2) == 'faq-categories' ? 'active' : '' }}">
+                class="list-group-item list-group-item-action {{ request()->segment(2.5) == 'faq-categories' ? 'active' : '' }}">
                 <a href="{{ route('faqs-categories.index') }}" class="account-nav-link">
                     <i class="fas fa-user"></i> FAQ Details
                 </a>
