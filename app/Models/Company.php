@@ -9,9 +9,20 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
+
     public function users()
     {
         return $this->belongsToMany('App\Models\User');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
     public function getCategory()

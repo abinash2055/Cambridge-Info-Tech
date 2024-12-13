@@ -93,9 +93,6 @@ Route::middleware('auth')->prefix('account')->group(function () {
   Route::delete('delete', [AccountController::class, 'deleteAccount'])->name('account.delete');
   Route::get('change-password', [AccountController::class, 'changePasswordView'])->name('account.changePassword');
   Route::put('change-password', [AccountController::class, 'changePassword'])->name('account.changePassword');
-  Route::get('/account/upload-cv', [AccountController::class, 'uploadCvForm'])->name('account.uploadCv');
-  Route::post('/account/upload-cv', [AccountController::class, 'storeCv'])->name('account.storeCv');
-
 
   //User Role routes
   Route::group(['middleware' => ['role:user|author|admin']], function () {
@@ -119,6 +116,10 @@ Route::middleware('auth')->prefix('account')->group(function () {
     // Route to show edit profile form
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Route for CV
+    Route::get('/upload-cv', [ProfileController::class, 'uploadCvForm'])->name('account.uploadCv');
+    Route::post('/upload-cv', [ProfileController::class, 'storeCv'])->name('account.storeCv');
   });
 });
 
@@ -148,8 +149,10 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   // Route for shortlisted applications Button status
   Route::get('/author/job/applications/shortlisted', [AuthorJobApplicationController::class, 'showShortListed'])->name('author.job.applications.shortlisted');
 
+
   // Route for rejected applications status
   Route::get('/author/job/applications/rejected', [AuthorJobApplicationController::class, 'rejected'])->name('author.job.applications.rejected');
+
 
   // Route for rejected applications button 
   Route::patch('/author/job/applications/{id}/reject', [AuthorJobApplicationController::class, 'reject'])
@@ -177,6 +180,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
 
 //Admin Role Routes
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], function () {
+
   Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 
@@ -190,8 +194,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
   Route::post('view-all-posts/{id}', [AdminPostController::class, 'destroyPost'])->name('admin.post.destroy');
   Route::post('toggle-post-status', [AdminPostController::class, 'toggleStatus'])->name('admin.post.toggleStatus');
   Route::get('/author/post/{id}', [AuthorPostController::class, 'show'])->name('author.post.show');
-
-
 
 
   // For category

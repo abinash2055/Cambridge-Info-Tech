@@ -1,5 +1,6 @@
 <div class="account-nav">
     <ul class="list-group">
+
         @role('admin')
             <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}" class="account-nav-link">
@@ -36,6 +37,7 @@
             </li>
         @endrole
 
+
         @role('author')
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'author-section' ? 'active' : '' }}">
@@ -67,12 +69,6 @@
                 </a>
             </li>
         @endrole
-
-        {{-- <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'overview' ? 'active' : '' }}">
-            <a href="{{ route('account.overview') }}" class="account-nav-link">
-                <i class="fas fa-user-shield"></i> User Account
-            </a>
-        </li> --}}
 
 
 

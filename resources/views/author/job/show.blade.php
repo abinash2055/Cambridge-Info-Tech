@@ -33,11 +33,12 @@
                                     <a href="mailto:{{ optional($applicant)->email }}" class="btn primary-btn"
                                         title="Click to send email">Send Email</a>
 
-                                    <a href="{{ asset('storage/' . optional($applicant)->cv) }}" class="btn btn-success"
-                                        title="Click to view CV">View CV</a>
+                                    {{-- For CV View  --}}
+                                    {{-- <a href="{{ asset('storage/' . optional($applicant)->cv) }}" class="btn btn-success"
+                                        title="Click to view CV">View CV</a> --}}
 
-                                    {{-- <a href="{{ asset('app/public/cvs/xCZJfAdgkzhTJnxGMtr6O0CZdU5Kx3u90CVxZxXX.pdf') }}"
-                                        class="btn btn-success" title="Click to view CV">View CV</a> --}}
+                                    <a href="http://yourdomain.com/storage/cvs/EDV 20261734110711.pdf"
+                                        class="btn btn-success" title="Click to view CV">View CV</a>
 
 
                                     <!-- Status Dropdown -->

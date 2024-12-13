@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <br>
-        <h2>Upload CV</h2>
+        <h2>Upload Your CV</h2>
         <br>
         @if (session('success'))
             <div class="alert alert-success">
