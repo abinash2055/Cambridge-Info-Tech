@@ -146,7 +146,7 @@ class AdminCompanyController extends Controller
             }
             $company->cover_img = 'storage/companies/cover/' . $fileNameToStore;
         } else {
-            $company->cover_img = 'nocover';
+            $company->cover_img = 'no cover';
         }
 
         if ($company->save()) {

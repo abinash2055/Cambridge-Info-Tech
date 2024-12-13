@@ -38,6 +38,11 @@ class Post extends Model
         return $this->belongsTo('App\Models\Company');
     }
 
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function deadlineTimestamp()
     {
         return Carbon::parse($this->deadline)->timestamp;

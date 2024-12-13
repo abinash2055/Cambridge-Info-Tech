@@ -13,11 +13,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Job Title</th>
+                                    <th> Job Title </th>
                                     <th>Company Name</th>
-                                    <th>Author Name</th>
-                                    <th>Created On</th>
-                                    <th>Action</th>
+                                    <th> Author Name </th>
+                                    <th> Created On </th>
+                                    <th> Action </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,8 @@
 
                                             <td>{{ $post->created_at }}</td>
                                             <td>
-                                                <a href="{{ route('author.post.show', $post->id) }}" class="btn btn-info">
+                                                <a href="{{ route('account.applyJob', ['post_id' => $post->id]) }}"
+                                                    class="btn btn-info">
                                                     View
                                                 </a>
                                             </td>

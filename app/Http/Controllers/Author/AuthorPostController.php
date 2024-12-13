@@ -82,7 +82,6 @@ class AuthorPostController extends Controller
             'education_level' => $request->education_level,
             'experience' => $request->experience,
             'status' => $request->status,
-            // Other fields like 'skills' and 'specifications' could be handled here too.
         ]);
 
         Alert::toast('Job created successfully!', 'success');
