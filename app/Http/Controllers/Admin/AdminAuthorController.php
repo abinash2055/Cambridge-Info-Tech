@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\CompanyCategory;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
 class AdminAuthorController extends Controller
 {
     public function index()
@@ -20,6 +21,7 @@ class AdminAuthorController extends Controller
         $jobCategoriesCount = CompanyCategory::count();
 
         $authors = User::where('role', 'author')->get();
+
         return view('admin.author.index', compact('userCount', 'jobCount', 'authorCount', 'liveJobCount', 'jobCategoriesCount', 'authors'));
     }
 
@@ -37,6 +39,7 @@ class AdminAuthorController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
+
         $author = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -47,6 +50,7 @@ class AdminAuthorController extends Controller
 
         $author->assignRole('author');
         Alert::toast('Finally!! Author Created', 'info');
+
         return redirect()->route('admin.author.index');
     }
 
@@ -68,6 +72,7 @@ class AdminAuthorController extends Controller
             'name' => $request->name,
             'email' => $request->email,
         ]);
+
         Alert::toast('Finally!! Author Updated', 'info');
         return redirect()->route('admin.author.index');
     }
@@ -75,7 +80,9 @@ class AdminAuthorController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
+
         Alert::toast('Author Deleted Successfully', 'success');
+
         // return redirect()->route('admin.author.index');
         return response()->json(['success' => 'Author deleted successfully.']);
     }

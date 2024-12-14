@@ -12,6 +12,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
+
         return view('users.index', compact('users'));
     }
 
@@ -37,6 +38,7 @@ class AdminUserController extends Controller
         ]);
 
         Alert::toast('User created successfully!', 'success');
+
         return redirect()->route('users.index');
     }
 
@@ -65,6 +67,7 @@ class AdminUserController extends Controller
         $user->save();
 
         Alert::toast('User updated successfully!', 'success');
+
         return redirect()->route('users.index');
     }
 
@@ -72,6 +75,7 @@ class AdminUserController extends Controller
     {
         $user = User::where('id', $id)->first();
         $user->delete();
+
         Alert::toast('User deleted successfully!', 'success');
 
         return response()->json(['success' => 'User deleted successfully.']);

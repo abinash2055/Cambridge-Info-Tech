@@ -26,7 +26,9 @@ class AdminFaqController extends Controller
         $categories = FaqCategory::findOrFail($categoryId);
 
         if (!$categories) {
+
             Alert::Toast('Category not found.', 'error');
+
             return redirect()->route('faqs.index');
         }
 
@@ -39,6 +41,7 @@ class AdminFaqController extends Controller
     public function create($categoryId)
     {
         $categories = FaqCategory::all();
+
         return view('admin.faqs.faqQuestionAnswer.faqCreate', compact('categories'));
     }
 
@@ -55,6 +58,7 @@ class AdminFaqController extends Controller
         Faq::create($request->all());
 
         Alert::Toast('FAQ created successfully.', 'success');
+
         return redirect()->route('faqs.index', $request->faq_category_id);
     }
 
@@ -81,6 +85,7 @@ class AdminFaqController extends Controller
         $faq->update($request->all());
 
         Alert::Toast('FAQ updated successfully.', 'success');
+
         return redirect()->route('faqs.index', $faq->faq_category_id);
     }
 
@@ -88,6 +93,7 @@ class AdminFaqController extends Controller
     {
         $userCount = User::count();
         $faqs = Faq::all();
+
         return view('admin.faqs.faqQuestionAnswer.faqIndex', [
             'userCount' => $userCount,
             'faqs' => $faqs
@@ -102,12 +108,14 @@ class AdminFaqController extends Controller
         $faq->delete();
 
         Alert::Toast('FAQ deleted successfully.', 'success');
+
         return redirect()->route('faqs.index', $categoryId);
     }
 
     public function show($id)
     {
         $faq = Faq::findOrFail($id);
+
         return view('admin.faqs.faqQuestionAnswer.faqShow', compact('faq'));
     }
 }

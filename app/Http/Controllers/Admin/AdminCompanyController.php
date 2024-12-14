@@ -21,10 +21,12 @@ class AdminCompanyController extends Controller
     {
         // Company for user id
         if (Company::where('user_id', $id)->first()) {
+
             Alert::toast('You already have a company!', 'info');
             return $this->edit($id);
         } else {
             $categories = CompanyCategory::all();
+
             return view('admin.company.create', compact('categories'));
         }
     }
@@ -40,22 +42,30 @@ class AdminCompanyController extends Controller
         $this->validateCompany($request);
 
         $company = new Company();
+
         if ($this->companySave($company, $request, $id)) {
+
             Alert::toast('Company created! Now you can add posts.', 'success');
+
             return redirect()->route('admin.dashboard');
         }
 
         Alert::toast('Failed!', 'error');
+
         return redirect()->route('admin.dashboard');
 
         $company = Company::where('user_id', $id)->firstOrFail();
 
         //edited
         if ($company) {
+
             Alert::toast('You already have a company!', 'info');
+
             return redirect()->route('admin.company.edit');
         }
+
         $categories = CompanyCategory::all();
+
         return view('admin.company.create', compact('categories'));
     }
 
@@ -69,6 +79,7 @@ class AdminCompanyController extends Controller
     {
         $company = Company::where('user_id', $id)->firstOrFail();
         $categories = CompanyCategory::all();
+
         return view('admin.company.edit', compact('company', 'categories'));
 
         // edited 
@@ -87,12 +98,16 @@ class AdminCompanyController extends Controller
         $this->validateCompanyUpdate($request);
 
         $company = Company::where('user_id', $id)->firstOrFail();
+
         if ($this->companyUpdate($company, $request, $id)) {
+
             Alert::toast('Company updated!', 'success');
+
             return redirect()->route('admin.dashboard');
         }
 
         Alert::toast('Failed!', 'error');
+
         return redirect()->route('admin.dashboard');
     }
 
@@ -135,15 +150,18 @@ class AdminCompanyController extends Controller
         if ($company->logo) {
             Storage::delete('public/companies/logos/' . basename($company->logo));
         }
+
         $company->logo = 'storage/companies/logos/' . $fileNameToStore;
 
         //cover image 
         if ($request->hasFile('cover_img')) {
             $fileNameToStore = $this->getFileName($request->file('cover_img'));
             $coverPath = $request->file('cover_img')->storeAs('public/companies/cover', $fileNameToStore);
+
             if ($company->cover_img) {
                 Storage::delete('public/companies/cover/' . basename($company->cover_img));
             }
+
             $company->cover_img = 'storage/companies/cover/' . $fileNameToStore;
         } else {
             $company->cover_img = 'no cover';
@@ -167,9 +185,11 @@ class AdminCompanyController extends Controller
         if ($request->hasFile('logo')) {
             $fileNameToStore = $this->getFileName($request->file('logo'));
             $logoPath = $request->file('logo')->storeAs('public/companies/logos', $fileNameToStore);
+
             if ($company->logo) {
                 Storage::delete('public/companies/logos/' . basename($company->logo));
             }
+
             $company->logo = 'storage/companies/logos/' . $fileNameToStore;
         }
 
@@ -177,9 +197,11 @@ class AdminCompanyController extends Controller
         if ($request->hasFile('cover_img')) {
             $fileNameToStore = $this->getFileName($request->file('cover_img'));
             $coverPath = $request->file('cover_img')->storeAs('public/companies/cover', $fileNameToStore);
+
             if ($company->cover_img) {
                 Storage::delete('public/companies/cover/' . basename($company->cover_img));
             }
+
             $company->cover_img = 'storage/companies/cover/' . $fileNameToStore;
         }
         if ($company->save()) {
@@ -193,16 +215,21 @@ class AdminCompanyController extends Controller
         $fileName = $file->getClientOriginalName();
         $actualFileName = pathinfo($fileName, PATHINFO_FILENAME);
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+
         return $actualFileName . time() . '.' . $fileExtension;
     }
 
     public function destroy($id)
     {
         $company = Company::where('user_id', $id)->firstOrFail();
+
         Storage::delete('public/companies/logos/' . basename($company->logo));
+
         if ($company->delete()) {
+
             return redirect()->route('admin.dashboard');
         }
+        
         return redirect()->route('admin.dashboard');
     }
 }

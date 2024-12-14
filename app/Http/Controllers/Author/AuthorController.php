@@ -42,6 +42,7 @@ class AuthorController extends Controller
     public function employer($employer)
     {
         $company = Company::find($employer)->with('posts')->first();
+
         return view('author.company.show')->with([
             'company' => $company,
         ]);

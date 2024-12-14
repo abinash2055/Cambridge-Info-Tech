@@ -22,6 +22,7 @@ class AuthorCompanyController extends Controller
         if (auth()->user()->company) {
 
             Alert::toast('You already have a company!', 'info');
+
             return $this->edit();
         }
 
@@ -46,19 +47,23 @@ class AuthorCompanyController extends Controller
         if ($this->companySave($company, $request)) {
 
             Alert::toast('Company created! Now you can add posts.', 'success');
+
             return redirect()->route('author.authorSection');
         }
 
         Alert::toast('Failed!', 'error');
+
         return redirect()->route('author.authorSection');
 
         if (auth()->user()->company) {
 
             Alert::toast('You already have a company!', 'info');
+
             return redirect()->route('author.company.edit');
         }
 
         $categories = CompanyCategory::all();
+
         return view('author.company.create', compact('categories'));
     }
 
@@ -73,13 +78,16 @@ class AuthorCompanyController extends Controller
     {
         $company = auth()->user()->company;
         $categories = CompanyCategory::all();
+
         return view('author.company.edit', compact('company', 'categories'));
 
         if (!$company) {
+
             return redirect()->route('author.company.create');
         }
 
         $categories = CompanyCategory::all();
+
         return view('author.company.edit', compact('company', 'categories'));
     }
 
@@ -90,11 +98,14 @@ class AuthorCompanyController extends Controller
         $company = auth()->user()->company;
 
         if ($this->companyUpdate($company, $request)) {
+
             Alert::toast('Company created!', 'success');
+
             return redirect()->route('author.authorSection');
         }
 
         Alert::toast('Failed!', 'error');
+
         return redirect()->route('author.authorSection');
     }
 
@@ -221,6 +232,7 @@ class AuthorCompanyController extends Controller
         if (auth()->user()->company) {
 
             Storage::delete('public/companies/logos/' . basename(auth()->user()->company->logo));
+
             auth()->user()->company->delete();
 
             return response()->json(['success' => 'Company deleted successfully.']);
@@ -246,6 +258,7 @@ class AuthorCompanyController extends Controller
         if (!auth()->user()->company) {
 
             Alert::toast('You must create a company first!', 'info');
+            
             return redirect()->route('author.company.create');
         } else {
 

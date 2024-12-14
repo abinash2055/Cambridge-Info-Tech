@@ -34,11 +34,9 @@
                                         title="Click to send email">Send Email</a>
 
                                     {{-- For CV View  --}}
-                                    {{-- <a href="{{ asset('storage/' . optional($applicant)->cv) }}" class="btn btn-success"
-                                        title="Click to view CV">View CV</a> --}}
 
-                                    <a href="http://yourdomain.com/storage/cvs/EDV 20261734110711.pdf"
-                                        class="btn btn-success" title="Click to view CV">View CV</a>
+                                    <a href="{{ asset($applicant->cv_path) }}" class="btn btn-success"
+                                        title="Click to view CV">View CV</a>
 
 
                                     <!-- Status Dropdown -->

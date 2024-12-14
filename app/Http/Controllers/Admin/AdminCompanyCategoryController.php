@@ -14,9 +14,11 @@ class AdminCompanyCategoryController extends Controller
         $request->validate([
             'category_name' => 'required|min:5'
         ]);
+
         CompanyCategory::create([
             'category_name' => $request->category_name
         ]);
+
         Alert::toast('Category Created!', 'success');
         return redirect()->route('admin.dashboard');
     }
@@ -31,11 +33,15 @@ class AdminCompanyCategoryController extends Controller
         $request->validate([
             'category_name' => 'required|min:5'
         ]);
+
         $category = CompanyCategory::find($id);
+
         $category->update([
             'category_name' => $request->category_name
         ]);
+
         Alert::toast('Category Updated!', 'success');
+
         return redirect()->route('admin.dashboard');
     }
 
@@ -43,7 +49,9 @@ class AdminCompanyCategoryController extends Controller
     {
         $category = CompanyCategory::find($id);
         $category->delete();
+
         Alert::toast('Category Delete!', 'success');
+
         return redirect()->route('admin.dashboard');
     }
 }

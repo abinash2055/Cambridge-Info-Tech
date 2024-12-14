@@ -37,6 +37,7 @@ class AccountController extends Controller
         $user->assignRole('author');
         $user->role = "author";
         $user->save();
+
         return redirect()->route('author.authorSection');
     }
 
@@ -128,6 +129,7 @@ class AccountController extends Controller
         } else {
             Alert::toast('Incorrect Password!', 'info');
         }
+
         return redirect()->back();
     }
 
@@ -139,6 +141,7 @@ class AccountController extends Controller
     public function deleteAccount()
     {
         $user = User::find(auth()->user()->id);
+
         Auth::logout($user->id);
 
         if ($user->delete()) {
@@ -154,6 +157,7 @@ class AccountController extends Controller
     public function logout()
     {
         Auth::logout();
+        
         return redirect()->route('login');
     }
 

@@ -42,6 +42,7 @@ class AdminController extends Controller
     public function viewAllUsers()
     {
         $users = User::select('id', 'name', 'email', 'created_at')->oldest()->paginate(10);
+
         return view('admin.user.view-all-users')->with([
             'users' => $users
         ]);
@@ -52,10 +53,15 @@ class AdminController extends Controller
     {
         // need to delete company and post also
         $user = User::findOrFail($request->user_id);
+
         if ($user->delete()) {
+
             Alert::toast('Deleted Successfully!', 'danger');
+
             return redirect()->route('admin.user.viewAllUsers');
+
         } else {
+
             return redirect()->route('admin.user.viewAllUsers');
         }
     }
@@ -65,10 +71,15 @@ class AdminController extends Controller
     {
         // need to delete company and post also
         $post = User::findOrFail($request->user_id);
+
         if ($post->delete()) {
+
             Alert::toast('Deleted Successfully!', 'danger');
+
             return redirect()->route('admin.post.viewAllApplications');
+
         } else {
+            
             return redirect()->route('admin.post.viewAllApplication');
         }
     }

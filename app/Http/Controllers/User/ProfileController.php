@@ -95,10 +95,14 @@ class ProfileController extends Controller
             $user->cv_path = 'storage/cvs/' . $fileNameToStore;
             $user->save();
 
-            return redirect()->route('account.uploadCv')->with('success', 'CV uploaded successfully');
+            return redirect()->route('account.uploadCv');
+
+            Alert::toast('CV uploaded successfully', 'success');
         }
 
-        return redirect()->route('account.uploadCv')->with('error', 'Failed to upload CV. Please try again..');
+        return redirect()->route('account.uploadCv');
+
+        Alert::toast('Failed to upload CV. Please try again..', 'warning');
     }
 
     protected function getFileName($file)
@@ -108,5 +112,17 @@ class ProfileController extends Controller
         $fileExtension = $file->getClientOriginalExtension();
 
         return $actualFileName . time() . '.' . $fileExtension;
+    }
+
+    public function downloadCv($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (!$user->cv_path || !Storage::disk('local')->exists($user->cv_path)) {
+            abort(404, 'CV not found.');
+        }
+
+
+        return Storage::disk('local')->download($user->cv_path);
     }
 }

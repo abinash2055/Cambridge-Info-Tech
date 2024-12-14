@@ -99,6 +99,7 @@ class AuthorPostController extends Controller
         $company = $post->company()->first();
 
         $similarPosts = Post::whereHas('company', function ($query) use ($company) {
+
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
 
@@ -107,6 +108,7 @@ class AuthorPostController extends Controller
         //     'company' => $company,
         //     'similarJobs' => $similarPosts
         // ]);
+
         return view('author.post.show', compact('post'));
     }
 
@@ -146,6 +148,7 @@ class AuthorPostController extends Controller
         $post->update($data);
 
         Alert::toast('Job post updated successfully!!', 'success');
+
         return redirect()->route('author.authorSection');
     }
 

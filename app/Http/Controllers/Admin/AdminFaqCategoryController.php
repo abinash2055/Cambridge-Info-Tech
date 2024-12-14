@@ -22,7 +22,8 @@ class AdminFaqCategoryController extends Controller
         $jobCategoriesCount = CompanyCategory::count();
 
         $categories = FaqCategory::all();
-        return view('admin.faqs.faqCategoryIndex', compact('userCount', 'jobCount', 'authorCount', 'liveJobCount', 'categories', 'jobCategoriesCount' ));
+
+        return view('admin.faqs.faqCategoryIndex', compact('userCount', 'jobCount', 'authorCount', 'liveJobCount', 'categories', 'jobCategoriesCount'));
     }
 
     public function create()
@@ -36,7 +37,7 @@ class AdminFaqCategoryController extends Controller
             'name' => 'required|string|max:255',
             'status' => 'required|boolean',
         ]);
-        
+
         $faqCategory = new FaqCategory();
         $faqCategory->name = $request->name;
         $faqCategory->slug = Str::slug($request->name); // Generating slug
@@ -44,12 +45,14 @@ class AdminFaqCategoryController extends Controller
         $faqCategory->save();
 
         Alert::toast('FAQ Category created successfully!', 'success');
+
         return redirect()->route('faqs-categories.index');
     }
 
     public function edit($id)
     {
         $faqCategory = FaqCategory::findOrFail($id);
+
         return view('admin.faqs.faqCategoryEdit', compact('faqCategory'));
     }
 
@@ -66,16 +69,17 @@ class AdminFaqCategoryController extends Controller
         $faqCategory->save();
 
         Alert::toast('FAQ Category updated successfully!', 'success');
+
         return redirect()->route('faqs-categories.index');
     }
 
     public function destroy($id)
     {
-        $faqCategory = FaqCategory::findOrFail($id); 
+        $faqCategory = FaqCategory::findOrFail($id);
         $faqCategory->delete();
 
         Alert::toast('FAQ Category deleted successfully!', 'success');
+
         return redirect()->route('faqs-categories.index');
     }
 }
-

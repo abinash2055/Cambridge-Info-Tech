@@ -120,6 +120,7 @@ Route::middleware('auth')->prefix('account')->group(function () {
     // Route for CV
     Route::get('/upload-cv', [ProfileController::class, 'uploadCvForm'])->name('account.uploadCv');
     Route::post('/upload-cv', [ProfileController::class, 'storeCv'])->name('account.storeCv');
+    Route::get('/download-cv/{id}', [ProfileController::class, 'downloadCv'])->name('account.downloadCv');
   });
 });
 

@@ -12,12 +12,14 @@ class AdminPostController extends Controller
     public function index()
     {
         $posts = Post::paginate(10);
+
         return view('admin.post.view-all-applications', compact('posts'));
     }
 
     public function toggleStatus(Request $request)
     {
         $post = Post::find($request->id);
+
         if ($post) {
             $post->is_active = !$post->is_active;
             $post->save();
@@ -33,6 +35,7 @@ class AdminPostController extends Controller
         $post->delete();
 
         Alert::toast('Post deleted successfully!', 'success');
+        
         return response()->json(['success' => 'Post deleted successfully.']);
     }
 }

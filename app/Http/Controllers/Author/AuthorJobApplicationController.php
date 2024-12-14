@@ -35,18 +35,21 @@ class AuthorJobApplicationController extends Controller
 
         // If no application is found, redirect or return an error
         if (!$application) {
+
             return redirect()->back()->withErrors('Job application not found.');
         }
 
         // Get the related post, if exists
         $post = $application->post()->first();
         if (!$post) {
+
             return redirect()->back()->withErrors('Post related to this application not found.');
         }
 
         // Get the applicant (user) by user_id
         $applicant = User::find($application->user_id);
         if (!$applicant) {
+
             return redirect()->back()->withErrors('Applicant not found.');
         }
 
@@ -66,6 +69,7 @@ class AuthorJobApplicationController extends Controller
     {
         $application = JobApplication::find($request->application_id);
         $application->delete();
+
         Alert::toast('Company deleted', 'warning');
 
         return response()->json(['success' => 'User deleted successfully.']);
@@ -124,6 +128,7 @@ class AuthorJobApplicationController extends Controller
     public function showJob($id)
     {
         $applications = JobApplication::where('job_id', $id)->get();
+
         return view('author.job.show', compact('applications'));
     }
 
@@ -148,6 +153,7 @@ class AuthorJobApplicationController extends Controller
     public function job()
     {
         $applications = JobApplication::with(['user', 'post'])->get();
+        
         return view('author.job.index', compact('applications'));
     }
 
