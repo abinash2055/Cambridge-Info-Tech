@@ -164,7 +164,7 @@ class AdminCompanyController extends Controller
 
             $company->cover_img = 'storage/companies/cover/' . $fileNameToStore;
         } else {
-            $company->cover_img = 'no cover';
+            $company->cover_img = 'nocover';
         }
 
         if ($company->save()) {
@@ -229,7 +229,7 @@ class AdminCompanyController extends Controller
 
             return redirect()->route('admin.dashboard');
         }
-        
+
         return redirect()->route('admin.dashboard');
     }
 }

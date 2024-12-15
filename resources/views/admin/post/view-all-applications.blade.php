@@ -46,7 +46,7 @@
                                                     class="btn toggle-status-btn {{ $post->is_active ? 'btn-success' : 'btn-danger' }}"
                                                     data-id="{{ $post->id }}" data-title="{{ $post->title }}"
                                                     data-status="{{ $post->is_active ? 'active' : 'inactive' }}">
-                                                    {{ $post->is_active ? 'Active' : 'Deactivate' }}
+                                                    {{ $post->is_active ? 'Activated' : 'Deactivated' }}
                                                 </button>
                                             </td>
                                         </tr>

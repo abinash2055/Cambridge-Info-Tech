@@ -57,7 +57,6 @@ Route::post('/forgot-password', [AuthenticationController::class, 'forgotPasswor
 
 // Show reset password form
 Route::get('/reset-password/{token}', [AuthenticationController::class, 'verifyPasswordLink'])->name('verify.password.link');
-// $resetLink = url('reset-password/' . $token . '?email=' . urlencode($user->email));
 
 
 // Submit reset password form
@@ -156,8 +155,7 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
 
 
   // Route for rejected applications button 
-  Route::patch('/author/job/applications/{id}/reject', [AuthorJobApplicationController::class, 'reject'])
-    ->name('author.job.applications.reject');
+  Route::patch('/author/job/applications/{id}/reject', [AuthorJobApplicationController::class, 'reject'])->name('author.job.applications.reject');
 
 
   // for Job (Post) 
@@ -227,8 +225,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
 
 
   // For Application Selection
-  // Route::get('view-all-applications', [AdminController::class, 'viewAllApplications'])->name('admin.application.viewAllUsers');
-  // Route::post('view-all-applications/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.application.destroy');
+  Route::get('view-all-applications', [AdminController::class, 'viewAllApplications'])->name('admin.application.viewAllUsers');
+  Route::post('view-all-applications/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.application.destroy');
 
 
   // Route for Managing FAQs by category

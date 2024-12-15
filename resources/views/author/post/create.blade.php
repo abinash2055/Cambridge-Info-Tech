@@ -126,7 +126,6 @@
 
                         <div class="form-group">
                             <label for="">Professional skills</label>
-                            {{-- <input type="text" class="form-control @error('skills') is-invalid @enderror" name="skills" value="{{ old('skills') }}" required> --}}
                         </div>
                         <div id="skills-container">
                             @php
