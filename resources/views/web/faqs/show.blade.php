@@ -10,12 +10,22 @@
                 <h5>Categories</h5>
                 <br>
                 <ul class="list-group">
-                    @if(count($categories))
-                    @foreach($categories as $category)
-                        <li class="list-group-item">
-                            <a href="{{ route('home.faqs.info', $category->slug) }}">{{ $category->name }}</a>
-                        </li>
-                    @endforeach
+                    @if (count($categories))
+                        @foreach ($categories as $category)
+                            <li class="list-group-item">
+                                <a href="{{ route('home.faqs.info', $category->slug) }}">{{ $category->name }}</a>
+                            </li>
+                        @endforeach
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
 
                     {{-- <li class="list-group-item">
@@ -57,15 +67,14 @@
                     <h2 id="posting-updating-vacancies">{{ $checkFaqCategory->name }}</h2>
                     <ul class="list-unstyled">
                         <br>
-                        @if($checkFaqCategory->faqs->count() > 0)
-                            @foreach($checkFaqCategory->faqs as $faq)
-                            <li>
-                                <strong>{{ $faq->question }}</strong>
-                                <br>
-                                {{ $faq->answer }}
-                            </li>
+                        @if ($checkFaqCategory->faqs->count() > 0)
+                            @foreach ($checkFaqCategory->faqs as $faq)
+                                <li>
+                                    <strong>{{ $faq->question }}</strong>
+                                    <br>
+                                    {{ $faq->answer }}
+                                </li>
                             @endforeach
-
                         @else
                             <span>Sorry! No Question / Answer Found.</span>
                         @endif
@@ -144,7 +153,7 @@
                     </ul>
                 </div>
 
-                
+
             </div>
         </div>
     </div>

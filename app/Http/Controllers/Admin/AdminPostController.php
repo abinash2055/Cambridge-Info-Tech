@@ -11,6 +11,8 @@ class AdminPostController extends Controller
 {
     public function index()
     {
+        // $posts = Post::where('status', 'active')->paginate(10);
+
         $posts = Post::paginate(10);
 
         return view('admin.post.view-all-applications', compact('posts'));

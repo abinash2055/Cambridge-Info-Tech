@@ -7,6 +7,15 @@
                 FAQ Details
             </div>
             <div class="account-bdy p-3">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <br>
                 <h2>{{ $faq->question }}</h2>
                 <br>

@@ -54,4 +54,9 @@ class Post extends Model
     {
         return explode(',', $this->skills);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 }

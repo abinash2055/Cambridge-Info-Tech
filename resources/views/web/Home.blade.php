@@ -1,9 +1,17 @@
-
 @extends('layouts.post')
 
 @section('content')
     <section class="home-page pt-4">
         <div class="container">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('job.index') }}">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
@@ -153,10 +161,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Add Image Below Jobs By Category -->
                     <div class="text-center mb-4">
-                        <img src="{{ asset('images/Home.jpg') }}" alt="Descriptive Alt Text" class="img-fluid" style="max-width: 100%;">
+                        <img src="{{ asset('images/Home.jpg') }}" alt="Descriptive Alt Text" class="img-fluid"
+                            style="max-width: 100%;">
                     </div>
                 </div>
             </div>

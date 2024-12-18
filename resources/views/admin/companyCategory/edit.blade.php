@@ -6,6 +6,7 @@
             Edit Company Category
         </div>
         <div class="account-bdy p-3">
+
             @if ($errors->any())
                 {!! implode('', $errors->all('<div>:message</div>')) !!}
             @endif

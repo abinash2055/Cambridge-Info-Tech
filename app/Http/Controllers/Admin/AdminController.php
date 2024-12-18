@@ -26,7 +26,7 @@ class AdminController extends Controller
         $dashCount['author'] = User::role('author')->count();
         $dashCount['user'] = User::role('user')->count();
         $dashCount['post'] = Post::count();
-        $dashCount['livePost'] = Post::where('deadline', '>', Carbon::now())->count();
+        $dashCount['livePost'] = Post::where('status', 'active')->where('deadline', '>', Carbon::now())->count();
 
         return view('admin.dashboard')->with([
             'companyCategories' => CompanyCategory::all(),
@@ -59,7 +59,6 @@ class AdminController extends Controller
             Alert::toast('Deleted Successfully!', 'danger');
 
             return redirect()->route('admin.user.viewAllUsers');
-
         } else {
 
             return redirect()->route('admin.user.viewAllUsers');
@@ -77,9 +76,8 @@ class AdminController extends Controller
             Alert::toast('Deleted Successfully!', 'danger');
 
             return redirect()->route('admin.post.viewAllApplications');
-
         } else {
-            
+
             return redirect()->route('admin.post.viewAllApplication');
         }
     }

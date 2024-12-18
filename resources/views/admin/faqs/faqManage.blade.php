@@ -8,6 +8,16 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <a href="{{ route('faqs.create', $category_id) }}" class="btn btn-primary">Add New FAQ</a>
 
         <table class="table mt-3">

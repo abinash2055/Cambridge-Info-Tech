@@ -5,6 +5,15 @@
     <div class="container">
         <h2>Edit Profile</h2>
         <br>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('profile.update') }}" method="POST">
             @csrf
 
@@ -57,7 +66,8 @@
                 <select class="form-control" id="education" name="education" required>
                     <option value="" disabled {{ old('education', $user->education) == null ? 'selected' : '' }}>
                         Select your education</option>
-                    <option value="High School" {{ old('education', $user->education) == 'High School' ? 'selected' : '' }}>
+                    <option value="High School"
+                        {{ old('education', $user->education) == 'High School' ? 'selected' : '' }}>
                         High School</option>
                     <option value="Bachelor's Degree"
                         {{ old('education', $user->education) == "Bachelor's Degree" ? 'selected' : '' }}>Bachelor's Degree

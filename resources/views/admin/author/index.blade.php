@@ -7,6 +7,17 @@
         </div>
 
         <div class="account-bdy p-3">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="row mb-3">
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
@@ -16,18 +27,6 @@
                             </div>
                             <h6 class="text-uppercase">Users</h6>
                             <h1 class="">{{ $userCount }}</h1>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-4 col-sm-6 py-2">
-                    <div class="card dashboard-card text-white h-100 shadow">
-                        <div class="card-body bg-secondary">
-                            <div class="rotate">
-                                <i class="fas fa-building fa-4x"></i>
-                            </div>
-                            <h6 class="text-uppercase">Total Jobs</h6>
-                            <h1 class="">{{ $jobCount }}</h1>
                         </div>
                     </div>
                 </div>
@@ -95,9 +94,9 @@
                             <td>
                                 <a href="{{ route('admin.author.edit', $author->id) }}" class="btn btn-warning">Edit</a>
                                 <a href="{{ route('admin.author.manageCompany', $author->id) }}"
-                                    class="btn btn-info">Manage Company</a>
-                                <button class="btn btn-danger delete-btn"   
-                                    data-id="{{ $author->id }}"
+                                    class="btn btn-info">Manage
+                                    Company</a>
+                                <button class="btn btn-danger delete-btn" data-id="{{ $author->id }}"
                                     data-name="{{ $author->name }}"
                                     data-url="{{ route('admin.author.delete', $author->id) }}">
                                     Delete
@@ -143,7 +142,7 @@
             $('.delete-btn').on('click', function() {
                 deleteUrl = $(this).data('url'); // Get the route URL from data-url
                 authorName = $(this).data('name'); // Get the author name
-                
+
                 // Optionally, display the author's name in the modal
                 $('#authorName').text(authorName);
 
@@ -156,7 +155,8 @@
                     url: deleteUrl, // Use the dynamic URL from the button
                     type: 'DELETE',
                     headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection for Laravel
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content') // CSRF protection for Laravel
                     },
                     success: function(result) {
                         $('#deleteModal').modal('hide');

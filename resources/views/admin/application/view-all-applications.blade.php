@@ -6,6 +6,15 @@
             VIewing all Application <span class="badge badge-primary">Any category</span>
         </div>
         <div class="account-bdy p-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="table-responsive pt-3">

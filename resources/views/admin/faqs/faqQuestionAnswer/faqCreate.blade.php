@@ -7,13 +7,23 @@
                 Create FAQ
             </div>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('faqs.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
                     <br>
                     <label for="category_id" class="form-label .ml-1">Category</label>
-                    <select name="faq_category_id" id="category_id" class="form-select custom-select" required onchange="updateCategoryTitle()">
+                    <select name="faq_category_id" id="category_id" class="form-select custom-select" required
+                        onchange="updateCategoryTitle()">
                         <option value="">Select Category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -45,7 +55,7 @@
                 </div>
 
                 <br>
-                
+
                 <button type="submit" class="btn btn-primary">Create FAQ</button>
                 <a href="{{ route('faqs.index', $categories->first()->id ?? 0) }}" class="btn btn-secondary">Back</a>
             </form>
@@ -74,21 +84,21 @@
 
     <style>
         .custom-select {
-            padding: 10px; 
-            border: 1px solid #ced4da; 
-            border-radius: 5px; 
-            background-color: #f8f9fa; 
-            transition: border-color 0.2s; 
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: border-color 0.2s;
         }
 
         .custom-select:focus {
-            border-color: #007bff; 
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-            outline: none; 
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
         }
 
         option {
-            padding: 10px; 
+            padding: 10px;
         }
     </style>
 @endsection

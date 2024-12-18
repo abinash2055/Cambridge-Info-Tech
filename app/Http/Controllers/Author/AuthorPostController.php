@@ -45,35 +45,52 @@ class AuthorPostController extends Controller
             'education_level' => 'required',
             'experience' => 'required',
             'status' => 'required',
+            'job_district' => 'required|string',
+            'skills' => 'required|array',
+            'specifications' => 'nullable|string',
         ]);
+
+        // Handle specifications, if not provided, use an empty string
+        $specifications = $request->specifications ?? '';
+
+        // dd($request->all());
+
+        // Convert skills from Array to string separated by comma
+        $skills = implode(',', $request->skills);
 
         // Create the new job post
         $post = Post::create([
+            'company_id' => auth()->user()->company->id,
             'job_title' => $request->job_title,
             'job_level' => $request->job_level,
             'vacancy_count' => $request->vacancy_count,
             'employment_type' => $request->employment_type,
-            'job_district' => $request->job_district,
+            'district' => $request->job_district,
             'job_location' => $request->job_location,
             'salary' => $request->salary,
             'deadline' => $request->deadline,
             'education_level' => $request->education_level,
             'experience' => $request->experience,
             'status' => $request->status,
+            // 'skills' => $request->skills,
+            'skills' => $skills,
+            'specifications' => $specifications,
         ]);
 
         Alert::toast('Job created successfully!', 'success');
 
         // Redirect to view all applications
-        return redirect()->route('admin.post.viewAll');
+        return redirect()->route('author.post.show');
     }
+
 
 
     public function show($id)
     {
         $post = Post::with('company', 'company.user')->findOrFail($id);
-
+        // dd($post->all());
         event(new PostViewEvent($post));
+
         $company = $post->company()->first();
 
         $similarPosts = Post::whereHas('company', function ($query) use ($company) {
@@ -81,7 +98,7 @@ class AuthorPostController extends Controller
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
 
-        return view('author.post.show', compact('post'));
+        return redirect()->route('author.post.show', ['id' => $post->id]);
     }
 
     public function edit(Post $post)
@@ -157,13 +174,20 @@ class AuthorPostController extends Controller
 
     public function viewAllJobs()
     {
-        $activeJobs = Post::where('status', 'active')->paginate(10);
+        // Get the currently authenticated user's company ID
+        $companyId = auth()->user()->company->id;
+
+        // Fetch only the jobs associated with the current user's company
+        $activeJobs = Post::with('company')->where('company_id', $companyId)->where('status', 'active')->paginate(10);
+
+        // Dash count (for total, active, live posts by the author's company)
         $dashCount = [
-            'activeJobs' => Post::where('status', 'active')->count(),
-            'totalJobs' => Post::count(),
-            'livePost' => Post::where('status', 'live')->count(),
+            'activeJobs' => Post::where('company_id', $companyId)->where('status', 'active')->count(),
+            'totalJobs' => Post::where('company_id', $companyId)->count(),
+            'livePost' => Post::where('company_id', $companyId)->where('status', 'live')->count(),
         ];
 
+        // To get job categories 
         $jobCategories = CompanyCategory::all();
 
         return view('author.view-all-jobs', compact('activeJobs', 'dashCount', 'jobCategories'));

@@ -17,7 +17,7 @@ class AdminAuthorController extends Controller
         $userCount = User::count();
         $jobCount = Post::count();
         $authorCount = User::where('role', 'author')->count();
-        $liveJobCount = Post::where('status', 'live')->count();
+        $liveJobCount = Post::where('status', 'active')->count();
         $jobCategoriesCount = CompanyCategory::count();
 
         $authors = User::where('role', 'author')->get();
@@ -65,12 +65,12 @@ class AdminAuthorController extends Controller
         $author = User::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'phone' => 'required|string|min:10',
         ]);
 
         $author->update([
             'name' => $request->name,
-            'email' => $request->email,
+            'number' => $request->number,
         ]);
 
         Alert::toast('Finally!! Author Updated', 'info');
@@ -81,10 +81,10 @@ class AdminAuthorController extends Controller
     {
         User::destroy($id);
 
-        Alert::toast('Author Deleted Successfully', 'success');
+        Alert::toast('Author Soft Deleted Successfully', 'success');
 
         // return redirect()->route('admin.author.index');
-        return response()->json(['success' => 'Author deleted successfully.']);
+        return response()->json(['success' => 'Author soft deleted successfully.']);
     }
 
     // Handling Company by Admin

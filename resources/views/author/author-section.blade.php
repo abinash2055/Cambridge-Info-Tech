@@ -6,6 +6,16 @@
             Author Section
         </div>
         <div class="account-bdy p-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="row mb-3">
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
@@ -36,7 +46,7 @@
                                 <div class="rotate">
                                     <i class="fas fa-envelope fa-4x"></i>
                                 </div>
-                                <h6 class="text-uppercase">Total Applications</h6>
+                                <h6 class="text-uppercase">Total Jobs</h6>
                                 <h1 class="">{{ $applications ? $applications->count() : 0 }}</h1>
                             </div>
                         </div>

@@ -6,7 +6,18 @@
             Edit Company
         </div>
         <div class="account-bdy p-3">
-            <form action="{{ route('author.company.update', ['id' => $company]) }}" method="POST" enctype="multipart/form-data">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('author.company.update', ['id' => $company]) }}" method="POST"
+                enctype="multipart/form-data">
                 @if ($errors->any())
                     {{ implode('', $errors->all('<div>:message</div>')) }}
                 @endif
@@ -15,8 +26,8 @@
                 @method('put')
                 <div class="form-group">
                     <label for="" class="font-weight-bold">Choose a Company Category</label>
-                    <select class="form-control" name="category" value="{{ old('category') ?? $company->company_category_id }}"
-                        required>
+                    <select class="form-control" name="category"
+                        value="{{ old('category') ?? $company->company_category_id }}" required>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                         @endforeach

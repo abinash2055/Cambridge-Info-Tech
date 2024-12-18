@@ -6,6 +6,16 @@
             Rejected Applications
         </div>
         <div class="account-bdy p-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if ($rejectedApplications && $rejectedApplications->count())
                 <table class="table table-hover">
                     <thead>

@@ -4,6 +4,16 @@
     <div class="container">
         <h1 class="mb-4 text-center">Edit Author</h1>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('admin.author.update', $author->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -17,16 +27,18 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <br>
+            {{-- Email Address --}}
+            {{-- <div class="form-group">
                 <label for="email" class="font-weight-bold">Email</label>
                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                     value="{{ old('email', $author->email) }}" required>
                 @error('email')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
-            </div>
+            </div> --}}
 
-            {{-- friday work --}}
+            {{-- Phone/Mobile Number --}}
             <div class="form-group">
                 <label for="phone" class="font-weight-bold">Mobile/Phone Number</label>
                 <input type="text" name="number" class="form-control @error('phone') is-invalid @enderror"
@@ -36,7 +48,13 @@
                 @enderror
             </div>
 
+            <br>
             <button type="submit" class="btn btn-primary">Update Author</button>
         </form>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 @endsection

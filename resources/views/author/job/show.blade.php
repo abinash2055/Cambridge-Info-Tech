@@ -6,6 +6,16 @@
             Job Application Details
         </div>
         <div class="account-bdy p-3">
+             @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <p class="alert alert-primary">
                 User named <span class="text-capitalize">{{ optional($applicant)->name }}</span> applied for your listing
                 on {{ $application->created_at }}

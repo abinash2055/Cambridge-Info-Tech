@@ -6,6 +6,15 @@
             Create Job List
         </div>
         <div class="account-bdy p-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="alert alert-primary">Your company details will be attached automatically.</div>
             <p class="text-primary mb-4">Fill in all fields to create a job details</p>
             <div class="row mb-3">
@@ -40,7 +49,7 @@
                                 <div class="col-md-6">
                                     <label for="vacancy_count">No of vacancy</label>
                                     <input type="number" class="form-control @error('vacancy_count') is-invalid @enderror"
-                                        name="vacancy_count" value="" min="0" required>
+                                        name="vacancy_count" value="" min="1" required>
                                     @error('vacancy_count')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -57,7 +66,7 @@
                                 <option value="Part Time">Part Time</option>
                                 <option value="Freelance">Freelance</option>
                                 <option value="Internship">Internship</option>
-                                <option value="Trainneship">Trainneship</option>
+                                <option value="Traineeship">Traineeship</option>
                                 <option value="Volunteer">Volunteer</option>
                             </select>
                         </div>
@@ -65,7 +74,7 @@
                         <div class="form-group">
                             <label for="job_district">District</label>
                             <select name="job_district" id="job_district" class="form-control">
-                                <option value=""></option>
+                                <option value="">Select District</option>
                                 @foreach ($districts as $district)
                                     <option value="{{ $district->name }}">{{ $district->name }}</option>
                                 @endforeach
