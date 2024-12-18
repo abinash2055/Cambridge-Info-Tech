@@ -33,28 +33,6 @@ class AuthorPostController extends Controller
         return view('author.post.create')->with('districts', $districts);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->requestValidate($request);
-
-    //     $data = $request->all();
-    //     $data['skills'] = implode(',', $request->skills);
-    //     $data['specifications'] = $request->specifications ?? '';
-
-    //     $postData = array_merge(['company_id' => auth()->user()->company->id], $data);
-
-    //     $post = Post::create($postData);
-
-    //     if ($post) {
-
-    //         Alert::toast('Post listed!', 'success');
-    //         return redirect()->route('author.authorSection');
-    //     }
-
-    //     Alert::toast('Post failed to list!', 'warning');
-    //     return redirect()->back();
-    // }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -102,12 +80,6 @@ class AuthorPostController extends Controller
 
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
-
-        // return view('account.post.show')->with([
-        //     'post' => $post,
-        //     'company' => $company,
-        //     'similarJobs' => $similarPosts
-        // ]);
 
         return view('author.post.show', compact('post'));
     }

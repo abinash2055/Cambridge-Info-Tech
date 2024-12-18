@@ -23,7 +23,7 @@
 
                             @role('admin')
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}"> <i
-                                        class="fas fa-cogs fa-sm "></i> Dashboard</a>
+                                        class="fas fa-cogs fa-sm "></i> Admin Dashboard</a>
 
                                 <a class="dropdown-item" href="{{ route('account.overview') }}"> <i
                                         class="fas fa-user fa-sm "></i> Profile </a>

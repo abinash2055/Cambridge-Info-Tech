@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\JobApiController;
+use App\Http\Controllers\Admin\AdminPostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,7 @@ Route::middleware('api')->group(function () {
     Route::get('job-titles', [JobApiController::class, 'getAllByTitle'])->name('job.getAllByTitle');
     Route::get('companies', [JobApiController::class, 'getAllOrganization'])->name('job.getAllOrganization');
 });
+
+
+// Toggle Button
+Route::middleware('auth:sanctum')->post('/post/toggle-status/{id}', [AdminPostController::class, 'toggleStatus']);

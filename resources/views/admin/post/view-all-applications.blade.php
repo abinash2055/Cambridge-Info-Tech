@@ -43,10 +43,10 @@
                                             </td>
                                             <td>
                                                 <button
-                                                    class="btn toggle-status-btn {{ $post->is_active ? 'btn-success' : 'btn-danger' }}"
+                                                    class="btn toggle-status-btn {{ $post->status === 'active' ? 'btn-success' : 'btn-danger' }}"
                                                     data-id="{{ $post->id }}" data-title="{{ $post->title }}"
-                                                    data-status="{{ $post->is_active ? 'active' : 'inactive' }}">
-                                                    {{ $post->is_active ? 'Activated' : 'Deactivated' }}
+                                                    data-status="{{ $post->status }}">
+                                                    {{ $post->status === 'active' ? 'Active' : 'deactivate' }}
                                                 </button>
                                             </td>
                                         </tr>
@@ -74,33 +74,35 @@
             $('.toggle-status-btn').on('click', function() {
                 var button = $(this);
                 var postId = button.data('id');
-                var status = button.data('status');
+                var currentStatus = button.data('status');
 
                 $.ajax({
                     url: "{{ route('admin.post.toggleStatus') }}",
                     type: 'POST',
                     data: {
                         _token: $('meta[name="csrf-token"]').attr('content'),
-                        id: postId
+                        id: postId,
+                        status: currentStatus
                     },
                     success: function(response) {
                         if (response.success) {
-                            if (status === 'active') {
-                                button.removeClass('btn-success').addClass('btn-danger');
-                                button.text('Deactivate');
-                                button.data('status', 'inactive');
-                            } else {
+                            var newStatus = response.status;
+                            if (newStatus === 'active') {
                                 button.removeClass('btn-danger').addClass('btn-success');
                                 button.text('Active');
                                 button.data('status', 'active');
+                            } else {
+                                button.removeClass('btn-success').addClass('btn-danger');
+                                button.text('Deactivate');
+                                button.data('status', 'deactivate');
                             }
                         } else {
-                            alert('Could not update the status. Please try again.');
+                            alert('Unable to update status. Please try again.');
                         }
                     },
                     error: function(xhr) {
-                        console.log(xhr.responseText);
-                        alert('Something went wrong!');
+                        console.error('Error:', xhr.responseText);
+                        alert('An error occurred while processing your request.');
                     }
                 });
             });

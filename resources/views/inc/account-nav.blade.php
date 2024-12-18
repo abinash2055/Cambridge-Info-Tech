@@ -4,7 +4,7 @@
         @role('admin')
             <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'dashboard' ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}" class="account-nav-link">
-                    <i class="fas fa-chart-line"></i> Dashboard
+                    <i class="fas fa-chart-line"></i>Dashboard
                 </a>
             </li>
 
@@ -25,7 +25,7 @@
             <li
                 class="list-group-item list-group-item-action {{ request()->segment(2) == 'view-all-posts' ? 'active' : '' }}">
                 <a href="{{ route('admin.post.viewAll') }}" class="account-nav-link">
-                    <i class="fas fa-chair"></i> View All Applications
+                    <i class="fas fa-chair"></i> View All Jobs
                 </a>
             </li>
 

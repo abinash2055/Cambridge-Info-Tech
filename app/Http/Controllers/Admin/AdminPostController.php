@@ -21,12 +21,13 @@ class AdminPostController extends Controller
         $post = Post::find($request->id);
 
         if ($post) {
-            $post->is_active = !$post->is_active;
+            $post->status = $request->status === 'active' ? 'deactivate' : 'active';
             $post->save();
 
-            return response()->json(['success' => true, 'status' => $post->is_active ? 'active' : 'inactive']);
+            return response()->json(['success' => true, 'status' => $post->status]);
         }
-        return response()->json(['success' => false], 400);
+
+        return response()->json(['success' => false, 'message' => 'Post not found'], 404);
     }
 
     public function destroyPost($id)
@@ -35,7 +36,7 @@ class AdminPostController extends Controller
         $post->delete();
 
         Alert::toast('Post deleted successfully!', 'success');
-        
+
         return response()->json(['success' => 'Post deleted successfully.']);
     }
 }

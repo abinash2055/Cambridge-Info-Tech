@@ -36,21 +36,27 @@ class AuthorJobApplicationController extends Controller
         // If no application is found, redirect or return an error
         if (!$application) {
 
-            return redirect()->back()->withErrors('Job application not found.');
+            return redirect()->back();
+
+            Alert::toast('Job application not found.', 'error');
         }
 
         // Get the related post, if exists
         $post = $application->post()->first();
         if (!$post) {
 
-            return redirect()->back()->withErrors('Post related to this application not found.');
+            return redirect()->back();
+
+            Alert::toast('Post related to this application not found.', 'error');
         }
 
         // Get the applicant (user) by user_id
         $applicant = User::find($application->user_id);
         if (!$applicant) {
 
-            return redirect()->back()->withErrors('Applicant not found.');
+            return redirect()->back();
+
+            Alert::toast('Applicant not found.', 'error');
         }
 
         // Get the company related to the post, if exists
@@ -106,7 +112,9 @@ class AuthorJobApplicationController extends Controller
         $application->status = 'rejected';
         $application->save();
 
-        return redirect()->route('author.jobApplication.index')->with('success', 'Application rejected successfully.');
+        return redirect()->route('author.jobApplication.index');
+
+        Alert::toast('Application rejected successfully.', 'success');
     }
 
 
@@ -143,17 +151,21 @@ class AuthorJobApplicationController extends Controller
             $application->status = $status;
             $application->save();
 
-            return redirect()->route('author.jobApplication.index')->with('success', 'Status updated successfully.');
+            return redirect()->route('author.jobApplication.index');
+
+            Alert::toast('Status updated successfully.', 'success');
         }
 
-        return redirect()->route('author.jobApplication.index')->withErrors('Applicant not found.');
+        return redirect()->route('author.jobApplication.index');
+
+        Alert::toast('Applicant not found.', 'warning');
     }
 
 
     public function job()
     {
         $applications = JobApplication::with(['user', 'post'])->get();
-        
+
         return view('author.job.index', compact('applications'));
     }
 

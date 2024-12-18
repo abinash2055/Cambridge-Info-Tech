@@ -13,7 +13,7 @@
                             <div class="rotate">
                                 <i class="fas fa-users fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Users</h6>
+                            <h6 class="text-uppercase">Employees</h6>
                             <h1 class="">{{ $dashCount['user'] }}</h1>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             <div class="rotate">
                                 <i class="fas fa-industry fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Company Categories</h6>
+                            <h6 class="text-uppercase">Job Categories</h6>
                             <h1 class="">{{ $companyCategories->count() }}</h1>
                         </div>
                     </div>
