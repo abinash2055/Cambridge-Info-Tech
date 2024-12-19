@@ -18,14 +18,14 @@
                 </div>
             @endif
 
-            <div class="row mb-3">
+            {{-- <div class="row mb-3">
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body primary-bg">
                             <div class="rotate">
                                 <i class="fas fa-users fa-4x"></i>
                             </div>
-                            <h6 class="text-uppercase">Users</h6>
+                            <h6 class="text-uppercase">Employees</h6>
                             <h1 class="">{{ $userCount }}</h1>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Flexbox container for Author List title and Add button -->
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -91,17 +91,15 @@
                         <tr>
                             <td>{{ $author['name'] }}</td>
                             <td>{{ $author['email'] }}</td>
-                            <td>
+                            <td class="d-flex justify-content-start">
                                 <a href="{{ route('admin.author.edit', $author->id) }}" class="btn btn-warning">Edit</a>
-                                <a href="{{ route('admin.author.manageCompany', $author->id) }}"
-                                    class="btn btn-info">Manage
+                                <a href="{{ route('admin.author.manageCompany', $author->id) }}" class="btn btn-info">Manage
                                     Company</a>
                                 <button class="btn btn-danger delete-btn" data-id="{{ $author->id }}"
                                     data-name="{{ $author->name }}"
                                     data-url="{{ route('admin.author.delete', $author->id) }}">
                                     Delete
                                 </button>
-
                             </td>
                         </tr>
                     @endforeach
@@ -131,6 +129,12 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 @endsection
 
 @push('js')

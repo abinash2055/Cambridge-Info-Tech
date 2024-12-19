@@ -139,7 +139,7 @@
         @role('author')
             <li class="list-group-item list-group-item-action {{ request()->segment(2) == 'job-list' ? 'active' : '' }}">
                 <a href="{{ route('author.viewAllJob') }}" class="account-nav-link">
-                    <i class="fas fa-clipboard-list"></i> Job List
+                    <i class="fas fa-clipboard-list"></i> All Job List
                 </a>
             </li>
         @endrole

@@ -5,7 +5,7 @@
             Job Lists
         </div>
         <div class="account-bdy p-3">
-           @if ($errors->any())
+            @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -13,9 +13,9 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif 
-            
-            <div class="row mb-3">
+            @endif
+
+            {{-- <div class="row mb-3">
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body primary-bg">
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body bg-secondary">
@@ -38,6 +39,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-4 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body bg-info">
@@ -49,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-6 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body bg-danger">
@@ -60,6 +63,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-6 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body bg-warning">
@@ -71,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <section class="dashboard-authors my-5">
                 <div class="row my-4">
@@ -108,8 +112,11 @@
                                             <td>{{ $job->vacancy_count }}</td>
                                             <td>{{ \Carbon\Carbon::parse($job->deadline)->format('Y-m-d') }}</td>
                                             <td>
+                                                <a href="{{ route('post.show', ['job' => $job->id]) }}"
+                                                    class="btn btn-primary" target="_blank">View</a>
+
                                                 <a href="{{ route('author.post.edit', $job->id) }}"
-                                                    class="btn btn-warning btn-sm">Edit</a>
+                                                    class="btn btn-warning">Edit</a>
 
                                                 <button class="btn btn-danger delete-btn" data-id="{{ $job->id }}"
                                                     data-name="{{ $job->name }}"

@@ -28,6 +28,7 @@ class AuthorJobApplicationController extends Controller
             'applications' => $applicationsWithPostAndUser,
         ]);
     }
+
     public function show($id)
     {
         // Try to find the application by ID
@@ -36,27 +37,27 @@ class AuthorJobApplicationController extends Controller
         // If no application is found, redirect or return an error
         if (!$application) {
 
-            return redirect()->back();
-
             Alert::toast('Job application not found.', 'error');
+
+            return redirect()->back();
         }
 
         // Get the related post, if exists
         $post = $application->post()->first();
         if (!$post) {
 
-            return redirect()->back();
-
             Alert::toast('Post related to this application not found.', 'error');
+
+            return redirect()->back();
         }
 
         // Get the applicant (user) by user_id
         $applicant = User::find($application->user_id);
         if (!$applicant) {
 
-            return redirect()->back();
-
             Alert::toast('Applicant not found.', 'error');
+
+            return redirect()->back();
         }
 
         // Get the company related to the post, if exists
@@ -117,12 +118,22 @@ class AuthorJobApplicationController extends Controller
         Alert::toast('Application rejected successfully.', 'success');
     }
 
-
-
     public function jobList()
     {
-        $activeJobs = Post::with('company')->oldest()->paginate(10);
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Get the active jobs where the company_id matches the user's company_id
+        $activeJobs = Post::with('company')->whereHas('company', function ($query) use ($user) {
+            $query->where('user_id', $user->id); // Ensure the job's company_id matches the user's user_id
+        })
+            ->oldest() // Order by oldest
+            ->paginate(10);
+
+        // Get dashboard count data (assuming this is defined in the controller)
         $dashCount = $this->getDashCount();
+
+        // Get all job categories (this may or may not be needed based on your view)
         $jobCategories = CompanyCategory::all();
 
         return view('author.job.view-all-jobs')->with([
@@ -130,14 +141,6 @@ class AuthorJobApplicationController extends Controller
             'dashCount' => $dashCount,
             'jobCategories' => $jobCategories,
         ]);
-    }
-
-    // Job Application Status
-    public function showJob($id)
-    {
-        $applications = JobApplication::where('job_id', $id)->get();
-
-        return view('author.job.show', compact('applications'));
     }
 
     public function saveStatus(Request $request)
@@ -151,17 +154,17 @@ class AuthorJobApplicationController extends Controller
             $application->status = $status;
             $application->save();
 
-            return redirect()->route('author.jobApplication.index');
-
             Alert::toast('Status updated successfully.', 'success');
+
+            return redirect()->route('author.jobApplication.index');
         }
 
-        return redirect()->route('author.jobApplication.index');
-
         Alert::toast('Applicant not found.', 'warning');
+
+        return redirect()->route('author.jobApplication.index');
     }
 
-
+    // Job Application List
     public function job()
     {
         $applications = JobApplication::with(['user', 'post'])->get();

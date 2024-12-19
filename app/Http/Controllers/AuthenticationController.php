@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
 
         $token = Str::random(40);
 
-        // Create the user
+        // Create the user a
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
 
         Alert::toast('Registration successful! Please check your email for verification.', 'success');
 
-        return redirect()->route('login')->with('success', 'Registration successfull! Please check your email for verification.');
+        return redirect()->route('login')->with('success', 'Registration successfully! Please check your email for verification.');
     }
 
     public function forgotPassword(Request $request)

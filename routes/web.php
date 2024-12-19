@@ -161,7 +161,6 @@ Route::group(['prefix' => 'author', 'middleware' => ['auth', 'role:author|admin'
   // for Job (Post) 
   Route::get('post/create', [AuthorPostController::class, 'create'])->name('author.post.create');
   Route::post('/post', [AuthorPostController::class, 'store'])->name('author.post.store');
-  Route::get('post/{id}', [AuthorPostController::class, 'show'])->name('author.post.show');
   Route::get('post/{post}/edit', [AuthorPostController::class, 'edit'])->name('author.post.edit');
   Route::put('post/{post}', [AuthorPostController::class, 'update'])->name('author.post.update');
   Route::delete('post/{post}', [AuthorPostController::class, 'destroy'])->name('author.post.destroy');

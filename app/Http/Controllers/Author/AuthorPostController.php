@@ -98,7 +98,8 @@ class AuthorPostController extends Controller
             return $query->where('company_category_id', $company->company_category_id);
         })->where('id', '<>', $post->id)->with('company')->take(5)->get();
 
-        return redirect()->route('author.post.show', ['id' => $post->id]);
+        // return redirect()->route('author.post.show', ['id' => $post->id]);
+        return view('author.post.show', compact('post', 'company', 'similarPosts'));
     }
 
     public function edit(Post $post)

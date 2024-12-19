@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            {{-- <section class="dashboard-authors my-5">
+            <section class="dashboard-authors my-5">
                 <div class="row my-4">
                     <div class="col-lg-12 col-md-8 col-sm-12">
                         <h4 class="card-title text-secondary">Manage Employers (Job Provider) </h4>
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </section> --}}
+            </section>
 
             <!--/row-->
             <hr>

@@ -17,7 +17,7 @@
             @endif
 
             <div class="row mb-3">
-                <div class="col-xl-4 col-sm-6 py-2">
+                <div class="col-xl-6 col-sm-6 py-2">
                     <div class="card dashboard-card text-white h-100 shadow">
                         <div class="card-body primary-bg">
                             <div class="rotate">
@@ -28,18 +28,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-sm-6 py-2">
-                    <div class="card dashboard-card text-white  h-100 shadow">
-                        <div class="card-body bg-info">
+
+                <div class="col-xl-6 col-sm-6 py-2">
+                    <div class="card dashboard-card text-white h-100 shadow">
+                        <div class="card-body primary-bg">
                             <div class="rotate">
                                 <i class="fas fa-th fa-4x"></i>
                             </div>
                             <h6 class="text-uppercase">Live Jobs</h6>
                             <h1 class="">{{ $livePosts ?? 0 }}</h1>
-                        </div>`
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-sm-6 py-2">
+
+                {{-- <div class="col-xl-4 col-sm-6 py-2">
                     <a href="{{ route('author.jobApplication.index') }}">
                         <div class="card dashboard-card text-white h-100 shadow">
                             <div class="card-body bg-danger">
@@ -51,7 +53,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             <section class="author-company-info">
